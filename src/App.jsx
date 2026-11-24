@@ -52,7 +52,7 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
   );
 };
 
-// --- MICRO-INTERACTION 1: MOUSE-TRACKING CHAMPAGNE GOLD SPOTLIGHT CARD ---
+// --- MICRO-INTERACTION 1: MOUSE-TRACKING ROYAL BLUE SPOTLIGHT CARD ---
 const SpotlightCard = ({ children, className = '' }) => {
   const cardRef = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -76,7 +76,7 @@ const SpotlightCard = ({ children, className = '' }) => {
         className="pointer-events-none absolute -inset-px transition-opacity duration-300"
         style={{
           opacity,
-          background: `radial-gradient(420px circle at ${pos.x}px ${pos.y}px, rgba(212, 175, 55, 0.14), transparent 45%)`,
+          background: `radial-gradient(420px circle at ${pos.x}px ${pos.y}px, rgba(37, 99, 235, 0.16), transparent 45%)`,
         }}
       />
       <div className="relative z-10 h-full flex flex-col justify-between">
@@ -513,197 +513,8 @@ const SKILL_PILLS = [
   'AR Aging Recovery',
   'HIPAA-Compliant SOPs',
 ];
-{bookingOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-    <div className="relative w-full max-w-lg rounded-2xl bg-[#0D1017] border border-zinc-800 p-6 sm:p-7 shadow-2xl my-auto">
-      <button
-        onClick={() => setBookingOpen(false)}
-        className="absolute top-4 right-4 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white cursor-pointer"
-        aria-label="Close modal"
-      >
-        <X className="w-4 h-4" />
-      </button>
 
-      <div className="text-[11px] font-mono tracking-wider text-[#2563EB] uppercase">
-        FREE 15-MIN OPERATIONS CONSULTATION
-      </div>
-      <h3 className="text-2xl font-bold text-white mt-1">
-        Book a Discovery Call with Jayson
-      </h3>
-      <p className="text-xs text-zinc-400 mt-1">
-        Select an available date & time slot during US Eastern (EST) or Pacific (PST) hours.
-      </p>
-
-      {!modalSent ? (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setModalSent(true);
-          }}
-          className="mt-5 space-y-4"
-        >
-          <div className="grid sm:grid-cols-2 gap-3">
-            <input
-              type="text"
-              required
-              value={bookingName}
-              onChange={(e) => setBookingName(e.target.value)}
-              placeholder="Your Name"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB]"
-            />
-            <input
-              type="text"
-              required
-              value={bookingCompany}
-              onChange={(e) => setBookingCompany(e.target.value)}
-              placeholder="Clinic or Billing Agency"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB]"
-            />
-          </div>
-
-          {/* Timezone & Focus Topic */}
-          <div className="grid sm:grid-cols-2 gap-3">
-            <select
-              value={bookingTz}
-              onChange={(e) => {
-                const nextTz = e.target.value;
-                setBookingTz(nextTz);
-                setSelectedTime(TIME_SLOTS_BY_TZ[nextTz][1]);
-              }}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
-            >
-              <option value="EST">US Eastern Time (EST)</option>
-              <option value="PST">US Pacific Time (PST)</option>
-            </select>
-
-            <select
-              value={bookingTopic}
-              onChange={(e) => setBookingTopic(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
-            >
-              <option value="Claims & Denial Management">
-                Claims & Denial Management
-              </option>
-              <option value="Eligibility & Prior Authorizations">
-                Eligibility & Prior Authorizations
-              </option>
-              <option value="EOB/ERA/835 & Stripe VCC Posting">
-                EOB/ERA/835 & Stripe VCC Posting
-              </option>
-              <option value="Full-Time Medical VA / RCM SME">
-                Full-Time Medical VA / RCM SME
-              </option>
-            </select>
-          </div>
-
-          {/* Date Picker */}
-          <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-2">
-              <span>1. SELECT AVAILABLE DATE</span>
-              <span className="text-[#60A5FA]">Mon–Fri</span>
-            </div>
-            <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5">
-              {availableDates.map((d) => {
-                const active = selectedDate === d.iso;
-                return (
-                  <button
-                    type="button"
-                    key={d.iso}
-                    onClick={() => setSelectedDate(d.iso)}
-                    className={`py-2 px-1 rounded-xl border text-center transition cursor-pointer ${
-                      active
-                        ? 'bg-[#2563EB]/20 border-[#2563EB] text-white shadow-md shadow-[#2563EB]/20'
-                        : 'bg-[#121620] border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
-                    }`}
-                  >
-                    <div className="text-[10px] font-mono uppercase opacity-80">
-                      {d.weekday}
-                    </div>
-                    <div className="text-xs font-semibold mt-0.5">
-                      {d.monthDay.split(' ')[1]}
-                    </div>
-                    <div className="text-[9px] text-zinc-500">
-                      {d.monthDay.split(' ')[0]}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Time Slot Picker */}
-          <div>
-            <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-2">
-              <span>2. SELECT TIME SLOT ({bookingTz})</span>
-              <span className="text-emerald-400">● Available</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {TIME_SLOTS_BY_TZ[bookingTz].map((slot) => {
-                const active = selectedTime === slot;
-                return (
-                  <button
-                    type="button"
-                    key={slot}
-                    onClick={() => setSelectedTime(slot)}
-                    className={`py-2 px-2.5 rounded-xl border text-xs font-mono font-medium transition cursor-pointer ${
-                      active
-                        ? 'bg-gradient-to-r from-[#2563EB] to-[#60A5FA] border-transparent text-white font-semibold'
-                        : 'bg-[#121620] border-zinc-800 text-zinc-300 hover:border-[#2563EB]/50'
-                    }`}
-                  >
-                    {slot}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-sm hover:brightness-110 transition cursor-pointer shadow-lg shadow-[#2563EB]/25"
-          >
-            Confirm {selectedTime} {bookingTz} Slot →
-          </button>
-        </form>
-      ) : (
-        <div className="mt-5 p-5 rounded-xl bg-[#121620] border border-[#2563EB]/40 text-center space-y-3">
-          <CheckCircle2 className="w-9 h-9 text-[#60A5FA] mx-auto" />
-          <div className="text-base font-bold text-white">
-            Slot Reserved for {bookingName}!
-          </div>
-          <p className="text-xs text-zinc-300 leading-relaxed">
-            <span className="text-[#60A5FA] font-semibold">
-              {availableDates.find((d) => d.iso === selectedDate)?.fullLabel}
-            </span>{' '}
-            at{' '}
-            <span className="text-[#60A5FA] font-semibold">
-              {selectedTime} {bookingTz}
-            </span>{' '}
-            • Focus: {bookingTopic}
-          </p>
-          <a
-            href={buildGoogleCalendarUrl()}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white text-xs font-semibold hover:brightness-110 transition"
-          >
-            Add to Google Calendar & Send Invite →
-          </a>
-          <button
-            type="button"
-            onClick={() => {
-              setModalSent(false);
-              setBookingOpen(false);
-            }}
-            className="block w-full text-[11px] text-zinc-400 hover:text-white pt-1 cursor-pointer"
-          >
-            Close Window
-          </button>
-        </div>
-      )}
-    </div>
-  </div>
-)}
+// --- HELPER: NEXT 7 BUSINESS DAYS FOR DISCOVERY CALL PICKER ---
 const getUpcomingBusinessDays = (count = 7) => {
   const days = [];
   const d = new Date();
@@ -714,7 +525,10 @@ const getUpcomingBusinessDays = (count = 7) => {
       days.push({
         iso: d.toISOString().split('T')[0],
         weekday: d.toLocaleDateString('en-US', { weekday: 'short' }),
-        monthDay: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        monthDay: d.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+        }),
         fullLabel: d.toLocaleDateString('en-US', {
           weekday: 'long',
           month: 'short',
@@ -731,6 +545,7 @@ const TIME_SLOTS_BY_TZ = {
   EST: ['9:00 AM', '9:30 AM', '10:30 AM', '11:30 AM', '1:00 PM', '2:00 PM'],
   PST: ['8:00 AM', '8:30 AM', '9:30 AM', '10:30 AM', '12:00 PM', '1:00 PM'],
 };
+
 export default function App() {
   const [activeLob, setActiveLob] = useState(HEALTHCARE_LOBS[0]);
   const [labTab, setLabTab] = useState('remittance');
@@ -747,6 +562,7 @@ export default function App() {
   const [formSent, setFormSent] = useState(false);
   const [modalSent, setModalSent] = useState(false);
   const [selectedModel, setSelectedModel] = useState(null);
+
   const availableDates = getUpcomingBusinessDays(7);
   const [bookingName, setBookingName] = useState('');
   const [bookingCompany, setBookingCompany] = useState('');
@@ -754,6 +570,9 @@ export default function App() {
   const [bookingTopic, setBookingTopic] = useState('Claims & Denial Management');
   const [selectedDate, setSelectedDate] = useState(availableDates[0]?.iso || '');
   const [selectedTime, setSelectedTime] = useState('9:30 AM');
+
+  const [badgeDropKey, setBadgeDropKey] = useState(0);
+  const [badgeHovered, setBadgeHovered] = useState(false);
 
   const buildGoogleCalendarUrl = () => {
     const chosenDay =
@@ -787,10 +606,8 @@ export default function App() {
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(
       startUtc
-      )}/${fmt(endUtc)}&details=${details}&add=abrjayso114114@gmail.com`;
+    )}/${fmt(endUtc)}&details=${details}&add=abrjayso114114@gmail.com`;
   };
-  const [badgeDropKey, setBadgeDropKey] = useState(0);
-  const [badgeHovered, setBadgeHovered] = useState(false);
 
   const roles = [
     'Healthcare RCM Subject Matter Expert (SME)',
@@ -851,7 +668,7 @@ export default function App() {
         );
 
   return (
-    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-[#2563EB] selection:text-black font-sans">
+    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-[#2563EB] selection:text-white font-sans">
       {/* Subtle Architectural Grid Background */}
       <div
         className="fixed inset-0 pointer-events-none opacity-[0.04]"
@@ -908,7 +725,7 @@ export default function App() {
                 setModalSent(false);
                 setBookingOpen(true);
               }}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-xs hover:brightness-110 transition shadow-lg shadow-[#2563EB]/15 cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-xs hover:brightness-110 transition shadow-lg shadow-[#2563EB]/20 cursor-pointer"
             >
               Book Discovery Call
             </button>
@@ -934,7 +751,7 @@ export default function App() {
               Medical VA
             </h1>
 
-            <div className="h-7 flex items-center font-mono text-sm sm:text-base text-[#2563EB]">
+            <div className="h-7 flex items-center font-mono text-sm sm:text-base text-[#60A5FA]">
               <span className="mr-2 text-zinc-500">&gt;</span>
               <span>{typedText}</span>
               <span className="ml-0.5 w-0.5 h-5 bg-[#60A5FA] animate-pulse" />
@@ -987,7 +804,7 @@ export default function App() {
                   setModalSent(false);
                   setBookingOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/20 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/25 cursor-pointer"
               >
                 <Calendar className="w-4 h-4" />
                 Book a Free 15-Min Discovery Call
@@ -1070,7 +887,7 @@ export default function App() {
                 }}
                 className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#2563EB]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
               >
-                {/* Top Gold Strip */}
+                {/* Top Strip */}
                 <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
                   <span>ID // PH-RCM-2014</span>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30">
@@ -1192,7 +1009,7 @@ export default function App() {
                         <span
                           className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                             isSelected
-                              ? 'bg-[#2563EB] text-black font-bold'
+                              ? 'bg-[#2563EB] text-white font-bold'
                               : 'bg-zinc-800 text-zinc-400'
                           }`}
                         >
@@ -1572,7 +1389,7 @@ export default function App() {
                 onClick={() => setLabTab('remittance')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
                   labTab === 'remittance'
-                    ? 'bg-[#2563EB] text-black'
+                    ? 'bg-[#2563EB] text-white'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -1582,7 +1399,7 @@ export default function App() {
                 onClick={() => setLabTab('denials')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
                   labTab === 'denials'
-                    ? 'bg-[#2563EB] text-black'
+                    ? 'bg-[#2563EB] text-white'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -1776,7 +1593,7 @@ export default function App() {
                         <h3 className="text-xl font-bold text-white mt-4">
                           {model.title}
                         </h3>
-                        <div className="text-xs font-mono text-[#2563EB] mt-1.5">
+                        <div className="text-xs font-mono text-[#60A5FA] mt-1.5">
                           {model.schedule}
                         </div>
                         <p className="text-sm text-zinc-300 leading-relaxed mt-4">
@@ -1804,8 +1621,8 @@ export default function App() {
                         }}
                         className={`mt-7 w-full py-3 rounded-xl text-xs font-semibold transition cursor-pointer ${
                           isSelected
-                            ? 'bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black hover:brightness-110'
-                            : 'bg-zinc-900 border border-zinc-700 text-white hover:bg-gradient-to-r hover:from-[#2563EB] hover:to-[#60A5FA] hover:text-black hover:border-transparent'
+                            ? 'bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white hover:brightness-110'
+                            : 'bg-zinc-900 border border-zinc-700 text-white hover:bg-gradient-to-r hover:from-[#2563EB] hover:to-[#60A5FA] hover:border-transparent'
                         }`}
                       >
                         Inquire About This Model
@@ -2149,7 +1966,7 @@ export default function App() {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-sm hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-sm hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
                     Send Inquiry to Jayson Abrio
@@ -2191,7 +2008,7 @@ export default function App() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-xs hover:brightness-110 transition cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-xs hover:brightness-110 transition cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   Save as PDF / Print
@@ -2291,100 +2108,198 @@ export default function App() {
         </div>
       )}
 
-      {/* DISCOVERY CALL MODAL */}
+      {/* INTERACTIVE DISCOVERY CALL BOOKING MODAL */}
       {bookingOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md rounded-2xl bg-[#111115] border border-[#2563EB]/40 p-6 relative shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-[#0D1017] border border-zinc-800 p-6 sm:p-7 shadow-2xl my-auto">
             <button
               onClick={() => setBookingOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white cursor-pointer"
+              className="absolute top-4 right-4 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white cursor-pointer"
+              aria-label="Close modal"
             >
               <X className="w-4 h-4" />
             </button>
 
-            <div className="text-xs font-mono text-[#2563EB]">
+            <div className="text-[11px] font-mono tracking-wider text-[#2563EB] uppercase">
               FREE 15-MIN OPERATIONS CONSULTATION
             </div>
-            <h3 className="text-xl font-bold text-white mt-1">
+            <h3 className="text-2xl font-bold text-white mt-1">
               Book a Discovery Call with Jayson
             </h3>
             <p className="text-xs text-zinc-400 mt-1">
-              Available during US Eastern (EST) & Pacific (PST) business hours.
+              Select an available date & time slot during US Eastern (EST) or
+              Pacific (PST) hours.
             </p>
 
-            {modalSent ? (
-              <div className="mt-5 p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
-                <CheckCircle2 className="w-7 h-7 text-emerald-400 mx-auto" />
-                <div className="font-semibold text-white text-sm">
-                  Call Request Prepared!
-                </div>
-                <p className="text-xs text-zinc-300">
-                  Check your email client to send directly to{' '}
-                  <strong>abrjayso114114@gmail.com</strong>.
-                </p>
-              </div>
-            ) : (
+            {!modalSent ? (
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  const fd = new FormData(e.currentTarget);
-                  const subject = encodeURIComponent(
-                    `15-Min RCM Discovery Call — ${fd.get('clinic')}`
-                  );
-                  const body = encodeURIComponent(
-                    `Name: ${fd.get('name')}\nClinic/Agency: ${fd.get(
-                      'clinic'
-                    )}\nTimezone: ${fd.get('tz')}\nPrimary Need: ${fd.get(
-                      'need'
-                    )}`
-                  );
-                  window.open(
-                    `mailto:abrjayso114114@gmail.com?subject=${subject}&body=${body}`,
-                    '_blank'
-                  );
                   setModalSent(true);
                 }}
-                className="mt-4 space-y-3"
+                className="mt-5 space-y-4"
               >
-                <input
-                  name="name"
-                  required
-                  placeholder="Your Name"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
-                />
-                <input
-                  name="clinic"
-                  required
-                  placeholder="Clinic or Billing Agency Name"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
-                />
-                <select
-                  name="tz"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
-                >
-                  <option>US Eastern Time (EST)</option>
-                  <option>US Central Time (CST)</option>
-                  <option>US Mountain Time (MST)</option>
-                  <option>US Pacific Time (PST)</option>
-                </select>
-                <select
-                  name="need"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
-                >
-                  <option>Claims & Denial Management</option>
-                  <option>
-                    Cash Posting (EOB / ERA / EDI 835 / Stripe VCC)
-                  </option>
-                  <option>Eligibility & Prior Authorizations</option>
-                  <option>Dedicated Full-Time Medical VA</option>
-                </select>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    required
+                    value={bookingName}
+                    onChange={(e) => setBookingName(e.target.value)}
+                    placeholder="Your Name"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB]"
+                  />
+                  <input
+                    type="text"
+                    required
+                    value={bookingCompany}
+                    onChange={(e) => setBookingCompany(e.target.value)}
+                    placeholder="Clinic or Billing Agency"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB]"
+                  />
+                </div>
+
+                {/* Timezone & Focus Topic */}
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <select
+                    value={bookingTz}
+                    onChange={(e) => {
+                      const nextTz = e.target.value;
+                      setBookingTz(nextTz);
+                      setSelectedTime(TIME_SLOTS_BY_TZ[nextTz][1]);
+                    }}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
+                  >
+                    <option value="EST">US Eastern Time (EST)</option>
+                    <option value="PST">US Pacific Time (PST)</option>
+                  </select>
+
+                  <select
+                    value={bookingTopic}
+                    onChange={(e) => setBookingTopic(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#121620] border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
+                  >
+                    <option value="Claims & Denial Management">
+                      Claims & Denial Management
+                    </option>
+                    <option value="Eligibility & Prior Authorizations">
+                      Eligibility & Prior Authorizations
+                    </option>
+                    <option value="EOB/ERA/835 & Stripe VCC Posting">
+                      EOB/ERA/835 & Stripe VCC Posting
+                    </option>
+                    <option value="Full-Time Medical VA / RCM SME">
+                      Full-Time Medical VA / RCM SME
+                    </option>
+                  </select>
+                </div>
+
+                {/* Date Picker */}
+                <div>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-2">
+                    <span>1. SELECT AVAILABLE DATE</span>
+                    <span className="text-[#60A5FA]">Mon–Fri</span>
+                  </div>
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-1.5">
+                    {availableDates.map((d) => {
+                      const active = selectedDate === d.iso;
+                      return (
+                        <button
+                          type="button"
+                          key={d.iso}
+                          onClick={() => setSelectedDate(d.iso)}
+                          className={`py-2 px-1 rounded-xl border text-center transition cursor-pointer ${
+                            active
+                              ? 'bg-[#2563EB]/20 border-[#2563EB] text-white shadow-md shadow-[#2563EB]/20'
+                              : 'bg-[#121620] border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                          }`}
+                        >
+                          <div className="text-[10px] font-mono uppercase opacity-80">
+                            {d.weekday}
+                          </div>
+                          <div className="text-xs font-semibold mt-0.5">
+                            {d.monthDay.split(' ')[1]}
+                          </div>
+                          <div className="text-[9px] text-zinc-500">
+                            {d.monthDay.split(' ')[0]}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Time Slot Picker */}
+                <div>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-2">
+                    <span>2. SELECT TIME SLOT ({bookingTz})</span>
+                    <span className="text-emerald-400">● Available</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {TIME_SLOTS_BY_TZ[bookingTz].map((slot) => {
+                      const active = selectedTime === slot;
+                      return (
+                        <button
+                          type="button"
+                          key={slot}
+                          onClick={() => setSelectedTime(slot)}
+                          className={`py-2 px-2.5 rounded-xl border text-xs font-mono font-medium transition cursor-pointer ${
+                            active
+                              ? 'bg-gradient-to-r from-[#2563EB] to-[#60A5FA] border-transparent text-white font-semibold'
+                              : 'bg-[#121620] border-zinc-800 text-zinc-300 hover:border-[#2563EB]/50'
+                          }`}
+                        >
+                          {slot}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-sm hover:brightness-110 transition cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-sm hover:brightness-110 transition cursor-pointer shadow-lg shadow-[#2563EB]/25"
                 >
-                  Confirm Discovery Call Request
+                  Confirm {selectedTime} {bookingTz} Slot →
                 </button>
               </form>
+            ) : (
+              <div className="mt-5 p-5 rounded-xl bg-[#121620] border border-[#2563EB]/40 text-center space-y-3">
+                <CheckCircle2 className="w-9 h-9 text-[#60A5FA] mx-auto" />
+                <div className="text-base font-bold text-white">
+                  Slot Reserved for {bookingName}!
+                </div>
+                <p className="text-xs text-zinc-300 leading-relaxed">
+                  <span className="text-[#60A5FA] font-semibold">
+                    {
+                      availableDates.find((d) => d.iso === selectedDate)
+                        ?.fullLabel
+                    }
+                  </span>{' '}
+                  at{' '}
+                  <span className="text-[#60A5FA] font-semibold">
+                    {selectedTime} {bookingTz}
+                  </span>{' '}
+                  — Focus: {bookingTopic}
+                </p>
+                <a
+                  href={buildGoogleCalendarUrl()}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white text-xs font-semibold hover:brightness-110 transition"
+                >
+                  Add to Google Calendar & Send Invite →
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setModalSent(false);
+                    setBookingOpen(false);
+                  }}
+                  className="block w-full text-[11px] text-zinc-400 hover:text-white pt-1 cursor-pointer"
+                >
+                  Close Window
+                </button>
+              </div>
             )}
           </div>
         </div>
