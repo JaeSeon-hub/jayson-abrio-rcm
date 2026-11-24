@@ -1744,7 +1744,7 @@ export default function App() {
                       href="tel:+639368108850"
                       className="text-sm font-semibold text-white hover:text-[#F5D061]"
                     >
-                      +63 936 810 8854
+                      +63 936 810 8850
                     </a>
                   </div>
                 </div>
@@ -1939,7 +1939,7 @@ export default function App() {
               <div className="flex flex-wrap gap-4 text-xs font-mono text-zinc-400">
                 <span>Email: abrjayso114114@gmail.com</span>
                 <span>•</span>
-                <span>Phone/WhatsApp: +63 992 684 4654 / +63 936 810 8854</span>
+                <span>Phone/WhatsApp: +63 992 684 4654 / +63 936 810 8850</span>
                 <span>•</span>
                 <span>Shift: US EST / PST Aligned</span>
               </div>
