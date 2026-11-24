@@ -704,6 +704,33 @@ const SKILL_PILLS = [
     </div>
   </div>
 )}
+const getUpcomingBusinessDays = (count = 7) => {
+  const days = [];
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  while (days.length < count) {
+    const dayOfWeek = d.getDay();
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      days.push({
+        iso: d.toISOString().split('T')[0],
+        weekday: d.toLocaleDateString('en-US', { weekday: 'short' }),
+        monthDay: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        fullLabel: d.toLocaleDateString('en-US', {
+          weekday: 'long',
+          month: 'short',
+          day: 'numeric',
+        }),
+      });
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  return days;
+};
+
+const TIME_SLOTS_BY_TZ = {
+  EST: ['9:00 AM', '9:30 AM', '10:30 AM', '11:30 AM', '1:00 PM', '2:00 PM'],
+  PST: ['8:00 AM', '8:30 AM', '9:30 AM', '10:30 AM', '12:00 PM', '1:00 PM'],
+};
 export default function App() {
   const [activeLob, setActiveLob] = useState(HEALTHCARE_LOBS[0]);
   const [labTab, setLabTab] = useState('remittance');
