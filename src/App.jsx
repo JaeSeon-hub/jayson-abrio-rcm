@@ -754,6 +754,7 @@ useEffect(() => {
             </p>
           </div>
         </div>
+        </div>
       </section>
 
       {/* SECTION 1: 5 HEALTHCARE PROVIDER LINES OF BUSINESS */}
