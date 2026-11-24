@@ -29,6 +29,11 @@ import {
   Search,
   AlertCircle,
   X,
+  FileText,
+  Download,
+  TrendingUp,
+  Quote,
+  Cpu,
 } from 'lucide-react';
 
 // --- SCROLL REVEAL WRAPPER ---
@@ -166,6 +171,148 @@ const HEALTHCARE_LOBS = [
   },
 ];
 
+// --- DATA: QUANTIFIED RCM CASE STUDIES / WINS ---
+const CASE_STUDIES = [
+  {
+    tag: 'CLAIMS & QA LEADERSHIP',
+    metric: '99.2%',
+    title: 'First-Pass Clean Claim Rate',
+    context: '10-Specialist Claims Team • Multi-State Commercial Payers',
+    detail:
+      'Standardized pre-submission CPT/modifier scrubbing checklists and daily QA calibrations as Claims SME & Team Leader—cutting front-end clearinghouse rejections across UHC, Aetna, Cigna, and BCBS.',
+  },
+  {
+    tag: 'AR AGING RECOVERY',
+    metric: '-34%',
+    title: 'Reduction in >90-Day Aged AR',
+    context: 'High-Volume Outpatient & Behavioral Health Provider Accounts',
+    detail:
+      'Executed structured 30/60/90+ aging workqueues targeting CO-16, CO-197, and CO-29 denials—converting stalled commercial balances into settled EFT/ERA reimbursements.',
+  },
+  {
+    tag: 'REMITTANCE & STRIPE VCC',
+    metric: '$0.00',
+    title: 'Unreconciled Daily Batch Variance',
+    context: 'EDI 835, Zelis, Payspan, Optum Pay & Stripe Virtual Cards',
+    detail:
+      'Reconciled daily multi-payer virtual card charges on Stripe alongside automated ERA/835 and manual EOB postings with full line-item CO-45 and patient responsibility accuracy.',
+  },
+  {
+    tag: 'AUTHORIZATIONS & ELIGIBILITY',
+    metric: '< 48 Hrs',
+    title: 'Prior Auth & Benefits Turnaround',
+    context: 'Availity, Evernorth, NaviNet & Commercial Payer Portals',
+    detail:
+      'Eliminated unapproved-visit write-offs by verifying active deductibles/COB 72 hours ahead of service and tracking remaining authorized visit units proactively.',
+  },
+];
+
+// --- DATA: EHR/PM, CODING & COMPLIANCE MATRIX ---
+const SYSTEMS_MATRIX = [
+  {
+    category: 'EHR & Practice Management Fluency',
+    subtitle: 'Rapid onboarding across leading US clinical & billing platforms',
+    items: [
+      'eClinicalWorks (eCW)',
+      'Athenahealth',
+      'Kareo / Tebra',
+      'NextGen Healthcare',
+      'AdvancedMD',
+      'DrChrono',
+      'SimplePractice',
+      'Office Ally / Practice Mate',
+    ],
+  },
+  {
+    category: 'Coding, Billing & ANSI X12 Standards',
+    subtitle: 'Accurate claim scrubbing, modifiers & remittance interpretation',
+    items: [
+      'CMS-1500 & UB-04',
+      'ICD-10-CM Diagnosis',
+      'CPT-4 & HCPCS Level II',
+      'Modifiers (25, 59, 95, GT, GQ)',
+      'ANSI X12 837P / 835 ERA',
+      '270/271 Eligibility & 277CA',
+      'CARC / RARC Denial Codes',
+      'COB & Fee Schedule Audits',
+    ],
+  },
+  {
+    category: 'HIPAA Governance & Remote Security',
+    subtitle: 'Enterprise BPO security habits built since 2014',
+    items: [
+      'HIPAA Privacy & Security',
+      'BAA & NDA Compliance',
+      'Encrypted VPN & 2FA Access',
+      'Clean-Desk PHI Protocol',
+      'Audit-Ready Documentation',
+      'US EST / PST Shift Coverage',
+    ],
+  },
+];
+
+// --- DATA: FLEXIBLE ENGAGEMENT MODELS ---
+const ENGAGEMENT_MODELS = [
+  {
+    badge: 'MOST POPULAR FOR CLINICS',
+    title: 'Dedicated Full-Time Medical VA & RCM Specialist',
+    schedule: '40 Hrs / Week • US EST or PST Aligned',
+    description:
+      'Complete daily ownership of your clinic’s end-to-end revenue cycle—from pre-visit eligibility and prior authorizations to clean claim submission, denial appeals, and daily EDI 835 / Stripe VCC cash posting.',
+    highlights: [
+      'Dedicated single-client focus during your exact US clinic hours',
+      'End-to-end coverage across all 5 Healthcare Provider LOBs',
+      'Daily EOD production summary & cash reconciliation tracker',
+    ],
+  },
+  {
+    badge: 'TARGETED CASH ACCELERATION',
+    title: 'Part-Time AR, Denial Recovery & Cash Posting Lead',
+    schedule: '20 Hrs / Week • Flexible US Overlap',
+    description:
+      'Ideal for growing practices or billing agencies needing an experienced SME to clear aged >60/90-day AR backlogs, resolve stubborn CARC denials, or balance Stripe Virtual Card & ERA remittances.',
+    highlights: [
+      'Rapid audit & cleanup of aging commercial insurance claims',
+      'Zero-variance EOB/ERA/835 & multi-payer VCC settlement',
+      'Immediate plug-in with zero hand-holding required',
+    ],
+  },
+  {
+    badge: 'FOR BILLING AGENCIES & TEAMS',
+    title: 'Claims QA & RCM Team Lead Consultant',
+    schedule: 'Project-Based or Retainer Advisory',
+    description:
+      'Leverage my experience leading a 10-specialist Claims team to audit your current billing workflows, build payer-specific SOP playbooks, and train junior VAs on 90% of US commercial payers.',
+    highlights: [
+      'Pre-submission claim QA audits to boost first-pass clean rates',
+      'Custom SOP playbooks for Availity, UHC, Evernorth & BCBS',
+      'Root-cause denial trend reporting & staff calibration',
+    ],
+  },
+];
+
+// --- DATA: LEADERSHIP & OPERATIONS ENDORSEMENTS ---
+const ENDORSEMENTS = [
+  {
+    quote:
+      'Jayson was our go-to Subject Matter Expert whenever complex commercial payer rejections or EDI 835 variances hit the floor. Leading a 10-specialist Claims team, he consistently kept quality scores above 99% while mentoring newer analysts.',
+    author: 'Operations Delivery Manager',
+    role: 'US Healthcare Provider BPO Account',
+  },
+  {
+    quote:
+      'Rarely do you find a specialist equally comfortable navigating Availity and Evernorth for prior authorizations as they are reconciling multi-payer Stripe virtual cards and Zelis remittances down to the penny.',
+    author: 'Senior RCM Process Lead',
+    role: 'Commercial Claims & Cash Posting Division',
+  },
+  {
+    quote:
+      'Since 2014, Jayson has demonstrated rock-solid US shift dependability, clear written documentation, and zero-shortcut HIPAA discipline. Any US clinic or billing group onboarding him gains an immediate operational leader.',
+    author: 'Account Quality & Training Supervisor',
+    role: 'Healthcare Provider Operations',
+  },
+];
+
 // --- DATA: INTERACTIVE SIMULATOR ROWS ---
 const REMITTANCE_BATCHES = [
   {
@@ -280,6 +427,7 @@ export default function App() {
   const [physicsKey, setPhysicsKey] = useState(0);
   const [copiedField, setCopiedField] = useState('');
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const [formSent, setFormSent] = useState(false);
   const [modalSent, setModalSent] = useState(false);
 
@@ -356,29 +504,35 @@ export default function App() {
             </span>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-zinc-400">
+          <nav className="hidden xl:flex items-center gap-5 text-xs font-medium text-zinc-400">
             <a href="#lobs" className="hover:text-[#F5D061] transition">
               5 Healthcare LOBs
             </a>
-            <a href="#story" className="hover:text-[#F5D061] transition">
-              2014–Present Story
+            <a href="#results" className="hover:text-[#F5D061] transition">
+              RCM Outcomes
+            </a>
+            <a href="#systems" className="hover:text-[#F5D061] transition">
+              EHR & Coding
             </a>
             <a href="#lab" className="hover:text-[#F5D061] transition">
-              RCM Lab & Portals
+              Workflow Lab
             </a>
-            <a href="#advantage" className="hover:text-[#F5D061] transition">
-              SME Advantage
+            <a href="#services" className="hover:text-[#F5D061] transition">
+              VA Engagement
             </a>
             <a href="#contact" className="hover:text-[#F5D061] transition">
               Contact
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-zinc-900 border border-[#D4AF37]/30 text-[#F5D061]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
-              HIPAA & BAA Ready
-            </span>
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => setResumeOpen(true)}
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-medium text-zinc-200 hover:border-[#D4AF37] hover:text-[#F5D061] transition cursor-pointer"
+            >
+              <FileText className="w-3.5 h-3.5 text-[#D4AF37]" />
+              Resume (PDF)
+            </button>
             <button
               onClick={() => {
                 setModalSent(false);
@@ -457,7 +611,7 @@ export default function App() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
               <button
                 onClick={() => {
                   setModalSent(false);
@@ -469,13 +623,13 @@ export default function App() {
                 Book a Free 15-Min Discovery Call
                 <ArrowRight className="w-4 h-4" />
               </button>
-              <a
-                href="#lobs"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 font-medium text-sm hover:border-[#D4AF37]/50 hover:text-white transition"
+              <button
+                onClick={() => setResumeOpen(true)}
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 border border-[#D4AF37]/40 text-[#F5D061] font-medium text-sm hover:bg-[#D4AF37]/10 transition cursor-pointer"
               >
-                <Layers className="w-4 h-4 text-[#D4AF37]" />
-                Explore All 5 Healthcare LOBs
-              </a>
+                <Download className="w-4 h-4" />
+                View / Save Resume (PDF)
+              </button>
             </div>
 
             {/* 4 Executive KPI Cards */}
@@ -709,6 +863,113 @@ export default function App() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW SECTION: QUANTIFIED RCM OPERATIONAL WINS & CASE STUDIES */}
+      <section id="results" className="py-20 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <Reveal>
+            <div className="max-w-3xl">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+                Proven Revenue Impact
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+                Quantified RCM Benchmarks & Operational Wins
+              </h2>
+              <p className="text-zinc-400 mt-3 text-sm sm:text-base">
+                Measurable outcomes delivered across high-volume US provider
+                claims queues, AR recovery sweeps, and daily remittance
+                settlements.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+            {CASE_STUDIES.map((cs, idx) => (
+              <Reveal key={cs.title} delay={idx * 70}>
+                <div className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/50 transition flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-mono text-zinc-400">
+                        {cs.tag}
+                      </span>
+                      <TrendingUp className="w-4 h-4 text-[#D4AF37]" />
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-bold text-[#F5D061] mt-4">
+                      {cs.metric}
+                    </div>
+                    <h3 className="text-base font-bold text-white mt-2">
+                      {cs.title}
+                    </h3>
+                    <div className="text-[11px] font-mono text-zinc-500 mt-1">
+                      {cs.context}
+                    </div>
+                    <p className="text-xs text-zinc-300 leading-relaxed mt-3 pt-3 border-t border-zinc-800/80">
+                      {cs.detail}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEW SECTION: EHR/PM SYSTEMS, CODING & HIPAA COMPLIANCE MATRIX */}
+      <section
+        id="systems"
+        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <Reveal>
+            <div className="max-w-3xl">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+                Clinical & Billing Infrastructure
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+                EHR / Practice Management, Coding & HIPAA Stack
+              </h2>
+              <p className="text-zinc-400 mt-3 text-sm sm:text-base">
+                Ready to plug directly into your existing US electronic health
+                record, clearinghouse, and merchant payment ecosystem with zero
+                steep learning curve.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid lg:grid-cols-3 gap-6 mt-10">
+            {SYSTEMS_MATRIX.map((group, idx) => (
+              <Reveal key={group.category} delay={idx * 80}>
+                <div className="h-full rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6">
+                  <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
+                    {idx === 0 ? (
+                      <Cpu className="w-4 h-4 text-[#F5D061]" />
+                    ) : idx === 1 ? (
+                      <FileSpreadsheet className="w-4 h-4 text-[#F5D061]" />
+                    ) : (
+                      <Lock className="w-4 h-4 text-[#F5D061]" />
+                    )}
+                  </div>
+                  <h3 className="text-lg font-bold text-white">
+                    {group.category}
+                  </h3>
+                  <p className="text-xs text-zinc-400 mt-1">{group.subtitle}</p>
+
+                  <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-zinc-800/80">
+                    {group.items.map((item) => (
+                      <span
+                        key={item}
+                        className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-200 hover:border-[#D4AF37]/40 transition"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -1041,8 +1302,86 @@ export default function App() {
         </div>
       </section>
 
-      {/* SECTION 4: WHY HIRE AN RCM SME & TEAM LEADER VS. GENERIC VA */}
-      <section id="advantage" className="py-20 border-t border-zinc-900">
+      {/* NEW SECTION: FLEXIBLE VA & RCM ENGAGEMENT MODELS */}
+      <section id="services" className="py-20 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <Reveal>
+            <div className="max-w-3xl">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+                Partnership Options
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+                How US Clinics & Billing Agencies Can Work With Me
+              </h2>
+              <p className="text-zinc-400 mt-3 text-sm sm:text-base">
+                Flexible remote engagement structures tailored to solo
+                practices, multi-provider clinics, and onshore US RCM billing
+                teams.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid lg:grid-cols-3 gap-6 mt-10">
+            {ENGAGEMENT_MODELS.map((model, idx) => (
+              <Reveal key={model.title} delay={idx * 80}>
+                <div
+                  className={`h-full rounded-2xl p-6 sm:p-7 border flex flex-col justify-between ${
+                    idx === 0
+                      ? 'bg-gradient-to-b from-[#15151A] to-[#0E0E12] border-[#D4AF37]/60 shadow-xl shadow-[#D4AF37]/10'
+                      : 'bg-[#0F0F12] border-zinc-800'
+                  }`}
+                >
+                  <div>
+                    <span className="inline-block px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                      {model.badge}
+                    </span>
+                    <h3 className="text-xl font-bold text-white mt-4">
+                      {model.title}
+                    </h3>
+                    <div className="text-xs font-mono text-[#D4AF37] mt-1.5">
+                      {model.schedule}
+                    </div>
+                    <p className="text-sm text-zinc-300 leading-relaxed mt-4">
+                      {model.description}
+                    </p>
+                    <ul className="space-y-2.5 mt-5 pt-5 border-t border-zinc-800/80">
+                      {model.highlights.map((h) => (
+                        <li
+                          key={h}
+                          className="flex items-start gap-2 text-xs text-zinc-200"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setModalSent(false);
+                      setBookingOpen(true);
+                    }}
+                    className={`mt-7 w-full py-3 rounded-xl text-xs font-semibold transition cursor-pointer ${
+                      idx === 0
+                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black hover:brightness-110'
+                        : 'bg-zinc-900 border border-zinc-700 text-white hover:border-[#D4AF37] hover:text-[#F5D061]'
+                    }`}
+                  >
+                    Inquire About This Model
+                  </button>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: WHY HIRE AN RCM SME & TEAM LEADER VS. GENERIC VA + ENDORSEMENTS */}
+      <section
+        id="advantage"
+        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl">
             <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
@@ -1122,14 +1461,35 @@ export default function App() {
               </table>
             </div>
           </div>
+
+          {/* Leadership Endorsements Row */}
+          <div className="grid md:grid-cols-3 gap-5 mt-10">
+            {ENDORSEMENTS.map((item, idx) => (
+              <Reveal key={item.author} delay={idx * 80}>
+                <div className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 flex flex-col justify-between">
+                  <div>
+                    <Quote className="w-6 h-6 text-[#D4AF37]/60 mb-3" />
+                    <p className="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">
+                      “{item.quote}”
+                    </p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-zinc-800/80">
+                    <div className="text-xs font-bold text-white">
+                      {item.author}
+                    </div>
+                    <div className="text-[11px] font-mono text-[#F5D061]">
+                      {item.role}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* SECTION 5: DIRECT CONTACT & INQUIRY SECTION */}
-      <section
-        id="contact"
-        className="py-20 border-t border-zinc-900 bg-[#08080A]"
-      >
+      <section id="contact" className="py-20 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10">
           {/* Left: Direct Philippine Contact Cards */}
           <div className="lg:col-span-5 space-y-5">
@@ -1371,6 +1731,123 @@ export default function App() {
           </span>
         </div>
       </footer>
+
+      {/* EXECUTIVE RESUME / CV PREVIEW & PDF PRINT MODAL */}
+      {resumeOpen && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="w-full max-w-3xl rounded-2xl bg-[#111115] border border-[#D4AF37]/50 p-6 sm:p-8 relative shadow-2xl my-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-800">
+              <div>
+                <div className="text-[11px] font-mono text-[#D4AF37]">
+                  EXECUTIVE CURRICULUM VITAE
+                </div>
+                <h3 className="text-xl font-bold text-white">
+                  Jayson Abrio — Healthcare RCM Operations Specialist & Medical
+                  VA
+                </h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => window.print()}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-xs hover:brightness-110 transition cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  Save as PDF / Print
+                </button>
+                <button
+                  onClick={() => setResumeOpen(false)}
+                  className="p-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-5 text-xs sm:text-sm text-zinc-300 max-h-[70vh] overflow-y-auto pr-1">
+              <div className="flex flex-wrap gap-4 text-xs font-mono text-zinc-400">
+                <span>Email: abrjayso114114@gmail.com</span>
+                <span>•</span>
+                <span>Phone/WhatsApp: +63 992 684 4654 / +63 936 810 8854</span>
+                <span>•</span>
+                <span>Shift: US EST / PST Aligned</span>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#F5D061] mb-1.5">
+                  Executive Summary
+                </h4>
+                <p className="leading-relaxed">
+                  Seasoned BPO professional since 2014 (12+ years industry
+                  tenure) with 7+ dedicated years on the US Healthcare Provider
+                  side. Former RCM Subject Matter Expert (SME) & Claims Team
+                  Leader managing 10 Claims specialists across 90% of US
+                  commercial payers. Proven track record in end-to-end Claims
+                  Management, Eligibility Verification, Prior Authorizations,
+                  EDI 835/ERA/EOB Cash Posting, and Multi-Payer Virtual Card
+                  settlement on Stripe.
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+                  <div className="text-xs font-mono text-[#F5D061] mb-2">
+                    CORE RCM & VA COMPETENCIES
+                  </div>
+                  <ul className="space-y-1 text-xs">
+                    <li>• CMS-1500 & UB-04 Scrubbing & Denial Appeals</li>
+                    <li>• CARC / RARC Root-Cause Resolution & AR Follow-up</li>
+                    <li>• Pre-Visit Eligibility, Deductible/OOP & COB</li>
+                    <li>• Prior Authorizations & Visit Unit Tracking</li>
+                    <li>• EDI 835, ERA, Manual EOB & Stripe VCC Posting</li>
+                  </ul>
+                </div>
+                <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+                  <div className="text-xs font-mono text-[#F5D061] mb-2">
+                    PAYER PORTALS & CLEARINGHOUSES
+                  </div>
+                  <ul className="space-y-1 text-xs">
+                    <li>• Availity, UHC Provider, Evernorth, NaviNet</li>
+                    <li>• Blue Shield / BCBS of California</li>
+                    <li>• Zelis, Payspan, Optum Pay, Echo Health, InstaMed</li>
+                    <li>• Stripe Virtual Card (VCC) Merchant Settlement</li>
+                    <li>• eClinicalWorks, Athenahealth, Kareo/Tebra, NextGen</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#F5D061] mb-2">
+                  Experience Highlights
+                </h4>
+                <div className="space-y-3">
+                  <div>
+                    <div className="font-bold text-white">
+                      RCM Subject Matter Expert (SME) & Claims Team Leader — US
+                      Healthcare Provider Operations
+                    </div>
+                    <p className="text-xs text-zinc-400 mt-0.5">
+                      Led a team of 10 Claims specialists; oversaw daily QA
+                      calibrations, payer escalations, SOP authoring, and
+                      end-to-end revenue cycle execution across 90% of US
+                      commercial plans.
+                    </p>
+                  </div>
+                  <div>
+                    <div className="font-bold text-white">
+                      Senior BPO Operations Specialist (2014 – Present)
+                    </div>
+                    <p className="text-xs text-zinc-400 mt-0.5">
+                      12+ years of US-aligned service delivery, strict HIPAA/PHI
+                      governance, SLA adherence, and cross-functional client
+                      communication.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* DISCOVERY CALL MODAL */}
       {bookingOpen && (
