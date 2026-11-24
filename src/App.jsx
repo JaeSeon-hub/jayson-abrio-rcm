@@ -529,6 +529,7 @@ export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
   const [formSent, setFormSent] = useState(false);
   const [modalSent, setModalSent] = useState(false);
+  const [selectedModel, setSelectedModel] = useState(null);
   const [badgeDropKey, setBadgeDropKey] = useState(0);
   const [badgeHovered, setBadgeHovered] = useState(false);
 
@@ -1494,57 +1495,67 @@ export default function App() {
           </Reveal>
 
           <div className="grid lg:grid-cols-3 gap-6 mt-10">
-            {ENGAGEMENT_MODELS.map((model, idx) => (
-              <Reveal key={model.title} delay={idx * 80}>
-                <SpotlightCard
-                  className={`h-full rounded-2xl p-6 sm:p-7 border ${
-                    idx === 0
-                      ? 'bg-gradient-to-b from-[#15151A] to-[#0E0E12] border-[#D4AF37]/60 shadow-xl shadow-[#D4AF37]/10'
-                      : 'bg-[#0F0F12] border-zinc-800 hover:border-[#D4AF37]/40 transition'
-                  }`}
-                >
-                  <div>
-                    <span className="inline-block px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
-                      {model.badge}
-                    </span>
-                    <h3 className="text-xl font-bold text-white mt-4">
-                      {model.title}
-                    </h3>
-                    <div className="text-xs font-mono text-[#D4AF37] mt-1.5">
-                      {model.schedule}
-                    </div>
-                    <p className="text-sm text-zinc-300 leading-relaxed mt-4">
-                      {model.description}
-                    </p>
-                    <ul className="space-y-2.5 mt-5 pt-5 border-t border-zinc-800/80">
-                      {model.highlights.map((h) => (
-                        <li
-                          key={h}
-                          className="flex items-start gap-2 text-xs text-zinc-200"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      setModalSent(false);
-                      setBookingOpen(true);
-                    }}
-                    className={`mt-7 w-full py-3 rounded-xl text-xs font-semibold transition cursor-pointer ${
-                      idx === 0
-                        ? 'bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black hover:brightness-110'
-                        : 'bg-zinc-900 border border-zinc-700 text-white hover:border-[#D4AF37] hover:text-[#F5D061]'
-                    }`}
+            {ENGAGEMENT_MODELS.map((model, idx) => {
+              const isSelected = selectedModel === idx;
+              return (
+                <Reveal key={model.title} delay={idx * 80}>
+                  <div
+                    onClick={() => setSelectedModel(idx)}
+                    className="h-full cursor-pointer"
                   >
-                    Inquire About This Model
-                  </button>
-                </SpotlightCard>
-              </Reveal>
-            ))}
+                    <SpotlightCard
+                      className={`h-full rounded-2xl p-6 sm:p-7 border transition-all duration-300 ${
+                        isSelected
+                          ? 'bg-gradient-to-b from-[#15151A] to-[#0E0E12] border-[#D4AF37]/70 shadow-xl shadow-[#D4AF37]/15'
+                          : 'bg-[#0F0F12] border-zinc-800 hover:border-[#D4AF37]/40'
+                      }`}
+                    >
+                      <div>
+                        <span className="inline-block px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                          {model.badge}
+                        </span>
+                        <h3 className="text-xl font-bold text-white mt-4">
+                          {model.title}
+                        </h3>
+                        <div className="text-xs font-mono text-[#D4AF37] mt-1.5">
+                          {model.schedule}
+                        </div>
+                        <p className="text-sm text-zinc-300 leading-relaxed mt-4">
+                          {model.description}
+                        </p>
+                        <ul className="space-y-2.5 mt-5 pt-5 border-t border-zinc-800/80">
+                          {model.highlights.map((h) => (
+                            <li
+                              key={h}
+                              className="flex items-start gap-2 text-xs text-zinc-200"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                              <span>{h}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedModel(idx);
+                          setModalSent(false);
+                          setBookingOpen(true);
+                        }}
+                        className={`mt-7 w-full py-3 rounded-xl text-xs font-semibold transition cursor-pointer ${
+                          isSelected
+                            ? 'bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black hover:brightness-110'
+                            : 'bg-zinc-900 border border-zinc-700 text-white hover:bg-gradient-to-r hover:from-[#D4AF37] hover:to-[#F5D061] hover:text-black hover:border-transparent'
+                        }`}
+                      >
+                        Inquire About This Model
+                      </button>
+                    </SpotlightCard>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
