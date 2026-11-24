@@ -35,3 +35,21 @@ body,
   transform-origin: top center;
   animation: lanyardDrop 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 34s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

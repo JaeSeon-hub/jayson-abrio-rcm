@@ -2,38 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   ShieldCheck,
   CheckCircle2,
-  Clock,
-  FileCheck2,
-  CreditCard,
   Layers,
-  Award,
-  Users,
   ArrowRight,
   Calendar,
   Mail,
   Phone,
-  Copy,
-  Check,
-  Sparkles,
-  Building2,
-  Stethoscope,
-  Activity,
-  FileSpreadsheet,
-  Lock,
-  ExternalLink,
   RotateCcw,
   Send,
-  Star,
   ChevronRight,
-  Briefcase,
-  Search,
-  AlertCircle,
   X,
   FileText,
   Download,
   TrendingUp,
   Quote,
   Cpu,
+  FileSpreadsheet,
+  Lock,
 } from 'lucide-react';
 
 // --- SCROLL REVEAL WRAPPER ---
@@ -67,6 +51,109 @@ const Reveal = ({ children, delay = 0, className = '' }) => {
     </div>
   );
 };
+
+// --- MICRO-INTERACTION 1: MOUSE-TRACKING CHAMPAGNE GOLD SPOTLIGHT CARD ---
+const SpotlightCard = ({ children, className = '' }) => {
+  const cardRef = useRef(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      className={`relative overflow-hidden ${className}`}
+    >
+      <div
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300"
+        style={{
+          opacity,
+          background: `radial-gradient(420px circle at ${pos.x}px ${pos.y}px, rgba(212, 175, 55, 0.14), transparent 45%)`,
+        }}
+      />
+      <div className="relative z-10 h-full flex flex-col justify-between">
+        {children}
+      </div>
+    </div>
+  );
+};
+
+// --- MICRO-INTERACTION 2: SCROLL-TRIGGERED COUNT-UP METRIC ---
+const AnimatedMetric = ({
+  target,
+  prefix = '',
+  suffix = '',
+  decimals = 0,
+  duration = 1400,
+}) => {
+  const [value, setValue] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(eased * target);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        setValue(target);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [started, target, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {value.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+};
+
+// --- DATA: SEAMLESS PAYER & PORTAL TICKER ITEMS ---
+const MARQUEE_ITEMS = [
+  'AVAILITY CLEARINGHOUSE',
+  'UNITEDHEALTHCARE (UHC)',
+  'EVERNORTH / CIGNA',
+  'BLUE SHIELD / BCBS OF CA',
+  'NAVINET PORTAL',
+  'ZELIS PAYMENTS',
+  'PAYSPAN REMITTANCE',
+  'OPTUM PAY ERA',
+  'STRIPE VIRTUAL CARDS (VCC)',
+  'ECHO HEALTH',
+  'INSTAMED',
+  'ANSI X12 EDI 835 / 837',
+  'HIPAA & BAA COMPLIANT',
+];
 
 // --- DATA: 5 HEALTHCARE PROVIDER LINES OF BUSINESS ---
 const HEALTHCARE_LOBS = [
@@ -175,7 +262,10 @@ const HEALTHCARE_LOBS = [
 const CASE_STUDIES = [
   {
     tag: 'CLAIMS & QA LEADERSHIP',
-    metric: '99.2%',
+    target: 99.2,
+    prefix: '',
+    suffix: '%',
+    decimals: 1,
     title: 'First-Pass Clean Claim Rate',
     context: '10-Specialist Claims Team • Multi-State Commercial Payers',
     detail:
@@ -183,7 +273,10 @@ const CASE_STUDIES = [
   },
   {
     tag: 'AR AGING RECOVERY',
-    metric: '-34%',
+    target: 34,
+    prefix: '-',
+    suffix: '%',
+    decimals: 0,
     title: 'Reduction in >90-Day Aged AR',
     context: 'High-Volume Outpatient & Behavioral Health Provider Accounts',
     detail:
@@ -191,7 +284,10 @@ const CASE_STUDIES = [
   },
   {
     tag: 'REMITTANCE & STRIPE VCC',
-    metric: '$0.00',
+    target: 0.0,
+    prefix: '$',
+    suffix: '',
+    decimals: 2,
     title: 'Unreconciled Daily Batch Variance',
     context: 'EDI 835, Zelis, Payspan, Optum Pay & Stripe Virtual Cards',
     detail:
@@ -199,7 +295,10 @@ const CASE_STUDIES = [
   },
   {
     tag: 'AUTHORIZATIONS & ELIGIBILITY',
-    metric: '< 48 Hrs',
+    target: 48,
+    prefix: '< ',
+    suffix: ' Hrs',
+    decimals: 0,
     title: 'Prior Auth & Benefits Turnaround',
     context: 'Availity, Evernorth, NaviNet & Commercial Payer Portals',
     detail:
@@ -431,15 +530,7 @@ export default function App() {
   const [formSent, setFormSent] = useState(false);
   const [modalSent, setModalSent] = useState(false);
   const [badgeDropKey, setBadgeDropKey] = useState(0);
-const [badgeHovered, setBadgeHovered] = useState(false);
-
-useEffect(() => {
-  if (badgeHovered) return;
-  const interval = setInterval(() => {
-    setBadgeDropKey((prev) => prev + 1);
-  }, 40000);
-  return () => clearInterval(interval);
-}, [badgeHovered]);
+  const [badgeHovered, setBadgeHovered] = useState(false);
 
   const roles = [
     'Healthcare RCM Subject Matter Expert (SME)',
@@ -447,6 +538,15 @@ useEffect(() => {
     'Cash Posting, EDI 835 & Stripe VCC Specialist',
     'Medical Virtual Assistant (90% US Commercial Payers)',
   ];
+
+  // Auto re-drop lanyard gently every 40 seconds unless hovered
+  useEffect(() => {
+    if (badgeHovered) return;
+    const interval = setInterval(() => {
+      setBadgeDropKey((prev) => prev + 1);
+    }, 40000);
+    return () => clearInterval(interval);
+  }, [badgeHovered]);
 
   // Typewriter Effect
   useEffect(() => {
@@ -557,7 +657,7 @@ useEffect(() => {
       </header>
 
       {/* HERO SECTION WITH 3D LANYARD BADGE */}
-      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Editorial Column */}
           <div className="lg:col-span-7 space-y-6">
@@ -642,125 +742,158 @@ useEffect(() => {
               </button>
             </div>
 
-            {/* 4 Executive KPI Cards */}
+            {/* 4 Executive KPI Cards with Count-Up Animation */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
-              {[
-                { val: 'Since 2014', sub: '12+ Yrs BPO Industry Tenure' },
-                { val: '7+ Yrs', sub: 'US Healthcare Provider Side' },
-                { val: '10 Experts', sub: 'Claims Team Led as SME/TL' },
-                { val: '90%', sub: 'US Commercial Payers Covered' },
-              ].map((stat) => (
-                <div
-                  key={stat.val}
-                  className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition"
-                >
-                  <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
-                    {stat.val}
-                  </div>
-                  <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                    {stat.sub}
-                  </div>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+                  Since 2014
                 </div>
-              ))}
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  12+ Yrs BPO Industry Tenure
+                </div>
+              </SpotlightCard>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+                  <AnimatedMetric target={7} suffix="+ Yrs" />
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  US Healthcare Provider Side
+                </div>
+              </SpotlightCard>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+                  <AnimatedMetric target={10} suffix=" Experts" />
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  Claims Team Led as SME/TL
+                </div>
+              </SpotlightCard>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+                  <AnimatedMetric target={90} suffix="%" />
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  US Commercial Payers Covered
+                </div>
+              </SpotlightCard>
             </div>
           </div>
 
-          {/* Right Column: Interactive 3D Swinging Lanyard ID Card */}
-<div className="lg:col-span-5 flex flex-col items-center">
-  <div
-    key={badgeDropKey}
-    onClick={() => setBadgeDropKey((prev) => prev + 1)}
-    onMouseEnter={() => setBadgeHovered(true)}
-    onMouseLeave={() => {
-      setBadgeHovered(false);
-      setBadgeTilt({ x: 0, y: 0 });
-    }}
-    title="Click badge to replay lanyard drop"
-    className="animate-lanyard-drop flex flex-col items-center w-full cursor-pointer"
-  >
-    {/* Lanyard Strap */}
-    <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#D4AF37]/40 border-x border-[#D4AF37]/40 rounded-t-sm flex items-center justify-center">
-      <span className="text-[8px] font-mono tracking-widest text-[#F5D061] -rotate-90 whitespace-nowrap">
-        RCM • SME
-      </span>
-    </div>
-    {/* Metal Clip */}
-    <div className="w-10 h-3 rounded-sm bg-zinc-700 border border-zinc-500 shadow-md -mt-0.5 z-10" />
-
-    {/* 3D Tilt Credential Card */}
-    <div
-      onMouseMove={handleBadgeMove}
-      style={{
-        transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
-        transition: 'transform 180ms ease-out',
-      }}
-      className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#D4AF37]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
-    >
-              {/* Top Gold Strip */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
-                <span>ID // PH-RCM-2014</span>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
-                  <CheckCircle2 className="w-3 h-3" /> VERIFIED
+          {/* Right Column: Interactive 3D Swinging & Dropping Lanyard ID Card */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <div
+              key={badgeDropKey}
+              onClick={() => setBadgeDropKey((prev) => prev + 1)}
+              onMouseEnter={() => setBadgeHovered(true)}
+              onMouseLeave={() => {
+                setBadgeHovered(false);
+                setBadgeTilt({ x: 0, y: 0 });
+              }}
+              title="Click badge to replay lanyard drop"
+              className="animate-lanyard-drop flex flex-col items-center w-full cursor-pointer"
+            >
+              {/* Lanyard Strap */}
+              <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#D4AF37]/40 border-x border-[#D4AF37]/40 rounded-t-sm flex items-center justify-center">
+                <span className="text-[8px] font-mono tracking-widest text-[#F5D061] -rotate-90 whitespace-nowrap">
+                  RCM • SME
                 </span>
               </div>
+              {/* Metal Clip */}
+              <div className="w-10 h-3 rounded-sm bg-zinc-700 border border-zinc-500 shadow-md -mt-0.5 z-10" />
 
-              {/* Corporate Headshot Frame */}
-              <div className="mt-4 relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 aspect-[4/4.3]">
-                <img
-                  src="/Confident Corporate Headshot.png"
-                  alt="Jayson Abrio - Healthcare RCM Operations Specialist & Medical VA"
-                  className="w-full h-full object-cover object-top"
-                />
-                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0B0B0E] to-transparent" />
-              </div>
-
-              {/* Identity & Credentials */}
-              <div className="mt-4">
-                <h2 className="text-xl font-bold text-white">Jayson Abrio</h2>
-                <p className="text-xs font-medium text-[#F5D061] mt-0.5">
-                  RCM SME • Claims Team Leader • Medical VA
-                </p>
-
-                <div className="grid grid-cols-2 gap-2.5 mt-4 pt-3 border-t border-zinc-800/90 text-[11px]">
-                  <div>
-                    <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
-                      Track Record
-                    </div>
-                    <div className="font-semibold text-zinc-200 mt-0.5">
-                      2014 BPO • 7Y HC
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
-                      Leadership
-                    </div>
-                    <div className="font-semibold text-zinc-200 mt-0.5">
-                      10 Claims Experts
-                    </div>
-                  </div>
+              {/* 3D Tilt Credential Card */}
+              <div
+                onMouseMove={handleBadgeMove}
+                style={{
+                  transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
+                  transition: 'transform 180ms ease-out',
+                }}
+                className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#D4AF37]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
+              >
+                {/* Top Gold Strip */}
+                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
+                  <span>ID // PH-RCM-2014</span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                    <CheckCircle2 className="w-3 h-3" /> VERIFIED
+                  </span>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-zinc-800/90 flex items-center justify-between text-[10px] font-mono text-zinc-500">
-                  <span>HIPAA • BAA • NDA</span>
-                  <span className="tracking-[0.25em] text-[#D4AF37]">
-                    || ||| | |||| ||
-                  </span>
+                {/* Corporate Headshot Frame */}
+                <div className="mt-4 relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 aspect-[4/4.3]">
+                  <img
+                    src="/Confident Corporate Headshot.png"
+                    alt="Jayson Abrio - Healthcare RCM Operations Specialist & Medical VA"
+                    className="w-full h-full object-cover object-top"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0B0B0E] to-transparent" />
+                </div>
+
+                {/* Identity & Credentials */}
+                <div className="mt-4">
+                  <h2 className="text-xl font-bold text-white">Jayson Abrio</h2>
+                  <p className="text-xs font-medium text-[#F5D061] mt-0.5">
+                    RCM SME • Claims Team Leader • Medical VA
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-2.5 mt-4 pt-3 border-t border-zinc-800/90 text-[11px]">
+                    <div>
+                      <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
+                        Track Record
+                      </div>
+                      <div className="font-semibold text-zinc-200 mt-0.5">
+                        2014 BPO • 7Y HC
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
+                        Leadership
+                      </div>
+                      <div className="font-semibold text-zinc-200 mt-0.5">
+                        10 Claims Experts
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-zinc-800/90 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+                    <span>HIPAA • BAA • NDA</span>
+                    <span className="tracking-[0.25em] text-[#D4AF37]">
+                      || ||| | |||| ||
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <p className="text-[11px] text-zinc-500 mt-3 text-center">
-            Hover to tilt in 3D • Click badge to drop
+              Hover to tilt in 3D • Click badge to drop
             </p>
           </div>
         </div>
-        </div>
       </section>
+
+      {/* MICRO-INTERACTION 3: SEAMLESS PAYER & PORTAL MARQUEE TICKER */}
+      <div className="relative border-y border-zinc-900 bg-[#08080A] py-3.5 overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#050505] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#050505] to-transparent z-10" />
+        <div className="animate-marquee flex items-center gap-8">
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
+            <div
+              key={`${item}-${index}`}
+              className="flex items-center gap-8 shrink-0"
+            >
+              <span className="text-xs font-mono tracking-widest text-zinc-400 hover:text-[#F5D061] transition">
+                {item}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60" />
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* SECTION 1: 5 HEALTHCARE PROVIDER LINES OF BUSINESS */}
       <section
         id="lobs"
-        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+        className="py-20 border-b border-zinc-900 bg-[#08080A]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
@@ -825,9 +958,9 @@ useEffect(() => {
               })}
             </div>
 
-            {/* Right Elaborated LOB Panel */}
+            {/* Right Elaborated LOB Panel with Spotlight Glow */}
             <div className="lg:col-span-7">
-              <div className="h-full rounded-2xl bg-[#101014] border border-zinc-800 p-6 sm:p-8 flex flex-col justify-between">
+              <SpotlightCard className="h-full rounded-2xl bg-[#101014] border border-zinc-800 p-6 sm:p-8">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-zinc-800">
                     <span className="text-xs font-mono text-[#D4AF37]">
@@ -882,14 +1015,14 @@ useEffect(() => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
           </div>
         </div>
       </section>
 
-      {/* NEW SECTION: QUANTIFIED RCM OPERATIONAL WINS & CASE STUDIES */}
-      <section id="results" className="py-20 border-t border-zinc-900">
+      {/* QUANTIFIED RCM OPERATIONAL WINS & CASE STUDIES (COUNT-UP + SPOTLIGHT) */}
+      <section id="results" className="py-20 border-b border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="max-w-3xl">
@@ -910,7 +1043,7 @@ useEffect(() => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
             {CASE_STUDIES.map((cs, idx) => (
               <Reveal key={cs.title} delay={idx * 70}>
-                <div className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/50 transition flex flex-col justify-between">
+                <SpotlightCard className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/50 transition">
                   <div>
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[10px] font-mono text-zinc-400">
@@ -919,7 +1052,12 @@ useEffect(() => {
                       <TrendingUp className="w-4 h-4 text-[#D4AF37]" />
                     </div>
                     <div className="text-3xl sm:text-4xl font-bold text-[#F5D061] mt-4">
-                      {cs.metric}
+                      <AnimatedMetric
+                        target={cs.target}
+                        prefix={cs.prefix}
+                        suffix={cs.suffix}
+                        decimals={cs.decimals}
+                      />
                     </div>
                     <h3 className="text-base font-bold text-white mt-2">
                       {cs.title}
@@ -931,17 +1069,17 @@ useEffect(() => {
                       {cs.detail}
                     </p>
                   </div>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* NEW SECTION: EHR/PM SYSTEMS, CODING & HIPAA COMPLIANCE MATRIX */}
+      {/* EHR/PM SYSTEMS, CODING & HIPAA COMPLIANCE MATRIX */}
       <section
         id="systems"
-        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+        className="py-20 border-b border-zinc-900 bg-[#08080A]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
@@ -963,32 +1101,36 @@ useEffect(() => {
           <div className="grid lg:grid-cols-3 gap-6 mt-10">
             {SYSTEMS_MATRIX.map((group, idx) => (
               <Reveal key={group.category} delay={idx * 80}>
-                <div className="h-full rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6">
-                  <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
-                    {idx === 0 ? (
-                      <Cpu className="w-4 h-4 text-[#F5D061]" />
-                    ) : idx === 1 ? (
-                      <FileSpreadsheet className="w-4 h-4 text-[#F5D061]" />
-                    ) : (
-                      <Lock className="w-4 h-4 text-[#F5D061]" />
-                    )}
-                  </div>
-                  <h3 className="text-lg font-bold text-white">
-                    {group.category}
-                  </h3>
-                  <p className="text-xs text-zinc-400 mt-1">{group.subtitle}</p>
+                <SpotlightCard className="h-full rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/40 transition p-6">
+                  <div>
+                    <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
+                      {idx === 0 ? (
+                        <Cpu className="w-4 h-4 text-[#F5D061]" />
+                      ) : idx === 1 ? (
+                        <FileSpreadsheet className="w-4 h-4 text-[#F5D061]" />
+                      ) : (
+                        <Lock className="w-4 h-4 text-[#F5D061]" />
+                      )}
+                    </div>
+                    <h3 className="text-lg font-bold text-white">
+                      {group.category}
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1">
+                      {group.subtitle}
+                    </p>
 
-                  <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-zinc-800/80">
-                    {group.items.map((item) => (
-                      <span
-                        key={item}
-                        className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-200 hover:border-[#D4AF37]/40 transition"
-                      >
-                        {item}
-                      </span>
-                    ))}
+                    <div className="flex flex-wrap gap-2 mt-5 pt-4 border-t border-zinc-800/80">
+                      {group.items.map((item) => (
+                        <span
+                          key={item}
+                          className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-200 hover:border-[#D4AF37]/40 transition"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
@@ -996,7 +1138,7 @@ useEffect(() => {
       </section>
 
       {/* SECTION 2: 2014–PRESENT STORY & FALLING PHYSICS SKILL PILLS */}
-      <section id="story" className="py-20 border-t border-zinc-900">
+      <section id="story" className="py-20 border-b border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-start">
           {/* Left: Career Progression Timeline */}
           <div className="lg:col-span-6 space-y-6">
@@ -1083,71 +1225,76 @@ useEffect(() => {
 
           {/* Right: Interactive Skill Stack Box */}
           <div className="lg:col-span-6">
-            <div className="rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
-              <div className="flex items-center justify-between gap-2 pb-4 border-b border-zinc-800">
-                <div>
-                  <div className="text-xs font-mono text-[#D4AF37]">
-                    OPERATIONAL TOOLKIT
+            <SpotlightCard className="rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
+              <div>
+                <div className="flex items-center justify-between gap-2 pb-4 border-b border-zinc-800">
+                  <div>
+                    <div className="text-xs font-mono text-[#D4AF37]">
+                      OPERATIONAL TOOLKIT
+                    </div>
+                    <h3 className="text-lg font-bold text-white mt-0.5">
+                      All Your RCM & Medical VA Needs
+                    </h3>
                   </div>
-                  <h3 className="text-lg font-bold text-white mt-0.5">
-                    All Your RCM & Medical VA Needs
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setPhysicsKey((k) => k + 1)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] hover:text-[#F5D061] transition cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  Replay Drop
-                </button>
-              </div>
-
-              <div key={physicsKey} className="flex flex-wrap gap-2.5 pt-6">
-                {SKILL_PILLS.map((skill, idx) => (
-                  <span
-                    key={skill}
-                    style={{ animationDelay: `${idx * 55}ms` }}
-                    className={`animate-bounce-once px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium border transition hover:-translate-y-0.5 cursor-default ${
-                      idx % 3 === 0
-                        ? 'bg-[#D4AF37]/15 border-[#D4AF37]/50 text-[#F5D061]'
-                        : 'bg-zinc-900 border-zinc-700/90 text-zinc-200 hover:border-[#D4AF37]/40'
-                    }`}
+                  <button
+                    onClick={() => setPhysicsKey((k) => k + 1)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] hover:text-[#F5D061] transition cursor-pointer"
                   >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    Replay Drop
+                  </button>
+                </div>
 
-              {/* Complete Payer & Cash Posting Matrix */}
-              <div className="grid sm:grid-cols-2 gap-4 mt-8 pt-6 border-t border-zinc-800">
-                <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
-                  <div className="text-xs font-mono text-[#F5D061] mb-2">
-                    ELIGIBILITY, AUTH & CLAIMS PORTALS
-                  </div>
-                  <p className="text-xs text-zinc-300 leading-relaxed">
-                    Availity • UnitedHealthcare (UHC) • Evernorth • Blue Shield
-                    / BCBS of California • NaviNet • Multi-Payer Commercial
-                    Portals
-                  </p>
+                <div key={physicsKey} className="flex flex-wrap gap-2.5 pt-6">
+                  {SKILL_PILLS.map((skill, idx) => (
+                    <span
+                      key={skill}
+                      style={{ animationDelay: `${idx * 55}ms` }}
+                      className={`animate-bounce-once px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium border transition hover:-translate-y-0.5 cursor-default ${
+                        idx % 3 === 0
+                          ? 'bg-[#D4AF37]/15 border-[#D4AF37]/50 text-[#F5D061]'
+                          : 'bg-zinc-900 border-zinc-700/90 text-zinc-200 hover:border-[#D4AF37]/40'
+                      }`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
-                <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
-                  <div className="text-xs font-mono text-[#F5D061] mb-2">
-                    CASH POSTING, ERA & VCC PLATFORMS
+
+                {/* Complete Payer & Cash Posting Matrix */}
+                <div className="grid sm:grid-cols-2 gap-4 mt-8 pt-6 border-t border-zinc-800">
+                  <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
+                    <div className="text-xs font-mono text-[#F5D061] mb-2">
+                      ELIGIBILITY, AUTH & CLAIMS PORTALS
+                    </div>
+                    <p className="text-xs text-zinc-300 leading-relaxed">
+                      Availity • UnitedHealthcare (UHC) • Evernorth • Blue
+                      Shield / BCBS of California • NaviNet • Multi-Payer
+                      Commercial Portals
+                    </p>
                   </div>
-                  <p className="text-xs text-zinc-300 leading-relaxed">
-                    Zelis • Payspan • Optum Pay • Stripe Virtual Cards • UHC
-                    Portal • Echo Health Provider Portal • InstaMed • EDI 835 /
-                    EOB
-                  </p>
+                  <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
+                    <div className="text-xs font-mono text-[#F5D061] mb-2">
+                      CASH POSTING, ERA & VCC PLATFORMS
+                    </div>
+                    <p className="text-xs text-zinc-300 leading-relaxed">
+                      Zelis • Payspan • Optum Pay • Stripe Virtual Cards • UHC
+                      Portal • Echo Health Provider Portal • InstaMed • EDI 835
+                      / EOB
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
       </section>
 
       {/* SECTION 3: INTERACTIVE HIPAA-SAFE RCM & CASH POSTING WORKFLOW LAB */}
-      <section id="lab" className="py-20 border-t border-zinc-900 bg-[#08080A]">
+      <section
+        id="lab"
+        className="py-20 border-b border-zinc-900 bg-[#08080A]"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -1292,39 +1439,43 @@ useEffect(() => {
                   </button>
                 ))}
               </div>
-              <div className="lg:col-span-7 rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
-                <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
-                  SME RESOLUTION PLAYBOOK • {selectedDenial.code}
-                </span>
-                <h3 className="text-xl font-bold text-white mt-4">
-                  {selectedDenial.label}
-                </h3>
-                <div className="mt-5 space-y-4">
-                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                    <div className="text-xs font-mono text-zinc-400 uppercase">
-                      Root-Cause Diagnosis
+              <div className="lg:col-span-7">
+                <SpotlightCard className="rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
+                  <div>
+                    <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                      SME RESOLUTION PLAYBOOK • {selectedDenial.code}
+                    </span>
+                    <h3 className="text-xl font-bold text-white mt-4">
+                      {selectedDenial.label}
+                    </h3>
+                    <div className="mt-5 space-y-4">
+                      <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+                        <div className="text-xs font-mono text-zinc-400 uppercase">
+                          Root-Cause Diagnosis
+                        </div>
+                        <p className="text-sm text-zinc-200 mt-1 leading-relaxed">
+                          {selectedDenial.rootCause}
+                        </p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30">
+                        <div className="text-xs font-mono text-[#F5D061] uppercase">
+                          Actionable Rebilling & Appeal Protocol
+                        </div>
+                        <p className="text-sm text-white mt-1 leading-relaxed">
+                          {selectedDenial.resolution}
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-sm text-zinc-200 mt-1 leading-relaxed">
-                      {selectedDenial.rootCause}
-                    </p>
                   </div>
-                  <div className="p-4 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30">
-                    <div className="text-xs font-mono text-[#F5D061] uppercase">
-                      Actionable Rebilling & Appeal Protocol
-                    </div>
-                    <p className="text-sm text-white mt-1 leading-relaxed">
-                      {selectedDenial.resolution}
-                    </p>
-                  </div>
-                </div>
+                </SpotlightCard>
               </div>
             </div>
           )}
         </div>
       </section>
 
-      {/* NEW SECTION: FLEXIBLE VA & RCM ENGAGEMENT MODELS */}
-      <section id="services" className="py-20 border-t border-zinc-900">
+      {/* FLEXIBLE VA & RCM ENGAGEMENT MODELS WITH SPOTLIGHT CARDS */}
+      <section id="services" className="py-20 border-b border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="max-w-3xl">
@@ -1345,11 +1496,11 @@ useEffect(() => {
           <div className="grid lg:grid-cols-3 gap-6 mt-10">
             {ENGAGEMENT_MODELS.map((model, idx) => (
               <Reveal key={model.title} delay={idx * 80}>
-                <div
-                  className={`h-full rounded-2xl p-6 sm:p-7 border flex flex-col justify-between ${
+                <SpotlightCard
+                  className={`h-full rounded-2xl p-6 sm:p-7 border ${
                     idx === 0
                       ? 'bg-gradient-to-b from-[#15151A] to-[#0E0E12] border-[#D4AF37]/60 shadow-xl shadow-[#D4AF37]/10'
-                      : 'bg-[#0F0F12] border-zinc-800'
+                      : 'bg-[#0F0F12] border-zinc-800 hover:border-[#D4AF37]/40 transition'
                   }`}
                 >
                   <div>
@@ -1391,7 +1542,7 @@ useEffect(() => {
                   >
                     Inquire About This Model
                   </button>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
@@ -1401,7 +1552,7 @@ useEffect(() => {
       {/* SECTION 4: WHY HIRE AN RCM SME & TEAM LEADER VS. GENERIC VA + ENDORSEMENTS */}
       <section
         id="advantage"
-        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+        className="py-20 border-b border-zinc-900 bg-[#08080A]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl">
@@ -1483,11 +1634,11 @@ useEffect(() => {
             </div>
           </div>
 
-          {/* Leadership Endorsements Row */}
+          {/* Leadership Endorsements Row with Spotlight Cards */}
           <div className="grid md:grid-cols-3 gap-5 mt-10">
             {ENDORSEMENTS.map((item, idx) => (
               <Reveal key={item.author} delay={idx * 80}>
-                <div className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 flex flex-col justify-between">
+                <SpotlightCard className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/40 transition">
                   <div>
                     <Quote className="w-6 h-6 text-[#D4AF37]/60 mb-3" />
                     <p className="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">
@@ -1502,7 +1653,7 @@ useEffect(() => {
                       {item.role}
                     </div>
                   </div>
-                </div>
+                </SpotlightCard>
               </Reveal>
             ))}
           </div>
@@ -1510,7 +1661,7 @@ useEffect(() => {
       </section>
 
       {/* SECTION 5: DIRECT CONTACT & INQUIRY SECTION */}
-      <section id="contact" className="py-20 border-t border-zinc-900">
+      <section id="contact" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10">
           {/* Left: Direct Philippine Contact Cards */}
           <div className="lg:col-span-5 space-y-5">
