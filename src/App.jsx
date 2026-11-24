@@ -1741,7 +1741,7 @@ export default function App() {
                       ALTERNATE MOBILE (PH)
                     </div>
                     <a
-                      href="tel:+639368108854"
+                      href="tel:+639368108850"
                       className="text-sm font-semibold text-white hover:text-[#F5D061]"
                     >
                       +63 936 810 8854
@@ -1749,7 +1749,7 @@ export default function App() {
                   </div>
                 </div>
                 <button
-                  onClick={() => copyText('+639368108854', 'p2')}
+                  onClick={() => copyText('+639368108850', 'p2')}
                   className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
                 >
                   {copiedField === 'p2' ? 'Copied!' : 'Copy'}
