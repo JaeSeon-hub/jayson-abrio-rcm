@@ -430,6 +430,16 @@ export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
   const [formSent, setFormSent] = useState(false);
   const [modalSent, setModalSent] = useState(false);
+  const [badgeDropKey, setBadgeDropKey] = useState(0);
+const [badgeHovered, setBadgeHovered] = useState(false);
+
+useEffect(() => {
+  if (badgeHovered) return;
+  const interval = setInterval(() => {
+    setBadgeDropKey((prev) => prev + 1);
+  }, 40000);
+  return () => clearInterval(interval);
+}, [badgeHovered]);
 
   const roles = [
     'Healthcare RCM Subject Matter Expert (SME)',
@@ -656,26 +666,36 @@ export default function App() {
           </div>
 
           {/* Right Column: Interactive 3D Swinging Lanyard ID Card */}
-          <div className="lg:col-span-5 flex flex-col items-center">
-            {/* Lanyard Strap */}
-            <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#D4AF37]/40 border-x border-[#D4AF37]/40 rounded-t-sm flex items-center justify-center">
-              <span className="text-[8px] font-mono tracking-widest text-[#F5D061] -rotate-90 whitespace-nowrap">
-                RCM • SME
-              </span>
-            </div>
-            {/* Metal Clip */}
-            <div className="w-10 h-3 rounded-sm bg-zinc-700 border border-zinc-500 shadow-md -mt-0.5 z-10" />
+<div className="lg:col-span-5 flex flex-col items-center">
+  <div
+    key={badgeDropKey}
+    onClick={() => setBadgeDropKey((prev) => prev + 1)}
+    onMouseEnter={() => setBadgeHovered(true)}
+    onMouseLeave={() => {
+      setBadgeHovered(false);
+      setBadgeTilt({ x: 0, y: 0 });
+    }}
+    title="Click badge to replay lanyard drop"
+    className="animate-lanyard-drop flex flex-col items-center w-full cursor-pointer"
+  >
+    {/* Lanyard Strap */}
+    <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#D4AF37]/40 border-x border-[#D4AF37]/40 rounded-t-sm flex items-center justify-center">
+      <span className="text-[8px] font-mono tracking-widest text-[#F5D061] -rotate-90 whitespace-nowrap">
+        RCM • SME
+      </span>
+    </div>
+    {/* Metal Clip */}
+    <div className="w-10 h-3 rounded-sm bg-zinc-700 border border-zinc-500 shadow-md -mt-0.5 z-10" />
 
-            {/* 3D Tilt Credential Card */}
-            <div
-              onMouseMove={handleBadgeMove}
-              onMouseLeave={() => setBadgeTilt({ x: 0, y: 0 })}
-              style={{
-                transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
-                transition: 'transform 180ms ease-out',
-              }}
-              className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#D4AF37]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
-            >
+    {/* 3D Tilt Credential Card */}
+    <div
+      onMouseMove={handleBadgeMove}
+      style={{
+        transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
+        transition: 'transform 180ms ease-out',
+      }}
+      className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#D4AF37]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
+    >
               {/* Top Gold Strip */}
               <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
                 <span>ID // PH-RCM-2014</span>
@@ -730,7 +750,7 @@ export default function App() {
             </div>
 
             <p className="text-[11px] text-zinc-500 mt-3 text-center">
-              Hover badge to inspect in 3D • US Healthcare Provider Operations
+            Hover to tilt in 3D • Click badge to drop
             </p>
           </div>
         </div>

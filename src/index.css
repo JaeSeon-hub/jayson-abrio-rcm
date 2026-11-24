@@ -7,3 +7,31 @@ body,
   padding: 0;
   background-color: #050505;
 }
+@keyframes lanyardDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-220px) rotate(-6deg);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(18px) rotate(3.5deg);
+  }
+  65% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+  80% {
+    transform: translateY(5px) rotate(1deg);
+  }
+  92% {
+    transform: translateY(-2px) rotate(-0.4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-lanyard-drop {
+  transform-origin: top center;
+  animation: lanyardDrop 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
