@@ -592,13 +592,13 @@ export default function App() {
         );
 
   return (
-    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-[#D4AF37] selection:text-black font-sans">
+    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-[#2563EB] selection:text-black font-sans">
       {/* Subtle Architectural Grid Background */}
       <div
         className="fixed inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage:
-            'linear-gradient(to right, #D4AF37 1px, transparent 1px), linear-gradient(to bottom, #D4AF37 1px, transparent 1px)',
+            'linear-gradient(to right, #2563EB 1px, transparent 1px), linear-gradient(to bottom, #2563EB 1px, transparent 1px)',
           backgroundSize: '48px 48px',
         }}
       />
@@ -607,31 +607,31 @@ export default function App() {
       <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#050505]/85 border-b border-zinc-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-2.5 shrink-0">
-            <span className="w-8 h-8 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center text-xs font-bold text-[#F5D061]">
+            <span className="w-8 h-8 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/40 flex items-center justify-center text-xs font-bold text-[#60A5FA]">
               JA
             </span>
             <span className="font-semibold tracking-tight text-white">
-              jayson<span className="text-[#D4AF37]">.rcm</span>
+              jayson<span className="text-[#2563EB]">.rcm</span>
             </span>
           </a>
 
           <nav className="hidden xl:flex items-center gap-5 text-xs font-medium text-zinc-400">
-            <a href="#lobs" className="hover:text-[#F5D061] transition">
+            <a href="#lobs" className="hover:text-[#60A5FA] transition">
               5 Healthcare LOBs
             </a>
-            <a href="#results" className="hover:text-[#F5D061] transition">
+            <a href="#results" className="hover:text-[#60A5FA] transition">
               RCM Outcomes
             </a>
-            <a href="#systems" className="hover:text-[#F5D061] transition">
+            <a href="#systems" className="hover:text-[#60A5FA] transition">
               EHR & Coding
             </a>
-            <a href="#lab" className="hover:text-[#F5D061] transition">
+            <a href="#lab" className="hover:text-[#60A5FA] transition">
               Workflow Lab
             </a>
-            <a href="#services" className="hover:text-[#F5D061] transition">
+            <a href="#services" className="hover:text-[#60A5FA] transition">
               VA Engagement
             </a>
-            <a href="#contact" className="hover:text-[#F5D061] transition">
+            <a href="#contact" className="hover:text-[#60A5FA] transition">
               Contact
             </a>
           </nav>
@@ -639,9 +639,9 @@ export default function App() {
           <div className="flex items-center gap-2.5">
             <button
               onClick={() => setResumeOpen(true)}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-medium text-zinc-200 hover:border-[#D4AF37] hover:text-[#F5D061] transition cursor-pointer"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-medium text-zinc-200 hover:border-[#2563EB] hover:text-[#60A5FA] transition cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <FileText className="w-3.5 h-3.5 text-[#2563EB]" />
               Resume (PDF)
             </button>
             <button
@@ -649,7 +649,7 @@ export default function App() {
                 setModalSent(false);
                 setBookingOpen(true);
               }}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-xs hover:brightness-110 transition shadow-lg shadow-[#D4AF37]/15 cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-xs hover:brightness-110 transition shadow-lg shadow-[#2563EB]/15 cursor-pointer"
             >
               Book Discovery Call
             </button>
@@ -663,35 +663,35 @@ export default function App() {
           {/* Left Editorial Column */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-[11px] font-mono tracking-wider text-zinc-300">
-              <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
               90% US COMMERCIAL PAYERS • HIPAA & BAA READY • US EST / PST SHIFT
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.08] text-white">
-              Healthcare <span className="text-[#F5D061]">RCM</span>
+              Healthcare <span className="text-[#60A5FA]">RCM</span>
               <br />
               Operations Specialist &
               <br />
               Medical VA
             </h1>
 
-            <div className="h-7 flex items-center font-mono text-sm sm:text-base text-[#D4AF37]">
+            <div className="h-7 flex items-center font-mono text-sm sm:text-base text-[#2563EB]">
               <span className="mr-2 text-zinc-500">&gt;</span>
               <span>{typedText}</span>
-              <span className="ml-0.5 w-0.5 h-5 bg-[#F5D061] animate-pulse" />
+              <span className="ml-0.5 w-0.5 h-5 bg-[#60A5FA] animate-pulse" />
             </div>
 
             <p className="text-zinc-300 text-base sm:text-lg leading-relaxed max-w-2xl">
               I’m <strong className="text-white">Jayson Abrio</strong>—a
               seasoned BPO professional since{' '}
-              <strong className="text-[#F5D061]">2014</strong> with{' '}
-              <strong className="text-[#F5D061]">7+ solid years</strong> on the
+              <strong className="text-[#60A5FA]">2014</strong> with{' '}
+              <strong className="text-[#60A5FA]">7+ solid years</strong> on the
               US Healthcare Provider side. Having served as an{' '}
               <strong className="text-white">
                 RCM Subject Matter Expert (SME) & Team Leader
               </strong>{' '}
               managing{' '}
-              <strong className="text-[#F5D061]">10 Claims specialists</strong>,
+              <strong className="text-[#60A5FA]">10 Claims specialists</strong>,
               I deliver end-to-end ownership across Claims, Eligibility, Prior
               Authorizations, EOB/ERA/EDI 835 Cash Posting, and Multi-Payer
               Virtual Card Posting on Stripe.
@@ -714,7 +714,7 @@ export default function App() {
               ].map((portal) => (
                 <span
                   key={portal}
-                  className="px-2.5 py-1 rounded-md bg-[#0F0F12] border border-zinc-800 text-xs font-mono text-zinc-300 hover:border-[#D4AF37]/50 hover:text-[#F5D061] transition"
+                  className="px-2.5 py-1 rounded-md bg-[#0F0F12] border border-zinc-800 text-xs font-mono text-zinc-300 hover:border-[#2563EB]/50 hover:text-[#60A5FA] transition"
                 >
                   {portal}
                 </span>
@@ -728,7 +728,7 @@ export default function App() {
                   setModalSent(false);
                   setBookingOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-sm hover:brightness-110 transition shadow-xl shadow-[#D4AF37]/20 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/20 cursor-pointer"
               >
                 <Calendar className="w-4 h-4" />
                 Book a Free 15-Min Discovery Call
@@ -736,7 +736,7 @@ export default function App() {
               </button>
               <button
                 onClick={() => setResumeOpen(true)}
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 border border-[#D4AF37]/40 text-[#F5D061] font-medium text-sm hover:bg-[#D4AF37]/10 transition cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 border border-[#2563EB]/40 text-[#60A5FA] font-medium text-sm hover:bg-[#2563EB]/10 transition cursor-pointer"
               >
                 <Download className="w-4 h-4" />
                 View / Save Resume (PDF)
@@ -745,32 +745,32 @@ export default function App() {
 
             {/* 4 Executive KPI Cards with Count-Up Animation */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
                   Since 2014
                 </div>
                 <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
                   12+ Yrs BPO Industry Tenure
                 </div>
               </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
                   <AnimatedMetric target={7} suffix="+ Yrs" />
                 </div>
                 <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
                   US Healthcare Provider Side
                 </div>
               </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
                   <AnimatedMetric target={10} suffix=" Experts" />
                 </div>
                 <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
                   Claims Team Led as SME/TL
                 </div>
               </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
                   <AnimatedMetric target={90} suffix="%" />
                 </div>
                 <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
@@ -794,8 +794,8 @@ export default function App() {
               className="animate-lanyard-drop flex flex-col items-center w-full cursor-pointer"
             >
               {/* Lanyard Strap */}
-              <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#D4AF37]/40 border-x border-[#D4AF37]/40 rounded-t-sm flex items-center justify-center">
-                <span className="text-[8px] font-mono tracking-widest text-[#F5D061] -rotate-90 whitespace-nowrap">
+              <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#2563EB]/40 border-x border-[#2563EB]/40 rounded-t-sm flex items-center justify-center">
+                <span className="text-[8px] font-mono tracking-widest text-[#60A5FA] -rotate-90 whitespace-nowrap">
                   RCM • SME
                 </span>
               </div>
@@ -809,12 +809,12 @@ export default function App() {
                   transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
                   transition: 'transform 180ms ease-out',
                 }}
-                className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#D4AF37]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
+                className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#2563EB]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
               >
                 {/* Top Gold Strip */}
                 <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
                   <span>ID // PH-RCM-2014</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30">
                     <CheckCircle2 className="w-3 h-3" /> VERIFIED
                   </span>
                 </div>
@@ -832,7 +832,7 @@ export default function App() {
                 {/* Identity & Credentials */}
                 <div className="mt-4">
                   <h2 className="text-xl font-bold text-white">Jayson Abrio</h2>
-                  <p className="text-xs font-medium text-[#F5D061] mt-0.5">
+                  <p className="text-xs font-medium text-[#60A5FA] mt-0.5">
                     RCM SME • Claims Team Leader • Medical VA
                   </p>
 
@@ -857,7 +857,7 @@ export default function App() {
 
                   <div className="mt-4 pt-3 border-t border-zinc-800/90 flex items-center justify-between text-[10px] font-mono text-zinc-500">
                     <span>HIPAA • BAA • NDA</span>
-                    <span className="tracking-[0.25em] text-[#D4AF37]">
+                    <span className="tracking-[0.25em] text-[#2563EB]">
                       || ||| | |||| ||
                     </span>
                   </div>
@@ -882,10 +882,10 @@ export default function App() {
               key={`${item}-${index}`}
               className="flex items-center gap-8 shrink-0"
             >
-              <span className="text-xs font-mono tracking-widest text-zinc-400 hover:text-[#F5D061] transition">
+              <span className="text-xs font-mono tracking-widest text-zinc-400 hover:text-[#60A5FA] transition">
                 {item}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]/60" />
             </div>
           ))}
         </div>
@@ -899,7 +899,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="max-w-3xl">
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
                 7+ Years Healthcare Provider Expertise
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -924,7 +924,7 @@ export default function App() {
                     onClick={() => setActiveLob(lob)}
                     className={`w-full text-left p-4 rounded-xl border transition cursor-pointer flex items-center justify-between gap-3 ${
                       isSelected
-                        ? 'bg-[#141418] border-[#D4AF37] shadow-lg shadow-[#D4AF37]/10'
+                        ? 'bg-[#141418] border-[#2563EB] shadow-lg shadow-[#2563EB]/10'
                         : 'bg-[#0E0E11] border-zinc-800/90 hover:border-zinc-700'
                     }`}
                   >
@@ -933,13 +933,13 @@ export default function App() {
                         <span
                           className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                             isSelected
-                              ? 'bg-[#D4AF37] text-black font-bold'
+                              ? 'bg-[#2563EB] text-black font-bold'
                               : 'bg-zinc-800 text-zinc-400'
                           }`}
                         >
                           {lob.code}
                         </span>
-                        <span className="text-[11px] font-mono text-[#F5D061]">
+                        <span className="text-[11px] font-mono text-[#60A5FA]">
                           {lob.metric}
                         </span>
                       </div>
@@ -950,7 +950,7 @@ export default function App() {
                     <ChevronRight
                       className={`w-4 h-4 shrink-0 transition ${
                         isSelected
-                          ? 'text-[#F5D061] translate-x-0.5'
+                          ? 'text-[#60A5FA] translate-x-0.5'
                           : 'text-zinc-600'
                       }`}
                     />
@@ -964,10 +964,10 @@ export default function App() {
               <SpotlightCard className="h-full rounded-2xl bg-[#101014] border border-zinc-800 p-6 sm:p-8">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-zinc-800">
-                    <span className="text-xs font-mono text-[#D4AF37]">
+                    <span className="text-xs font-mono text-[#2563EB]">
                       {activeLob.code} // PROVIDER OPERATIONS
                     </span>
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30">
                       {activeLob.metric}
                     </span>
                   </div>
@@ -993,7 +993,7 @@ export default function App() {
                           key={idx}
                           className="flex items-start gap-2.5 text-sm text-zinc-200"
                         >
-                          <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -1009,7 +1009,7 @@ export default function App() {
                     {activeLob.portals.map((p) => (
                       <span
                         key={p}
-                        className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-mono text-[#F5D061]"
+                        className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-mono text-[#60A5FA]"
                       >
                         {p}
                       </span>
@@ -1027,7 +1027,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="max-w-3xl">
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
                 Proven Revenue Impact
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -1044,15 +1044,15 @@ export default function App() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
             {CASE_STUDIES.map((cs, idx) => (
               <Reveal key={cs.title} delay={idx * 70}>
-                <SpotlightCard className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/50 transition">
+                <SpotlightCard className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#2563EB]/50 transition">
                   <div>
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[10px] font-mono text-zinc-400">
                         {cs.tag}
                       </span>
-                      <TrendingUp className="w-4 h-4 text-[#D4AF37]" />
+                      <TrendingUp className="w-4 h-4 text-[#2563EB]" />
                     </div>
-                    <div className="text-3xl sm:text-4xl font-bold text-[#F5D061] mt-4">
+                    <div className="text-3xl sm:text-4xl font-bold text-[#60A5FA] mt-4">
                       <AnimatedMetric
                         target={cs.target}
                         prefix={cs.prefix}
@@ -1085,7 +1085,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="max-w-3xl">
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
                 Clinical & Billing Infrastructure
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -1102,15 +1102,15 @@ export default function App() {
           <div className="grid lg:grid-cols-3 gap-6 mt-10">
             {SYSTEMS_MATRIX.map((group, idx) => (
               <Reveal key={group.category} delay={idx * 80}>
-                <SpotlightCard className="h-full rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/40 transition p-6">
+                <SpotlightCard className="h-full rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#2563EB]/40 transition p-6">
                   <div>
-                    <div className="w-9 h-9 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
+                    <div className="w-9 h-9 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center mb-4">
                       {idx === 0 ? (
-                        <Cpu className="w-4 h-4 text-[#F5D061]" />
+                        <Cpu className="w-4 h-4 text-[#60A5FA]" />
                       ) : idx === 1 ? (
-                        <FileSpreadsheet className="w-4 h-4 text-[#F5D061]" />
+                        <FileSpreadsheet className="w-4 h-4 text-[#60A5FA]" />
                       ) : (
-                        <Lock className="w-4 h-4 text-[#F5D061]" />
+                        <Lock className="w-4 h-4 text-[#60A5FA]" />
                       )}
                     </div>
                     <h3 className="text-lg font-bold text-white">
@@ -1124,7 +1124,7 @@ export default function App() {
                       {group.items.map((item) => (
                         <span
                           key={item}
-                          className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-200 hover:border-[#D4AF37]/40 transition"
+                          className="px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-200 hover:border-[#2563EB]/40 transition"
                         >
                           {item}
                         </span>
@@ -1144,7 +1144,7 @@ export default function App() {
           {/* Left: Career Progression Timeline */}
           <div className="lg:col-span-6 space-y-6">
             <Reveal>
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
                 Background & Leadership Pedigree
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -1155,24 +1155,24 @@ export default function App() {
                 <strong className="text-white">2014</strong> across diverse
                 enterprise accounts built my communication discipline, SLA
                 accountability, and process precision. Over the past{' '}
-                <strong className="text-[#F5D061]">7+ years</strong>, I
+                <strong className="text-[#60A5FA]">7+ years</strong>, I
                 specialized exclusively on the{' '}
                 <strong className="text-white">
                   US Healthcare Provider side
                 </strong>
                 —rising from front-line specialist to{' '}
-                <strong className="text-[#F5D061]">
+                <strong className="text-[#60A5FA]">
                   RCM Subject Matter Expert (SME) & Claims Team Leader
                 </strong>
                 .
               </p>
             </Reveal>
 
-            <div className="space-y-4 pt-2 border-l-2 border-[#D4AF37]/40 pl-6 ml-2">
+            <div className="space-y-4 pt-2 border-l-2 border-[#2563EB]/40 pl-6 ml-2">
               <Reveal delay={80}>
                 <div className="relative">
-                  <span className="w-3 h-3 rounded-full bg-[#F5D061] ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
-                  <div className="text-xs font-mono text-[#F5D061]">
+                  <span className="w-3 h-3 rounded-full bg-[#60A5FA] ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
+                  <div className="text-xs font-mono text-[#60A5FA]">
                     LEADERSHIP • RCM SME & CLAIMS TEAM LEADER
                   </div>
                   <h3 className="text-lg font-bold text-white mt-0.5">
@@ -1189,8 +1189,8 @@ export default function App() {
 
               <Reveal delay={160}>
                 <div className="relative">
-                  <span className="w-3 h-3 rounded-full bg-[#D4AF37] ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
-                  <div className="text-xs font-mono text-[#D4AF37]">
+                  <span className="w-3 h-3 rounded-full bg-[#2563EB] ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
+                  <div className="text-xs font-mono text-[#2563EB]">
                     7+ YEARS • US HEALTHCARE PROVIDER OPERATIONS
                   </div>
                   <h3 className="text-lg font-bold text-white mt-0.5">
@@ -1230,7 +1230,7 @@ export default function App() {
               <div>
                 <div className="flex items-center justify-between gap-2 pb-4 border-b border-zinc-800">
                   <div>
-                    <div className="text-xs font-mono text-[#D4AF37]">
+                    <div className="text-xs font-mono text-[#2563EB]">
                       OPERATIONAL TOOLKIT
                     </div>
                     <h3 className="text-lg font-bold text-white mt-0.5">
@@ -1239,7 +1239,7 @@ export default function App() {
                   </div>
                   <button
                     onClick={() => setPhysicsKey((k) => k + 1)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] hover:text-[#F5D061] transition cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#2563EB] hover:text-[#60A5FA] transition cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     Replay Drop
@@ -1253,8 +1253,8 @@ export default function App() {
                       style={{ animationDelay: `${idx * 55}ms` }}
                       className={`animate-bounce-once px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium border transition hover:-translate-y-0.5 cursor-default ${
                         idx % 3 === 0
-                          ? 'bg-[#D4AF37]/15 border-[#D4AF37]/50 text-[#F5D061]'
-                          : 'bg-zinc-900 border-zinc-700/90 text-zinc-200 hover:border-[#D4AF37]/40'
+                          ? 'bg-[#2563EB]/15 border-[#2563EB]/50 text-[#60A5FA]'
+                          : 'bg-zinc-900 border-zinc-700/90 text-zinc-200 hover:border-[#2563EB]/40'
                       }`}
                     >
                       {skill}
@@ -1265,7 +1265,7 @@ export default function App() {
                 {/* Complete Payer & Cash Posting Matrix */}
                 <div className="grid sm:grid-cols-2 gap-4 mt-8 pt-6 border-t border-zinc-800">
                   <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
-                    <div className="text-xs font-mono text-[#F5D061] mb-2">
+                    <div className="text-xs font-mono text-[#60A5FA] mb-2">
                       ELIGIBILITY, AUTH & CLAIMS PORTALS
                     </div>
                     <p className="text-xs text-zinc-300 leading-relaxed">
@@ -1275,7 +1275,7 @@ export default function App() {
                     </p>
                   </div>
                   <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
-                    <div className="text-xs font-mono text-[#F5D061] mb-2">
+                    <div className="text-xs font-mono text-[#60A5FA] mb-2">
                       CASH POSTING, ERA & VCC PLATFORMS
                     </div>
                     <p className="text-xs text-zinc-300 leading-relaxed">
@@ -1299,7 +1299,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
                 Interactive Proof of Expertise (100% De-Identified Data)
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -1313,7 +1313,7 @@ export default function App() {
                 onClick={() => setLabTab('remittance')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
                   labTab === 'remittance'
-                    ? 'bg-[#D4AF37] text-black'
+                    ? 'bg-[#2563EB] text-black'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -1323,7 +1323,7 @@ export default function App() {
                 onClick={() => setLabTab('denials')}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
                   labTab === 'denials'
-                    ? 'bg-[#D4AF37] text-black'
+                    ? 'bg-[#2563EB] text-black'
                     : 'text-zinc-400 hover:text-white'
                 }`}
               >
@@ -1347,7 +1347,7 @@ export default function App() {
                       onClick={() => setRemitFilter(tab.id)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
                         remitFilter === tab.id
-                          ? 'bg-[#D4AF37]/20 text-[#F5D061] border border-[#D4AF37]/50'
+                          ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/50'
                           : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-zinc-200'
                       }`}
                     >
@@ -1381,7 +1381,7 @@ export default function App() {
                         key={row.id}
                         className="hover:bg-zinc-900/50 transition"
                       >
-                        <td className="py-3.5 px-4 font-mono text-[#F5D061] font-semibold">
+                        <td className="py-3.5 px-4 font-mono text-[#60A5FA] font-semibold">
                           {row.id}
                         </td>
                         <td className="py-3.5 px-4 text-zinc-200 font-medium">
@@ -1427,11 +1427,11 @@ export default function App() {
                     onClick={() => setSelectedDenial(item)}
                     className={`w-full text-left p-4 rounded-xl border transition cursor-pointer ${
                       selectedDenial.code === item.code
-                        ? 'bg-[#141418] border-[#D4AF37]'
+                        ? 'bg-[#141418] border-[#2563EB]'
                         : 'bg-[#0F0F12] border-zinc-800 hover:border-zinc-700'
                     }`}
                   >
-                    <div className="font-mono text-sm font-bold text-[#F5D061]">
+                    <div className="font-mono text-sm font-bold text-[#60A5FA]">
                       {item.code}
                     </div>
                     <div className="text-sm text-white font-medium mt-0.5">
@@ -1443,7 +1443,7 @@ export default function App() {
               <div className="lg:col-span-7">
                 <SpotlightCard className="rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
                   <div>
-                    <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30">
                       SME RESOLUTION PLAYBOOK • {selectedDenial.code}
                     </span>
                     <h3 className="text-xl font-bold text-white mt-4">
@@ -1458,8 +1458,8 @@ export default function App() {
                           {selectedDenial.rootCause}
                         </p>
                       </div>
-                      <div className="p-4 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30">
-                        <div className="text-xs font-mono text-[#F5D061] uppercase">
+                      <div className="p-4 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/30">
+                        <div className="text-xs font-mono text-[#60A5FA] uppercase">
                           Actionable Rebilling & Appeal Protocol
                         </div>
                         <p className="text-sm text-white mt-1 leading-relaxed">
@@ -1480,7 +1480,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <Reveal>
             <div className="max-w-3xl">
-              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
                 Partnership Options
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -1506,18 +1506,18 @@ export default function App() {
                     <SpotlightCard
                       className={`h-full rounded-2xl p-6 sm:p-7 border transition-all duration-300 ${
                         isSelected
-                          ? 'bg-gradient-to-b from-[#15151A] to-[#0E0E12] border-[#D4AF37]/70 shadow-xl shadow-[#D4AF37]/15'
-                          : 'bg-[#0F0F12] border-zinc-800 hover:border-[#D4AF37]/40'
+                          ? 'bg-gradient-to-b from-[#15151A] to-[#0E0E12] border-[#2563EB]/70 shadow-xl shadow-[#2563EB]/15'
+                          : 'bg-[#0F0F12] border-zinc-800 hover:border-[#2563EB]/40'
                       }`}
                     >
                       <div>
-                        <span className="inline-block px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                        <span className="inline-block px-2.5 py-1 rounded text-[10px] font-mono font-bold bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30">
                           {model.badge}
                         </span>
                         <h3 className="text-xl font-bold text-white mt-4">
                           {model.title}
                         </h3>
-                        <div className="text-xs font-mono text-[#D4AF37] mt-1.5">
+                        <div className="text-xs font-mono text-[#2563EB] mt-1.5">
                           {model.schedule}
                         </div>
                         <p className="text-sm text-zinc-300 leading-relaxed mt-4">
@@ -1529,7 +1529,7 @@ export default function App() {
                               key={h}
                               className="flex items-start gap-2 text-xs text-zinc-200"
                             >
-                              <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                              <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
                               <span>{h}</span>
                             </li>
                           ))}
@@ -1545,8 +1545,8 @@ export default function App() {
                         }}
                         className={`mt-7 w-full py-3 rounded-xl text-xs font-semibold transition cursor-pointer ${
                           isSelected
-                            ? 'bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black hover:brightness-110'
-                            : 'bg-zinc-900 border border-zinc-700 text-white hover:bg-gradient-to-r hover:from-[#D4AF37] hover:to-[#F5D061] hover:text-black hover:border-transparent'
+                            ? 'bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black hover:brightness-110'
+                            : 'bg-zinc-900 border border-zinc-700 text-white hover:bg-gradient-to-r hover:from-[#2563EB] hover:to-[#60A5FA] hover:text-black hover:border-transparent'
                         }`}
                       >
                         Inquire About This Model
@@ -1567,7 +1567,7 @@ export default function App() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl">
-            <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+            <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
               The SME Difference
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
@@ -1583,7 +1583,7 @@ export default function App() {
                     <th className="py-4 px-5 text-zinc-400">
                       Operational Area
                     </th>
-                    <th className="py-4 px-5 text-[#F5D061]">
+                    <th className="py-4 px-5 text-[#60A5FA]">
                       Jayson Abrio (7+ Yrs RCM SME & TL)
                     </th>
                     <th className="py-4 px-5 text-zinc-500">
@@ -1649,9 +1649,9 @@ export default function App() {
           <div className="grid md:grid-cols-3 gap-5 mt-10">
             {ENDORSEMENTS.map((item, idx) => (
               <Reveal key={item.author} delay={idx * 80}>
-                <SpotlightCard className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#D4AF37]/40 transition">
+                <SpotlightCard className="h-full p-6 rounded-2xl bg-[#0F0F12] border border-zinc-800 hover:border-[#2563EB]/40 transition">
                   <div>
-                    <Quote className="w-6 h-6 text-[#D4AF37]/60 mb-3" />
+                    <Quote className="w-6 h-6 text-[#2563EB]/60 mb-3" />
                     <p className="text-xs sm:text-sm text-zinc-300 italic leading-relaxed">
                       “{item.quote}”
                     </p>
@@ -1660,7 +1660,7 @@ export default function App() {
                     <div className="text-xs font-bold text-white">
                       {item.author}
                     </div>
-                    <div className="text-[11px] font-mono text-[#F5D061]">
+                    <div className="text-[11px] font-mono text-[#60A5FA]">
                       {item.role}
                     </div>
                   </div>
@@ -1676,7 +1676,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10">
           {/* Left: Direct Philippine Contact Cards */}
           <div className="lg:col-span-5 space-y-5">
-            <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+            <div className="text-xs font-mono uppercase tracking-widest text-[#2563EB]">
               Direct Contact
             </div>
             <h2 className="text-3xl font-bold text-white">
@@ -1692,8 +1692,8 @@ export default function App() {
               {/* Email Card */}
               <div className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4 text-[#F5D061]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-[#60A5FA]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[11px] font-mono text-zinc-500">
@@ -1701,7 +1701,7 @@ export default function App() {
                     </div>
                     <a
                       href="mailto:abrjayso114114@gmail.com"
-                      className="text-sm font-semibold text-white hover:text-[#F5D061] truncate block"
+                      className="text-sm font-semibold text-white hover:text-[#60A5FA] truncate block"
                     >
                       abrjayso114114@gmail.com
                     </a>
@@ -1709,7 +1709,7 @@ export default function App() {
                 </div>
                 <button
                   onClick={() => copyText('abrjayso114114@gmail.com', 'email')}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#2563EB] transition shrink-0 cursor-pointer"
                 >
                   {copiedField === 'email' ? 'Copied!' : 'Copy'}
                 </button>
@@ -1718,8 +1718,8 @@ export default function App() {
               {/* PH Mobile 1 */}
               <div className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4 text-[#F5D061]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#60A5FA]" />
                   </div>
                   <div>
                     <div className="text-[11px] font-mono text-zinc-500">
@@ -1727,7 +1727,7 @@ export default function App() {
                     </div>
                     <a
                       href="tel:+639926844654"
-                      className="text-sm font-semibold text-white hover:text-[#F5D061]"
+                      className="text-sm font-semibold text-white hover:text-[#60A5FA]"
                     >
                       +63 992 684 4654
                     </a>
@@ -1735,7 +1735,7 @@ export default function App() {
                 </div>
                 <button
                   onClick={() => copyText('+639926844654', 'p1')}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#2563EB] transition shrink-0 cursor-pointer"
                 >
                   {copiedField === 'p1' ? 'Copied!' : 'Copy'}
                 </button>
@@ -1744,8 +1744,8 @@ export default function App() {
               {/* PH Mobile 2 */}
               <div className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4 text-[#F5D061]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/30 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#60A5FA]" />
                   </div>
                   <div>
                     <div className="text-[11px] font-mono text-zinc-500">
@@ -1753,7 +1753,7 @@ export default function App() {
                     </div>
                     <a
                       href="tel:+639368108850"
-                      className="text-sm font-semibold text-white hover:text-[#F5D061]"
+                      className="text-sm font-semibold text-white hover:text-[#60A5FA]"
                     >
                       +63 936 810 8850
                     </a>
@@ -1761,7 +1761,7 @@ export default function App() {
                 </div>
                 <button
                   onClick={() => copyText('+639368108850', 'p2')}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#2563EB] transition shrink-0 cursor-pointer"
                 >
                   {copiedField === 'p2' ? 'Copied!' : 'Copy'}
                 </button>
@@ -1791,7 +1791,7 @@ export default function App() {
                   </p>
                   <button
                     onClick={() => setFormSent(false)}
-                    className="mt-2 px-4 py-1.5 rounded-lg bg-zinc-900 text-xs text-[#F5D061] border border-zinc-700 cursor-pointer"
+                    className="mt-2 px-4 py-1.5 rounded-lg bg-zinc-900 text-xs text-[#60A5FA] border border-zinc-700 cursor-pointer"
                   >
                     Send Another Note
                   </button>
@@ -1830,7 +1830,7 @@ export default function App() {
                         name="name"
                         required
                         placeholder="Dr. Sarah Jenkins / Practice Manager"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                       />
                     </div>
                     <div>
@@ -1841,7 +1841,7 @@ export default function App() {
                         name="clinic"
                         required
                         placeholder="Apex Behavioral Health / RCM Group"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                       />
                     </div>
                   </div>
@@ -1856,7 +1856,7 @@ export default function App() {
                         type="email"
                         required
                         placeholder="sarah@clinicname.com"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                       />
                     </div>
                     <div>
@@ -1865,7 +1865,7 @@ export default function App() {
                       </label>
                       <select
                         name="focus"
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                       >
                         <option>Claims Management & Denial Appeals</option>
                         <option>Cash Posting (EOB / ERA / EDI 835)</option>
@@ -1884,13 +1884,13 @@ export default function App() {
                       name="message"
                       rows={3}
                       placeholder="Share your EHR/PM platform, daily volume, or preferred US shift hours..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-sm hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-sm hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
                     Send Inquiry to Jayson Abrio
@@ -1918,10 +1918,10 @@ export default function App() {
       {/* EXECUTIVE RESUME / CV PREVIEW & PDF PRINT MODAL */}
       {resumeOpen && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="w-full max-w-3xl rounded-2xl bg-[#111115] border border-[#D4AF37]/50 p-6 sm:p-8 relative shadow-2xl my-8">
+          <div className="w-full max-w-3xl rounded-2xl bg-[#111115] border border-[#2563EB]/50 p-6 sm:p-8 relative shadow-2xl my-8">
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-800">
               <div>
-                <div className="text-[11px] font-mono text-[#D4AF37]">
+                <div className="text-[11px] font-mono text-[#2563EB]">
                   EXECUTIVE CURRICULUM VITAE
                 </div>
                 <h3 className="text-xl font-bold text-white">
@@ -1932,7 +1932,7 @@ export default function App() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => window.print()}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-xs hover:brightness-110 transition cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-xs hover:brightness-110 transition cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   Save as PDF / Print
@@ -1956,7 +1956,7 @@ export default function App() {
               </div>
 
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#F5D061] mb-1.5">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#60A5FA] mb-1.5">
                   Executive Summary
                 </h4>
                 <p className="leading-relaxed">
@@ -1973,7 +1973,7 @@ export default function App() {
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <div className="text-xs font-mono text-[#F5D061] mb-2">
+                  <div className="text-xs font-mono text-[#60A5FA] mb-2">
                     CORE RCM & VA COMPETENCIES
                   </div>
                   <ul className="space-y-1 text-xs">
@@ -1985,7 +1985,7 @@ export default function App() {
                   </ul>
                 </div>
                 <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
-                  <div className="text-xs font-mono text-[#F5D061] mb-2">
+                  <div className="text-xs font-mono text-[#60A5FA] mb-2">
                     PAYER PORTALS & CLEARINGHOUSES
                   </div>
                   <ul className="space-y-1 text-xs">
@@ -1999,7 +1999,7 @@ export default function App() {
               </div>
 
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-wider text-[#F5D061] mb-2">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-[#60A5FA] mb-2">
                   Experience Highlights
                 </h4>
                 <div className="space-y-3">
@@ -2035,7 +2035,7 @@ export default function App() {
       {/* DISCOVERY CALL MODAL */}
       {bookingOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md rounded-2xl bg-[#111115] border border-[#D4AF37]/40 p-6 relative shadow-2xl">
+          <div className="w-full max-w-md rounded-2xl bg-[#111115] border border-[#2563EB]/40 p-6 relative shadow-2xl">
             <button
               onClick={() => setBookingOpen(false)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white cursor-pointer"
@@ -2043,7 +2043,7 @@ export default function App() {
               <X className="w-4 h-4" />
             </button>
 
-            <div className="text-xs font-mono text-[#D4AF37]">
+            <div className="text-xs font-mono text-[#2563EB]">
               FREE 15-MIN OPERATIONS CONSULTATION
             </div>
             <h3 className="text-xl font-bold text-white mt-1">
@@ -2091,17 +2091,17 @@ export default function App() {
                   name="name"
                   required
                   placeholder="Your Name"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                 />
                 <input
                   name="clinic"
                   required
                   placeholder="Clinic or Billing Agency Name"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                 />
                 <select
                   name="tz"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option>US Eastern Time (EST)</option>
                   <option>US Central Time (CST)</option>
@@ -2110,7 +2110,7 @@ export default function App() {
                 </select>
                 <select
                   name="need"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option>Claims & Denial Management</option>
                   <option>
@@ -2121,7 +2121,7 @@ export default function App() {
                 </select>
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-sm hover:brightness-110 transition cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-black font-semibold text-sm hover:brightness-110 transition cursor-pointer"
                 >
                   Confirm Discovery Call Request
                 </button>
