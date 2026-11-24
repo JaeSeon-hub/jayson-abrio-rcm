@@ -533,7 +533,7 @@ export default function App() {
               {/* Corporate Headshot Frame */}
               <div className="mt-4 relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 aspect-[4/4.3]">
                 <img
-                  src="/jayson-headshot.jpg"
+                  src="/Confident Corporate Headshot.png"
                   alt="Jayson Abrio - Healthcare RCM Operations Specialist & Medical VA"
                   className="w-full h-full object-cover object-top"
                 />
