@@ -610,7 +610,7 @@ export default function App() {
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(
       startUtc
     )}/${fmt(endUtc)}&location=${location}&details=${details}&add=abrjayso114114@gmail.com`;
-
+  };
   const roles = [
     'Healthcare RCM Subject Matter Expert (SME)',
     'Claims Team Leader (10-Specialist Team)',
