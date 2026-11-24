@@ -575,6 +575,7 @@ export default function App() {
   const [badgeHovered, setBadgeHovered] = useState(false);
 
   const buildGoogleCalendarUrl = () => {
+    const ZOOM_LINK = 'https://us05web.zoom.us/j/8101118172?pwd=lnTgoopeOIbHaG2jryWdOGwRHOmcZP.1';
     const chosenDay =
       availableDates.find((d) => d.iso === selectedDate) || availableDates[0];
     const [timePart, meridiem] = selectedTime.split(' ');
@@ -596,18 +597,19 @@ export default function App() {
     const title = encodeURIComponent(
       `15-Min RCM Discovery Call: ${bookingName || 'Client'} x Jayson Abrio`
     );
+    const location = encodeURIComponent(ZOOM_LINK);
     const details = encodeURIComponent(
-      `Client: ${bookingName || 'N/A'}\nClinic / Agency: ${
-        bookingCompany || 'N/A'
-      }\nFocus Area: ${bookingTopic}\nScheduled Slot: ${
-        chosenDay.fullLabel
-      } at ${selectedTime} ${bookingTz}`
+      `Join Zoom Meeting: ${ZOOM_LINK}\n` +
+        `Meeting ID: 810 111 8172\n\n` +
+        `Client: ${bookingName || 'N/A'}\n` +
+        `Clinic / Agency: ${bookingCompany || 'N/A'}\n` +
+        `Focus Area: ${bookingTopic}\n` +
+        `Scheduled Slot: ${chosenDay.fullLabel} at ${selectedTime} ${bookingTz}`
     );
 
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(
       startUtc
-    )}/${fmt(endUtc)}&details=${details}&add=abrjayso114114@gmail.com`;
-  };
+    )}/${fmt(endUtc)}&location=${location}&details=${details}&add=abrjayso114114@gmail.com`;
 
   const roles = [
     'Healthcare RCM Subject Matter Expert (SME)',
