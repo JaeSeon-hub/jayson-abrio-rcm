@@ -1,0 +1,1475 @@
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  ShieldCheck,
+  CheckCircle2,
+  Clock,
+  FileCheck2,
+  CreditCard,
+  Layers,
+  Award,
+  Users,
+  ArrowRight,
+  Calendar,
+  Mail,
+  Phone,
+  Copy,
+  Check,
+  Sparkles,
+  Building2,
+  Stethoscope,
+  Activity,
+  FileSpreadsheet,
+  Lock,
+  ExternalLink,
+  RotateCcw,
+  Send,
+  Star,
+  ChevronRight,
+  Briefcase,
+  Search,
+  AlertCircle,
+  X,
+} from 'lucide-react';
+
+// --- SCROLL REVEAL WRAPPER ---
+const Reveal = ({ children, delay = 0, className = '' }) => {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-700 ease-out ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-7'
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+};
+
+// --- DATA: 5 HEALTHCARE PROVIDER LINES OF BUSINESS ---
+const HEALTHCARE_LOBS = [
+  {
+    id: 'claims',
+    code: 'LOB 01',
+    title: 'Claims Management & Denial Resolution',
+    tagline:
+      'End-to-end clean claim lifecycle, CARC/RARC root-cause audits & appeals',
+    metric: '99.2% Clean Claim Rate',
+    summary:
+      'Extensive provider-side expertise managing high-volume medical claims across 90% of US commercial payers. Experienced leading a team of 10 Claims specialists as SME & Team Leader—resolving complex rejections, corrected claims, timely filing disputes, and medical necessity appeals.',
+    deliverables: [
+      'Scrubbing CMS-1500 & UB-04 claims for CPT, ICD-10, modifier, and POS accuracy prior to clearinghouse submission',
+      'Root-cause analysis & appeal packet assembly for CO-16, CO-197, CO-29, CO-50, and PR-1/2/3 adjustments',
+      'AR aging follow-up (30/60/90/120+ days) via payer portals and provider rep escalations',
+      'Daily QA audits, coaching calibrations, and SOP playbooks built from Team Leader & SME experience',
+    ],
+    portals: ['Availity', 'UHC Provider', 'Evernorth', 'BCBS of CA', 'NaviNet'],
+  },
+  {
+    id: 'eligibility',
+    code: 'LOB 02',
+    title: 'Insurance Eligibility & Benefits Verification',
+    tagline:
+      'Real-time coverage checks, deductible/OOP breakdown & COB validation',
+    metric: '100% Pre-Visit Verification',
+    summary:
+      'Preventing front-end claim denials before the patient ever steps into the clinic or joins a telehealth session. Deep familiarity verifying active commercial plans, behavioral health carve-outs, and coordination of benefits.',
+    deliverables: [
+      'Same-day & 72-hour advance verification of active policy status, effective dates, and plan exclusions',
+      'Accurate calculation of remaining deductibles, copays, coinsurance %, and out-of-pocket maximums',
+      'In-network vs. out-of-network benefit checks and secondary payer Coordination of Benefits (COB)',
+      'Clear EHR financial notes so front-desk teams collect accurate patient responsibility upfront',
+    ],
+    portals: ['Availity', 'UHC Provider', 'Evernorth', 'BCBS of CA', 'NaviNet'],
+  },
+  {
+    id: 'auth',
+    code: 'LOB 03',
+    title: 'Prior Authorizations & Referrals',
+    tagline:
+      'Timely clinical auth submissions, status tracking & renewal alerts',
+    metric: '48-Hr Avg Auth Turnaround',
+    summary:
+      'Zero missed revenue from unapproved visits or expired authorization windows. Managing initial prior auth requests, clinical documentation uploads, peer-to-peer scheduling, and unit-exhaustion tracking.',
+    deliverables: [
+      'Determining CPT-specific prior authorization & referral requirements across US commercial plans',
+      'Submitting clinical notes, treatment plans, and medical necessity forms via payer portals',
+      'Proactive tracking of approved visit units and expiration dates to trigger timely re-authorizations',
+      'Immediate escalation of pended or denied auth requests to prevent treatment interruption',
+    ],
+    portals: ['Availity', 'Evernorth', 'UHC Provider', 'BCBS of CA', 'NaviNet'],
+  },
+  {
+    id: 'cashposting',
+    code: 'LOB 04',
+    title: 'Cash Posting (EOB / ERA / EDI 835)',
+    tagline:
+      'Zero-variance remittance reconciliation across clearinghouses & payer portals',
+    metric: '$0.00 Daily Variance',
+    summary:
+      'Precision payment posting across automated EDI 835 files, electronic remittance advice (ERA), and manual paper/PDF EOBs—ensuring contractual adjustments, takebacks, and patient balances are balanced to the penny.',
+    deliverables: [
+      'Downloading, parsing, and posting EDI 835 / ERA files and line-item manual EOBs into Practice Management systems',
+      'Validating contracted fee schedules, CO-45 contractual write-offs, recoupments, and sequestration adjustments',
+      'Matching EFT bank deposits against remittance batch totals for daily end-of-day reconciliation',
+      'Flagging underpayments and zero-pay lines immediately into the denial recovery queue',
+    ],
+    portals: [
+      'Zelis',
+      'Payspan',
+      'Optum Pay',
+      'UHC Portal',
+      'Echo Health',
+      'InstaMed',
+    ],
+  },
+  {
+    id: 'vcc',
+    code: 'LOB 05',
+    title: 'Virtual Card (VCC) & Stripe Payment Posting',
+    tagline:
+      'Multi-payer single-use virtual card processing & merchant batch settlement',
+    metric: 'Same-Day VCC Settlement',
+    summary:
+      'Specialized hands-on experience processing single-use Virtual Credit Cards (VCC) issued by multiple US health insurers through Stripe, reconciling merchant payouts with EOB line items without batch discrepancies.',
+    deliverables: [
+      'Retrieving single-use payer virtual card credentials from EOBs, fax remittances, and payer portals',
+      'Processing multi-payer virtual card payments accurately via Stripe terminal/dashboard',
+      'Cross-matching Stripe payout batches against patient-level EOBs across UHC, Optum, Aetna, Cigna, and BCBS plans',
+      'Maintaining clean audit trails for merchant fees, split payments, and multi-claim remittances',
+    ],
+    portals: [
+      'Stripe VCC',
+      'Optum Pay',
+      'Zelis',
+      'Echo Health',
+      'InstaMed',
+      'Payspan',
+    ],
+  },
+];
+
+// --- DATA: INTERACTIVE SIMULATOR ROWS ---
+const REMITTANCE_BATCHES = [
+  {
+    id: 'REM-835-904',
+    channel: 'EDI 835 / ERA',
+    payer: 'UnitedHealthcare / Optum Pay',
+    trace: 'EFT-9948201',
+    billed: '$4,850.00',
+    allowed: '$3,920.00',
+    paid: '$3,640.00',
+    adj: 'CO-45 ($930.00) | PR-2 ($280.00)',
+    variance: '$0.00',
+    status: 'Reconciled & Posted',
+  },
+  {
+    id: 'VCC-STR-418',
+    channel: 'Virtual Card (Stripe)',
+    payer: 'Aetna Commercial (Zelis VCC)',
+    trace: 'ch_3Q9xR2StripeVCC',
+    billed: '$2,160.00',
+    allowed: '$1,840.00',
+    paid: '$1,840.00',
+    adj: 'CO-45 ($320.00) | PR-1 ($0.00)',
+    variance: '$0.00',
+    status: 'Settled on Stripe',
+  },
+  {
+    id: 'VCC-STR-422',
+    channel: 'Virtual Card (Stripe)',
+    payer: 'Evernorth / Cigna (Echo VCC)',
+    trace: 'ch_3Q9yM8StripeVCC',
+    billed: '$3,400.00',
+    allowed: '$2,890.00',
+    paid: '$2,650.00',
+    adj: 'CO-45 ($510.00) | PR-3 ($240.00)',
+    variance: '$0.00',
+    status: 'Settled on Stripe',
+  },
+  {
+    id: 'EOB-MAN-119',
+    channel: 'Manual EOB',
+    payer: 'BCBS of California (Payspan)',
+    trace: 'CHK-0084192',
+    billed: '$1,950.00',
+    allowed: '$1,620.00',
+    paid: '$1,620.00',
+    adj: 'CO-45 ($330.00) | Deductible Met',
+    variance: '$0.00',
+    status: 'Reconciled & Posted',
+  },
+];
+
+const DENIAL_CODES = [
+  {
+    code: 'CO-197',
+    label: 'Precertification / Authorization Absent',
+    rootCause:
+      'Service billed without active prior authorization number on file or visit exceeded approved unit count.',
+    resolution:
+      'Audit payer portal (Availity/Evernorth/UHC) for retro-auth eligibility, attach approved auth reference in Box 23, or submit clinical medical necessity reconsideration within payer window.',
+  },
+  {
+    code: 'CO-16',
+    label: 'Claim Lacks Information / Submission Error',
+    rootCause:
+      'Missing rendering NPI, invalid modifier pairing, or mismatched subscriber group ID.',
+    resolution:
+      'Cross-verify eligibility snapshot against CMS-1500 fields, append corrected modifier/NPI, and transmit corrected claim (Frequency Code 7) electronically.',
+  },
+  {
+    code: 'CO-29',
+    label: 'Time Limit for Filing Has Expired',
+    rootCause:
+      'Payer rejected claim past timely filing threshold despite prior clearinghouse transmission.',
+    resolution:
+      'Pull initial clearinghouse 277CA acceptance timestamp as proof of timely submission and file formal timely-filing appeal via payer dispute portal.',
+  },
+  {
+    code: 'PR-1 / PR-2',
+    label: 'Deductible / Coinsurance Allocation Audit',
+    rootCause:
+      'Payer applied remaining balance to patient deductible/coinsurance; requires verification against secondary plan.',
+    resolution:
+      'Validate benefits accumulation on payer portal; if secondary coverage exists, generate secondary claim with primary EOB/835 attached, else release accurate patient statement.',
+  },
+];
+
+const SKILL_PILLS = [
+  'Claims Scrubbing & Appeals',
+  'EDI 835 / ERA Auto-Posting',
+  'Stripe Virtual Card Posting',
+  'Prior Authorizations',
+  'Real-Time Eligibility (270/271)',
+  'SME & Team Leadership (10 Staff)',
+  'Availity & NaviNet',
+  'Zelis • Payspan • Optum Pay',
+  'UHC • Evernorth • BCBS CA',
+  'Echo Health & InstaMed',
+  'AR Aging Recovery',
+  'HIPAA-Compliant SOPs',
+];
+
+export default function App() {
+  const [activeLob, setActiveLob] = useState(HEALTHCARE_LOBS[0]);
+  const [labTab, setLabTab] = useState('remittance');
+  const [remitFilter, setRemitFilter] = useState('ALL');
+  const [selectedDenial, setSelectedDenial] = useState(DENIAL_CODES[0]);
+  const [typedText, setTypedText] = useState('');
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [badgeTilt, setBadgeTilt] = useState({ x: 0, y: 0 });
+  const [physicsKey, setPhysicsKey] = useState(0);
+  const [copiedField, setCopiedField] = useState('');
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [formSent, setFormSent] = useState(false);
+  const [modalSent, setModalSent] = useState(false);
+
+  const roles = [
+    'Healthcare RCM Subject Matter Expert (SME)',
+    'Claims Team Leader (10-Specialist Team)',
+    'Cash Posting, EDI 835 & Stripe VCC Specialist',
+    'Medical Virtual Assistant (90% US Commercial Payers)',
+  ];
+
+  // Typewriter Effect
+  useEffect(() => {
+    const current = roles[roleIndex];
+    const speed = isDeleting ? 28 : 52;
+    const timer = setTimeout(() => {
+      if (!isDeleting && typedText === current) {
+        setTimeout(() => setIsDeleting(true), 1800);
+      } else if (isDeleting && typedText === '') {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+      } else {
+        setTypedText(
+          isDeleting
+            ? current.substring(0, typedText.length - 1)
+            : current.substring(0, typedText.length + 1)
+        );
+      }
+    }, speed);
+    return () => clearTimeout(timer);
+  }, [typedText, isDeleting, roleIndex]);
+
+  // 3D Lanyard Tilt Handler
+  const handleBadgeMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -18;
+    setBadgeTilt({ x, y });
+  };
+
+  const copyText = (value, key) => {
+    navigator.clipboard.writeText(value);
+    setCopiedField(key);
+    setTimeout(() => setCopiedField(''), 2000);
+  };
+
+  const filteredBatches =
+    remitFilter === 'ALL'
+      ? REMITTANCE_BATCHES
+      : REMITTANCE_BATCHES.filter((b) =>
+          b.channel.toLowerCase().includes(remitFilter.toLowerCase())
+        );
+
+  return (
+    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-[#D4AF37] selection:text-black font-sans">
+      {/* Subtle Architectural Grid Background */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, #D4AF37 1px, transparent 1px), linear-gradient(to bottom, #D4AF37 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+
+      {/* TOP NAVIGATION */}
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#050505]/85 border-b border-zinc-800/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+          <a href="#" className="flex items-center gap-2.5 shrink-0">
+            <span className="w-8 h-8 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center text-xs font-bold text-[#F5D061]">
+              JA
+            </span>
+            <span className="font-semibold tracking-tight text-white">
+              jayson<span className="text-[#D4AF37]">.rcm</span>
+            </span>
+          </a>
+
+          <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-zinc-400">
+            <a href="#lobs" className="hover:text-[#F5D061] transition">
+              5 Healthcare LOBs
+            </a>
+            <a href="#story" className="hover:text-[#F5D061] transition">
+              2014–Present Story
+            </a>
+            <a href="#lab" className="hover:text-[#F5D061] transition">
+              RCM Lab & Portals
+            </a>
+            <a href="#advantage" className="hover:text-[#F5D061] transition">
+              SME Advantage
+            </a>
+            <a href="#contact" className="hover:text-[#F5D061] transition">
+              Contact
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-zinc-900 border border-[#D4AF37]/30 text-[#F5D061]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+              HIPAA & BAA Ready
+            </span>
+            <button
+              onClick={() => {
+                setModalSent(false);
+                setBookingOpen(true);
+              }}
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-xs hover:brightness-110 transition shadow-lg shadow-[#D4AF37]/15 cursor-pointer"
+            >
+              Book Discovery Call
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* HERO SECTION WITH 3D LANYARD BADGE */}
+      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left Editorial Column */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-[11px] font-mono tracking-wider text-zinc-300">
+              <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
+              90% US COMMERCIAL PAYERS • HIPAA & BAA READY • US EST / PST SHIFT
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.08] text-white">
+              Healthcare <span className="text-[#F5D061]">RCM</span>
+              <br />
+              Operations Specialist &
+              <br />
+              Medical VA
+            </h1>
+
+            <div className="h-7 flex items-center font-mono text-sm sm:text-base text-[#D4AF37]">
+              <span className="mr-2 text-zinc-500">&gt;</span>
+              <span>{typedText}</span>
+              <span className="ml-0.5 w-0.5 h-5 bg-[#F5D061] animate-pulse" />
+            </div>
+
+            <p className="text-zinc-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+              I’m <strong className="text-white">Jayson Abrio</strong>—a
+              seasoned BPO professional since{' '}
+              <strong className="text-[#F5D061]">2014</strong> with{' '}
+              <strong className="text-[#F5D061]">7+ solid years</strong> on the
+              US Healthcare Provider side. Having served as an{' '}
+              <strong className="text-white">
+                RCM Subject Matter Expert (SME) & Team Leader
+              </strong>{' '}
+              managing{' '}
+              <strong className="text-[#F5D061]">10 Claims specialists</strong>,
+              I deliver end-to-end ownership across Claims, Eligibility, Prior
+              Authorizations, EOB/ERA/EDI 835 Cash Posting, and Multi-Payer
+              Virtual Card Posting on Stripe.
+            </p>
+
+            {/* Payer & Remittance Portal Pills */}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                'Availity',
+                'UHC',
+                'Evernorth',
+                'BCBS of CA',
+                'NaviNet',
+                'Zelis',
+                'Payspan',
+                'Optum Pay',
+                'Stripe VCC',
+                'Echo Health',
+                'InstaMed',
+              ].map((portal) => (
+                <span
+                  key={portal}
+                  className="px-2.5 py-1 rounded-md bg-[#0F0F12] border border-zinc-800 text-xs font-mono text-zinc-300 hover:border-[#D4AF37]/50 hover:text-[#F5D061] transition"
+                >
+                  {portal}
+                </span>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                onClick={() => {
+                  setModalSent(false);
+                  setBookingOpen(true);
+                }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-sm hover:brightness-110 transition shadow-xl shadow-[#D4AF37]/20 cursor-pointer"
+              >
+                <Calendar className="w-4 h-4" />
+                Book a Free 15-Min Discovery Call
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <a
+                href="#lobs"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 font-medium text-sm hover:border-[#D4AF37]/50 hover:text-white transition"
+              >
+                <Layers className="w-4 h-4 text-[#D4AF37]" />
+                Explore All 5 Healthcare LOBs
+              </a>
+            </div>
+
+            {/* 4 Executive KPI Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
+              {[
+                { val: 'Since 2014', sub: '12+ Yrs BPO Industry Tenure' },
+                { val: '7+ Yrs', sub: 'US Healthcare Provider Side' },
+                { val: '10 Experts', sub: 'Claims Team Led as SME/TL' },
+                { val: '90%', sub: 'US Commercial Payers Covered' },
+              ].map((stat) => (
+                <div
+                  key={stat.val}
+                  className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#D4AF37]/40 transition"
+                >
+                  <div className="text-xl sm:text-2xl font-bold text-[#F5D061]">
+                    {stat.val}
+                  </div>
+                  <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                    {stat.sub}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Interactive 3D Swinging Lanyard ID Card */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            {/* Lanyard Strap */}
+            <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#D4AF37]/40 border-x border-[#D4AF37]/40 rounded-t-sm flex items-center justify-center">
+              <span className="text-[8px] font-mono tracking-widest text-[#F5D061] -rotate-90 whitespace-nowrap">
+                RCM • SME
+              </span>
+            </div>
+            {/* Metal Clip */}
+            <div className="w-10 h-3 rounded-sm bg-zinc-700 border border-zinc-500 shadow-md -mt-0.5 z-10" />
+
+            {/* 3D Tilt Credential Card */}
+            <div
+              onMouseMove={handleBadgeMove}
+              onMouseLeave={() => setBadgeTilt({ x: 0, y: 0 })}
+              style={{
+                transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
+                transition: 'transform 180ms ease-out',
+              }}
+              className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#D4AF37]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
+            >
+              {/* Top Gold Strip */}
+              <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
+                <span>ID // PH-RCM-2014</span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                  <CheckCircle2 className="w-3 h-3" /> VERIFIED
+                </span>
+              </div>
+
+              {/* Corporate Headshot Frame */}
+              <div className="mt-4 relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 aspect-[4/4.3]">
+                <img
+                  src="/jayson-headshot.jpg"
+                  alt="Jayson Abrio - Healthcare RCM Operations Specialist & Medical VA"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0B0B0E] to-transparent" />
+              </div>
+
+              {/* Identity & Credentials */}
+              <div className="mt-4">
+                <h2 className="text-xl font-bold text-white">Jayson Abrio</h2>
+                <p className="text-xs font-medium text-[#F5D061] mt-0.5">
+                  RCM SME • Claims Team Leader • Medical VA
+                </p>
+
+                <div className="grid grid-cols-2 gap-2.5 mt-4 pt-3 border-t border-zinc-800/90 text-[11px]">
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
+                      Track Record
+                    </div>
+                    <div className="font-semibold text-zinc-200 mt-0.5">
+                      2014 BPO • 7Y HC
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
+                      Leadership
+                    </div>
+                    <div className="font-semibold text-zinc-200 mt-0.5">
+                      10 Claims Experts
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-zinc-800/90 flex items-center justify-between text-[10px] font-mono text-zinc-500">
+                  <span>HIPAA • BAA • NDA</span>
+                  <span className="tracking-[0.25em] text-[#D4AF37]">
+                    || ||| | |||| ||
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-zinc-500 mt-3 text-center">
+              Hover badge to inspect in 3D • US Healthcare Provider Operations
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 1: 5 HEALTHCARE PROVIDER LINES OF BUSINESS */}
+      <section
+        id="lobs"
+        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <Reveal>
+            <div className="max-w-3xl">
+              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+                7+ Years Healthcare Provider Expertise
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+                Full-Cycle Revenue Cycle & Medical VA Capabilities
+              </h2>
+              <p className="text-zinc-400 mt-3 text-sm sm:text-base">
+                Hands-on operational mastery across 90% of US commercial
+                insurance payers—select any Line of Business below to inspect
+                deliverables and payer portal workflows.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid lg:grid-cols-12 gap-6 mt-10">
+            {/* Left Selector Buttons */}
+            <div className="lg:col-span-5 space-y-2.5">
+              {HEALTHCARE_LOBS.map((lob) => {
+                const isSelected = activeLob.id === lob.id;
+                return (
+                  <button
+                    key={lob.id}
+                    onClick={() => setActiveLob(lob)}
+                    className={`w-full text-left p-4 rounded-xl border transition cursor-pointer flex items-center justify-between gap-3 ${
+                      isSelected
+                        ? 'bg-[#141418] border-[#D4AF37] shadow-lg shadow-[#D4AF37]/10'
+                        : 'bg-[#0E0E11] border-zinc-800/90 hover:border-zinc-700'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-[10px] font-mono px-2 py-0.5 rounded ${
+                            isSelected
+                              ? 'bg-[#D4AF37] text-black font-bold'
+                              : 'bg-zinc-800 text-zinc-400'
+                          }`}
+                        >
+                          {lob.code}
+                        </span>
+                        <span className="text-[11px] font-mono text-[#F5D061]">
+                          {lob.metric}
+                        </span>
+                      </div>
+                      <div className="font-semibold text-white text-sm sm:text-base mt-1.5">
+                        {lob.title}
+                      </div>
+                    </div>
+                    <ChevronRight
+                      className={`w-4 h-4 shrink-0 transition ${
+                        isSelected
+                          ? 'text-[#F5D061] translate-x-0.5'
+                          : 'text-zinc-600'
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right Elaborated LOB Panel */}
+            <div className="lg:col-span-7">
+              <div className="h-full rounded-2xl bg-[#101014] border border-zinc-800 p-6 sm:p-8 flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-zinc-800">
+                    <span className="text-xs font-mono text-[#D4AF37]">
+                      {activeLob.code} // PROVIDER OPERATIONS
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                      {activeLob.metric}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-white mt-5">
+                    {activeLob.title}
+                  </h3>
+                  <p className="text-xs font-mono text-zinc-400 mt-1">
+                    {activeLob.tagline}
+                  </p>
+
+                  <p className="text-zinc-300 text-sm sm:text-base leading-relaxed mt-4">
+                    {activeLob.summary}
+                  </p>
+
+                  <div className="mt-6">
+                    <div className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-3">
+                      Key Operational Deliverables
+                    </div>
+                    <ul className="space-y-2.5">
+                      {activeLob.deliverables.map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-2.5 text-sm text-zinc-200"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-zinc-800/90 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[11px] font-mono text-zinc-500 mr-1">
+                      Primary Portals:
+                    </span>
+                    {activeLob.portals.map((p) => (
+                      <span
+                        key={p}
+                        className="px-2.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-mono text-[#F5D061]"
+                      >
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 2: 2014–PRESENT STORY & FALLING PHYSICS SKILL PILLS */}
+      <section id="story" className="py-20 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-start">
+          {/* Left: Career Progression Timeline */}
+          <div className="lg:col-span-6 space-y-6">
+            <Reveal>
+              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+                Background & Leadership Pedigree
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+                12+ Years in BPO. 7+ Years Dedicated to US Healthcare RCM.
+              </h2>
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed mt-3">
+                Starting my BPO career in{' '}
+                <strong className="text-white">2014</strong> across diverse
+                enterprise accounts built my communication discipline, SLA
+                accountability, and process precision. Over the past{' '}
+                <strong className="text-[#F5D061]">7+ years</strong>, I
+                specialized exclusively on the{' '}
+                <strong className="text-white">
+                  US Healthcare Provider side
+                </strong>
+                —rising from front-line specialist to{' '}
+                <strong className="text-[#F5D061]">
+                  RCM Subject Matter Expert (SME) & Claims Team Leader
+                </strong>
+                .
+              </p>
+            </Reveal>
+
+            <div className="space-y-4 pt-2 border-l-2 border-[#D4AF37]/40 pl-6 ml-2">
+              <Reveal delay={80}>
+                <div className="relative">
+                  <span className="w-3 h-3 rounded-full bg-[#F5D061] ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
+                  <div className="text-xs font-mono text-[#F5D061]">
+                    LEADERSHIP • RCM SME & CLAIMS TEAM LEADER
+                  </div>
+                  <h3 className="text-lg font-bold text-white mt-0.5">
+                    Leading 10 Claims Specialists & Escalation Management
+                  </h3>
+                  <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
+                    Supervised daily production queues, coached 10 Claims
+                    experts on complex US commercial payer rules, resolved
+                    high-dollar escalations, authored SOP playbooks, and
+                    maintained 99%+ QA accuracy.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={160}>
+                <div className="relative">
+                  <span className="w-3 h-3 rounded-full bg-[#D4AF37] ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
+                  <div className="text-xs font-mono text-[#D4AF37]">
+                    7+ YEARS • US HEALTHCARE PROVIDER OPERATIONS
+                  </div>
+                  <h3 className="text-lg font-bold text-white mt-0.5">
+                    End-to-End Revenue Cycle Mastery (90% Commercial Payers)
+                  </h3>
+                  <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
+                    Hands-on execution across Eligibility, Prior Authorizations,
+                    Claims Submission, Denial Appeals, EOB/ERA/EDI 835 Cash
+                    Posting, and Multi-Payer Virtual Card reconciliation on
+                    Stripe.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={240}>
+                <div className="relative">
+                  <span className="w-3 h-3 rounded-full bg-zinc-600 ring-4 ring-[#050505] absolute -left-[31px] top-1.5" />
+                  <div className="text-xs font-mono text-zinc-400">
+                    2014 – PRESENT • BPO INDUSTRY FOUNDATION
+                  </div>
+                  <h3 className="text-lg font-bold text-white mt-0.5">
+                    Multi-Account Operations & US Client Alignment
+                  </h3>
+                  <p className="text-sm text-zinc-400 mt-1 leading-relaxed">
+                    Over a decade of US-shift operational reliability, KPI
+                    reporting, and cross-functional teamwork supporting American
+                    clinics, billing groups, and healthcare practices.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Right: Interactive Skill Stack Box */}
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
+              <div className="flex items-center justify-between gap-2 pb-4 border-b border-zinc-800">
+                <div>
+                  <div className="text-xs font-mono text-[#D4AF37]">
+                    OPERATIONAL TOOLKIT
+                  </div>
+                  <h3 className="text-lg font-bold text-white mt-0.5">
+                    All Your RCM & Medical VA Needs
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setPhysicsKey((k) => k + 1)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] hover:text-[#F5D061] transition cursor-pointer"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Replay Drop
+                </button>
+              </div>
+
+              <div key={physicsKey} className="flex flex-wrap gap-2.5 pt-6">
+                {SKILL_PILLS.map((skill, idx) => (
+                  <span
+                    key={skill}
+                    style={{ animationDelay: `${idx * 55}ms` }}
+                    className={`animate-bounce-once px-3.5 py-2 rounded-full text-xs sm:text-sm font-medium border transition hover:-translate-y-0.5 cursor-default ${
+                      idx % 3 === 0
+                        ? 'bg-[#D4AF37]/15 border-[#D4AF37]/50 text-[#F5D061]'
+                        : 'bg-zinc-900 border-zinc-700/90 text-zinc-200 hover:border-[#D4AF37]/40'
+                    }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              {/* Complete Payer & Cash Posting Matrix */}
+              <div className="grid sm:grid-cols-2 gap-4 mt-8 pt-6 border-t border-zinc-800">
+                <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
+                  <div className="text-xs font-mono text-[#F5D061] mb-2">
+                    ELIGIBILITY, AUTH & CLAIMS PORTALS
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    Availity • UnitedHealthcare (UHC) • Evernorth • Blue Shield
+                    / BCBS of California • NaviNet • Multi-Payer Commercial
+                    Portals
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl bg-[#09090B] border border-zinc-800/80">
+                  <div className="text-xs font-mono text-[#F5D061] mb-2">
+                    CASH POSTING, ERA & VCC PLATFORMS
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    Zelis • Payspan • Optum Pay • Stripe Virtual Cards • UHC
+                    Portal • Echo Health Provider Portal • InstaMed • EDI 835 /
+                    EOB
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3: INTERACTIVE HIPAA-SAFE RCM & CASH POSTING WORKFLOW LAB */}
+      <section id="lab" className="py-20 border-t border-zinc-900 bg-[#08080A]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+                Interactive Proof of Expertise (100% De-Identified Data)
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+                Live RCM & Cash Posting Workflow Lab
+              </h2>
+            </div>
+
+            {/* Lab Mode Tabs */}
+            <div className="inline-flex p-1 rounded-xl bg-zinc-900 border border-zinc-800 self-start">
+              <button
+                onClick={() => setLabTab('remittance')}
+                className={`px-4 py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  labTab === 'remittance'
+                    ? 'bg-[#D4AF37] text-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                Cash Posting, EDI 835 & Stripe VCC
+              </button>
+              <button
+                onClick={() => setLabTab('denials')}
+                className={`px-4 py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                  labTab === 'denials'
+                    ? 'bg-[#D4AF37] text-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                CARC Denial Resolution Engine
+              </button>
+            </div>
+          </div>
+
+          {labTab === 'remittance' ? (
+            <div className="mt-8 rounded-2xl bg-[#0F0F12] border border-zinc-800 overflow-hidden">
+              <div className="p-4 sm:p-5 border-b border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  {[
+                    { id: 'ALL', label: 'All Channels (4)' },
+                    { id: 'EDI 835', label: 'EDI 835 / ERA' },
+                    { id: 'Virtual Card', label: 'Stripe Virtual Cards' },
+                    { id: 'Manual EOB', label: 'Manual EOB' },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setRemitFilter(tab.id)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer ${
+                        remitFilter === tab.id
+                          ? 'bg-[#D4AF37]/20 text-[#F5D061] border border-[#D4AF37]/50'
+                          : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-zinc-200'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Daily Batch Variance:
+                  $0.00
+                </span>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-zinc-950 text-zinc-400 font-mono uppercase border-b border-zinc-800">
+                    <tr>
+                      <th className="py-3.5 px-4">Batch ID</th>
+                      <th className="py-3.5 px-4">Channel</th>
+                      <th className="py-3.5 px-4">Payer / Portal</th>
+                      <th className="py-3.5 px-4">Billed</th>
+                      <th className="py-3.5 px-4">Paid</th>
+                      <th className="py-3.5 px-4">CARC / Adjustments</th>
+                      <th className="py-3.5 px-4">Variance</th>
+                      <th className="py-3.5 px-4">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-800/80">
+                    {filteredBatches.map((row) => (
+                      <tr
+                        key={row.id}
+                        className="hover:bg-zinc-900/50 transition"
+                      >
+                        <td className="py-3.5 px-4 font-mono text-[#F5D061] font-semibold">
+                          {row.id}
+                        </td>
+                        <td className="py-3.5 px-4 text-zinc-200 font-medium">
+                          {row.channel}
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <div className="text-white font-medium">
+                            {row.payer}
+                          </div>
+                          <div className="text-[10px] font-mono text-zinc-500">
+                            {row.trace}
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-4 font-mono text-zinc-300">
+                          {row.billed}
+                        </td>
+                        <td className="py-3.5 px-4 font-mono text-white font-semibold">
+                          {row.paid}
+                        </td>
+                        <td className="py-3.5 px-4 font-mono text-zinc-400">
+                          {row.adj}
+                        </td>
+                        <td className="py-3.5 px-4 font-mono text-emerald-400 font-semibold">
+                          {row.variance}
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <span className="px-2.5 py-1 rounded-full text-[11px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                            {row.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-8 grid lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-5 space-y-2.5">
+                {DENIAL_CODES.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => setSelectedDenial(item)}
+                    className={`w-full text-left p-4 rounded-xl border transition cursor-pointer ${
+                      selectedDenial.code === item.code
+                        ? 'bg-[#141418] border-[#D4AF37]'
+                        : 'bg-[#0F0F12] border-zinc-800 hover:border-zinc-700'
+                    }`}
+                  >
+                    <div className="font-mono text-sm font-bold text-[#F5D061]">
+                      {item.code}
+                    </div>
+                    <div className="text-sm text-white font-medium mt-0.5">
+                      {item.label}
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <div className="lg:col-span-7 rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
+                <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#D4AF37]/15 text-[#F5D061] border border-[#D4AF37]/30">
+                  SME RESOLUTION PLAYBOOK • {selectedDenial.code}
+                </span>
+                <h3 className="text-xl font-bold text-white mt-4">
+                  {selectedDenial.label}
+                </h3>
+                <div className="mt-5 space-y-4">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800">
+                    <div className="text-xs font-mono text-zinc-400 uppercase">
+                      Root-Cause Diagnosis
+                    </div>
+                    <p className="text-sm text-zinc-200 mt-1 leading-relaxed">
+                      {selectedDenial.rootCause}
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30">
+                    <div className="text-xs font-mono text-[#F5D061] uppercase">
+                      Actionable Rebilling & Appeal Protocol
+                    </div>
+                    <p className="text-sm text-white mt-1 leading-relaxed">
+                      {selectedDenial.resolution}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* SECTION 4: WHY HIRE AN RCM SME & TEAM LEADER VS. GENERIC VA */}
+      <section id="advantage" className="py-20 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl">
+            <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              The SME Difference
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mt-2">
+              Why Clinics & Billing Agencies Choose an RCM Team Leader
+            </h2>
+          </div>
+
+          <div className="mt-8 rounded-2xl bg-[#0F0F12] border border-zinc-800 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-zinc-950 border-b border-zinc-800 text-xs font-mono uppercase">
+                  <tr>
+                    <th className="py-4 px-5 text-zinc-400">
+                      Operational Area
+                    </th>
+                    <th className="py-4 px-5 text-[#F5D061]">
+                      Jayson Abrio (7+ Yrs RCM SME & TL)
+                    </th>
+                    <th className="py-4 px-5 text-zinc-500">
+                      General Administrative VA
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800/80 text-xs sm:text-sm">
+                  <tr>
+                    <td className="py-4 px-5 font-semibold text-white">
+                      US Commercial Payers
+                    </td>
+                    <td className="py-4 px-5 text-zinc-200">
+                      90% commercial payer fluency (Availity, UHC, Evernorth,
+                      BCBS CA, NaviNet)
+                    </td>
+                    <td className="py-4 px-5 text-zinc-500">
+                      Needs step-by-step training on payer rules
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-5 font-semibold text-white">
+                      Cash & Virtual Card Posting
+                    </td>
+                    <td className="py-4 px-5 text-zinc-200">
+                      EDI 835, Zelis, Payspan, Optum Pay, Echo, InstaMed &
+                      Stripe Virtual Cards
+                    </td>
+                    <td className="py-4 px-5 text-zinc-500">
+                      Unfamiliar with CARC/RARC or VCC reconciliation
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-5 font-semibold text-white">
+                      Leadership & QA Discipline
+                    </td>
+                    <td className="py-4 px-5 text-zinc-200">
+                      Proven Team Leader who managed 10 Claims experts, SOPs &
+                      daily QA audits
+                    </td>
+                    <td className="py-4 px-5 text-zinc-500">
+                      Requires heavy daily micromanagement
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 px-5 font-semibold text-white">
+                      HIPAA & PHI Governance
+                    </td>
+                    <td className="py-4 px-5 text-zinc-200">
+                      Strict zero-leak PHI handling, encrypted workflows &
+                      BAA-ready compliance
+                    </td>
+                    <td className="py-4 px-5 text-zinc-500">
+                      Basic awareness without clinical RCM rigor
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: DIRECT CONTACT & INQUIRY SECTION */}
+      <section
+        id="contact"
+        className="py-20 border-t border-zinc-900 bg-[#08080A]"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10">
+          {/* Left: Direct Philippine Contact Cards */}
+          <div className="lg:col-span-5 space-y-5">
+            <div className="text-xs font-mono uppercase tracking-widest text-[#D4AF37]">
+              Direct Contact
+            </div>
+            <h2 className="text-3xl font-bold text-white">
+              Ready to Streamline Your Revenue Cycle?
+            </h2>
+            <p className="text-sm text-zinc-400 leading-relaxed">
+              Available for full-time or dedicated part-time Medical VA & RCM
+              Specialist roles aligned with US Eastern (EST) or Pacific (PST)
+              clinic hours.
+            </p>
+
+            <div className="space-y-3 pt-2">
+              {/* Email Card */}
+              <div className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-[#F5D061]" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[11px] font-mono text-zinc-500">
+                      DIRECT EMAIL
+                    </div>
+                    <a
+                      href="mailto:abrjayso114114@gmail.com"
+                      className="text-sm font-semibold text-white hover:text-[#F5D061] truncate block"
+                    >
+                      abrjayso114114@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <button
+                  onClick={() => copyText('abrjayso114114@gmail.com', 'email')}
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
+                >
+                  {copiedField === 'email' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+
+              {/* PH Mobile 1 */}
+              <div className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#F5D061]" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-mono text-zinc-500">
+                      MOBILE / WHATSAPP / VIBER (PH)
+                    </div>
+                    <a
+                      href="tel:+639926844654"
+                      className="text-sm font-semibold text-white hover:text-[#F5D061]"
+                    >
+                      +63 992 684 4654
+                    </a>
+                  </div>
+                </div>
+                <button
+                  onClick={() => copyText('+639926844654', 'p1')}
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
+                >
+                  {copiedField === 'p1' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+
+              {/* PH Mobile 2 */}
+              <div className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#F5D061]" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-mono text-zinc-500">
+                      ALTERNATE MOBILE (PH)
+                    </div>
+                    <a
+                      href="tel:+639368108854"
+                      className="text-sm font-semibold text-white hover:text-[#F5D061]"
+                    >
+                      +63 936 810 8854
+                    </a>
+                  </div>
+                </div>
+                <button
+                  onClick={() => copyText('+639368108854', 'p2')}
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-zinc-300 hover:border-[#D4AF37] transition shrink-0 cursor-pointer"
+                >
+                  {copiedField === 'p2' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Clinic / Agency Inquiry Form */}
+          <div className="lg:col-span-7">
+            <div className="rounded-2xl bg-[#0F0F12] border border-zinc-800 p-6 sm:p-8">
+              <h3 className="text-xl font-bold text-white">
+                Send a Clinic or Billing Inquiry
+              </h3>
+              <p className="text-xs text-zinc-400 mt-1">
+                Tell me your EHR/PM system and biggest RCM bottleneck—I’ll
+                respond within 1 business day.
+              </p>
+
+              {formSent ? (
+                <div className="mt-6 p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+                  <div className="font-bold text-white">Inquiry Ready!</div>
+                  <p className="text-xs text-zinc-300">
+                    Your email draft has been opened to{' '}
+                    <strong>abrjayso114114@gmail.com</strong>, or you can
+                    message me directly at <strong>+63 992 684 4654</strong>.
+                  </p>
+                  <button
+                    onClick={() => setFormSent(false)}
+                    className="mt-2 px-4 py-1.5 rounded-lg bg-zinc-900 text-xs text-[#F5D061] border border-zinc-700 cursor-pointer"
+                  >
+                    Send Another Note
+                  </button>
+                </div>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const fd = new FormData(e.currentTarget);
+                    const subject = encodeURIComponent(
+                      `Healthcare RCM / Medical VA Inquiry — ${
+                        fd.get('clinic') || 'New Client'
+                      }`
+                    );
+                    const body = encodeURIComponent(
+                      `Name: ${fd.get('name')}\nClinic/Agency: ${fd.get(
+                        'clinic'
+                      )}\nEmail: ${fd.get('email')}\nPrimary Focus: ${fd.get(
+                        'focus'
+                      )}\n\nDetails:\n${fd.get('message')}`
+                    );
+                    window.open(
+                      `mailto:abrjayso114114@gmail.com?subject=${subject}&body=${body}`,
+                      '_blank'
+                    );
+                    setFormSent(true);
+                  }}
+                  className="mt-5 space-y-4"
+                >
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-zinc-400 mb-1.5">
+                        Your Name *
+                      </label>
+                      <input
+                        name="name"
+                        required
+                        placeholder="Dr. Sarah Jenkins / Practice Manager"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-zinc-400 mb-1.5">
+                        Clinic / Billing Company *
+                      </label>
+                      <input
+                        name="clinic"
+                        required
+                        placeholder="Apex Behavioral Health / RCM Group"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-zinc-400 mb-1.5">
+                        Work Email *
+                      </label>
+                      <input
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="sarah@clinicname.com"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-zinc-400 mb-1.5">
+                        Primary RCM / VA Need
+                      </label>
+                      <select
+                        name="focus"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                      >
+                        <option>Claims Management & Denial Appeals</option>
+                        <option>Cash Posting (EOB / ERA / EDI 835)</option>
+                        <option>Virtual Card (Stripe) Payment Posting</option>
+                        <option>Eligibility & Prior Authorizations</option>
+                        <option>Full-Cycle Medical VA / RCM Lead</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono text-zinc-400 mb-1.5">
+                      Workflow Details
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={3}
+                      placeholder="Share your EHR/PM platform, daily volume, or preferred US shift hours..."
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-sm hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Send className="w-4 h-4" />
+                    Send Inquiry to Jayson Abrio
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-8 border-t border-zinc-900 text-center text-xs text-zinc-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span>
+            © {new Date().getFullYear()} Jayson Abrio • Healthcare RCM
+            Operations Specialist & Medical VA
+          </span>
+          <span className="font-mono text-zinc-400">
+            abrjayso114114@gmail.com • +63 992 684 4654
+          </span>
+        </div>
+      </footer>
+
+      {/* DISCOVERY CALL MODAL */}
+      {bookingOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-md rounded-2xl bg-[#111115] border border-[#D4AF37]/40 p-6 relative shadow-2xl">
+            <button
+              onClick={() => setBookingOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="text-xs font-mono text-[#D4AF37]">
+              FREE 15-MIN OPERATIONS CONSULTATION
+            </div>
+            <h3 className="text-xl font-bold text-white mt-1">
+              Book a Discovery Call with Jayson
+            </h3>
+            <p className="text-xs text-zinc-400 mt-1">
+              Available during US Eastern (EST) & Pacific (PST) business hours.
+            </p>
+
+            {modalSent ? (
+              <div className="mt-5 p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
+                <CheckCircle2 className="w-7 h-7 text-emerald-400 mx-auto" />
+                <div className="font-semibold text-white text-sm">
+                  Call Request Prepared!
+                </div>
+                <p className="text-xs text-zinc-300">
+                  Check your email client to send directly to{' '}
+                  <strong>abrjayso114114@gmail.com</strong>.
+                </p>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const fd = new FormData(e.currentTarget);
+                  const subject = encodeURIComponent(
+                    `15-Min RCM Discovery Call — ${fd.get('clinic')}`
+                  );
+                  const body = encodeURIComponent(
+                    `Name: ${fd.get('name')}\nClinic/Agency: ${fd.get(
+                      'clinic'
+                    )}\nTimezone: ${fd.get('tz')}\nPrimary Need: ${fd.get(
+                      'need'
+                    )}`
+                  );
+                  window.open(
+                    `mailto:abrjayso114114@gmail.com?subject=${subject}&body=${body}`,
+                    '_blank'
+                  );
+                  setModalSent(true);
+                }}
+                className="mt-4 space-y-3"
+              >
+                <input
+                  name="name"
+                  required
+                  placeholder="Your Name"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                />
+                <input
+                  name="clinic"
+                  required
+                  placeholder="Clinic or Billing Agency Name"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                />
+                <select
+                  name="tz"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                >
+                  <option>US Eastern Time (EST)</option>
+                  <option>US Central Time (CST)</option>
+                  <option>US Mountain Time (MST)</option>
+                  <option>US Pacific Time (PST)</option>
+                </select>
+                <select
+                  name="need"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-[#D4AF37]"
+                >
+                  <option>Claims & Denial Management</option>
+                  <option>
+                    Cash Posting (EOB / ERA / EDI 835 / Stripe VCC)
+                  </option>
+                  <option>Eligibility & Prior Authorizations</option>
+                  <option>Dedicated Full-Time Medical VA</option>
+                </select>
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F5D061] text-black font-semibold text-sm hover:brightness-110 transition cursor-pointer"
+                >
+                  Confirm Discovery Call Request
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
