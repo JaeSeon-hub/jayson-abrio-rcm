@@ -694,9 +694,7 @@ export default function App() {
           </a>
 
           <nav className="hidden xl:flex items-center gap-5 text-xs font-medium text-zinc-300">
-            <a href="#about-lanyard" className="hover:text-[#60A5FA] transition">
-              Credential ID
-            </a>
+            
             <a href="#lobs" className="hover:text-[#60A5FA] transition">
               5 Healthcare LOBs
             </a>
@@ -738,46 +736,45 @@ export default function App() {
         </div>
       </header>
 
-      {/* FULL-BLEED EDITORIAL PORTRAIT HERO (SAPPHIRE NAVY & OBSIDIAN) */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-gradient-to-br from-[#0F2557] via-[#081229] to-[#040711] border-b border-blue-900/40">
+{/* UNIFIED ONE-PAGE EXECUTIVE HERO WITH HALF-BODY PORTRAIT */}
+<section className="relative min-h-[92vh] flex items-center overflow-hidden bg-gradient-to-br from-[#0F2557] via-[#081229] to-[#040711] border-b border-blue-900/40">
         {/* Sapphire Studio Rim Light & Seamless Bottom Dissolve */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(59,130,246,0.26),transparent_58%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_74%_42%,rgba(59,130,246,0.26),transparent_60%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#040711] via-[#040711]/80 to-transparent z-20"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#040711] via-[#040711]/80 to-transparent z-20"
         />
 
-        {/* Large Polished Studio Portrait Positioned Right-Center */}
-        <div className="pointer-events-none lg:pointer-events-auto lg:absolute lg:inset-y-0 lg:right-0 lg:w-[58%] flex items-end justify-center overflow-hidden">
+        {/* Half-Body Crossed-Arms Corporate Portrait Positioned Right */}
+        <div className="pointer-events-none lg:absolute lg:inset-y-0 lg:right-0 lg:w-[50%] flex items-end justify-center overflow-hidden">
           <img
-            src="/Polished Studio Business Portrait.png"
+            src="/Confident Corporate Portrait in Black Suit.png"
             alt="Jayson Abrio — Healthcare RCM Operations Specialist & Medical VA"
-            className="hidden lg:block w-full h-full max-h-[860px] object-cover object-top select-none mix-blend-lighten opacity-95 drop-shadow-[0_25px_55px_rgba(4,7,17,0.85)]"
+            className="hidden lg:block w-full h-full max-h-[820px] object-contain object-bottom select-none mix-blend-lighten opacity-95 drop-shadow-[0_25px_55px_rgba(4,7,17,0.85)]"
             style={{
               maskImage:
-                'radial-gradient(ellipse 75% 85% at 55% 45%, black 55%, transparent 100%)',
+                'radial-gradient(ellipse 82% 88% at 52% 48%, black 60%, transparent 100%)',
               WebkitMaskImage:
-                'radial-gradient(ellipse 75% 85% at 55% 45%, black 55%, transparent 100%)',
+                'radial-gradient(ellipse 82% 88% at 52% 48%, black 60%, transparent 100%)',
             }}
           />
         </div>
 
-        {/* Left Editorial Typography & Brief Introduction */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 py-14 lg:py-20 w-full">
-          <div className="max-w-xl space-y-6">
+        {/* Left Unified Editorial Introduction, Payer Pills & KPIs */}
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 py-12 lg:py-16 w-full">
+          <div className="max-w-2xl space-y-5">
             {/* Eyebrow Line */}
-            <div className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.22em] text-blue-200/90">
-              <span className="w-8 h-[1px] bg-[#60A5FA]/80" />
-              <span>JAYSON ABRIO • RCM SME & MEDICAL VA</span>
+            <div className="inline-flex flex-wrap items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.2em] text-blue-200/90">
+              <span className="w-2 h-2 rounded-full bg-[#60A5FA] animate-pulse" />
+              <span>JAYSON ABRIO • RCM SME & MEDICAL VA • EST / PST</span>
             </div>
 
             {/* Bold Sans + Italic Serif Editorial Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight leading-[1.03] text-white drop-shadow-sm">
-              Optimizing
-              <br />
+            <h1 className="text-4xl sm:text-5xl lg:text-[58px] font-extrabold tracking-tight leading-[1.05] text-white drop-shadow-sm">
+              Optimizing{' '}
               <span className="font-serif italic font-normal text-[#93C5FD]">
                 revenue cycles
               </span>
@@ -792,177 +789,10 @@ export default function App() {
               <span className="ml-0.5 w-0.5 h-4 bg-[#60A5FA] animate-pulse" />
             </div>
 
-            {/* Brief Introduction */}
-            <p className="text-slate-200/90 text-sm sm:text-base leading-relaxed max-w-md">
-              I’m <strong className="text-white">Jayson Abrio</strong>—a US
-              Healthcare Provider RCM specialist since 2014 with 7+ years of
-              hands-on experience across Claims, Prior Authorizations, EDI
-              835/ERA Cash Posting, and Stripe Virtual Cards.
-            </p>
-
-            {/* Mobile Portrait Preview (visible on smaller screens) */}
-            <div className="lg:hidden relative rounded-2xl overflow-hidden border border-blue-400/20 bg-black/30 max-w-xs aspect-[4/4.2] shadow-2xl">
-              <img
-                src="/Polished Studio Business Portrait.png"
-                alt="Jayson Abrio"
-                className="w-full h-full object-cover object-top"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#050811] to-transparent" />
-            </div>
-
-            {/* Pill CTAs */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <button
-                onClick={() => {
-                  setModalSent(false);
-                  setBookingOpen(true);
-                }}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-bold text-xs sm:text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/30 cursor-pointer"
-              >
-                <Calendar className="w-4 h-4" />
-                Book Discovery Call
-              </button>
-              <a
-                href="#about-lanyard"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-blue-400/30 text-white font-semibold text-xs sm:text-sm backdrop-blur-md transition"
-              >
-                View Credential ID
-                <ArrowRight className="w-4 h-4 text-[#60A5FA]" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MICRO-INTERACTION 3: SEAMLESS PAYER & PORTAL MARQUEE TICKER */}
-      <div className="relative border-y border-zinc-900 bg-[#08080A] py-3.5 overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#050505] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#050505] to-transparent z-10" />
-        <div className="animate-marquee flex items-center gap-8">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
-            <div
-              key={`${item}-${index}`}
-              className="flex items-center gap-8 shrink-0"
-            >
-              <span className="text-xs font-mono tracking-widest text-zinc-400 hover:text-[#60A5FA] transition">
-                {item}
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]/60" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* SECTION 1 (NEXT PAGE): INTERACTIVE 3D LANYARD ID BADGE & EXECUTIVE PROFILE */}
-      <section
-        id="about-lanyard"
-        className="relative py-20 lg:py-24 border-b border-zinc-900 overflow-hidden"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Interactive 3D Swinging & Dropping Lanyard ID Card */}
-          <div className="lg:col-span-5 flex flex-col items-center order-2 lg:order-1">
-            <div
-              key={badgeDropKey}
-              onClick={() => setBadgeDropKey((prev) => prev + 1)}
-              onMouseEnter={() => setBadgeHovered(true)}
-              onMouseLeave={() => {
-                setBadgeHovered(false);
-                setBadgeTilt({ x: 0, y: 0 });
-              }}
-              title="Click badge to replay lanyard drop"
-              className="animate-lanyard-drop flex flex-col items-center w-full cursor-pointer"
-            >
-              {/* Lanyard Strap */}
-              <div className="w-6 h-12 bg-gradient-to-b from-zinc-800 to-[#2563EB]/40 border-x border-[#2563EB]/40 rounded-t-sm flex items-center justify-center">
-                <span className="text-[8px] font-mono tracking-widest text-[#60A5FA] -rotate-90 whitespace-nowrap">
-                  RCM • SME
-                </span>
-              </div>
-              {/* Metal Clip */}
-              <div className="w-10 h-3 rounded-sm bg-zinc-700 border border-zinc-500 shadow-md -mt-0.5 z-10" />
-
-              {/* 3D Tilt Credential Card */}
-              <div
-                onMouseMove={handleBadgeMove}
-                style={{
-                  transform: `perspective(1000px) rotateY(${badgeTilt.x}deg) rotateX(${badgeTilt.y}deg)`,
-                  transition: 'transform 180ms ease-out',
-                }}
-                className="w-full max-w-[360px] -mt-1 rounded-2xl bg-gradient-to-b from-[#141418] to-[#0B0B0E] border border-[#2563EB]/40 p-5 shadow-2xl shadow-black relative overflow-hidden"
-              >
-                {/* Top Strip */}
-                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 pb-3 border-b border-zinc-800">
-                  <span>ID // PH-RCM-2014</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#2563EB]/15 text-[#60A5FA] border border-[#2563EB]/30">
-                    <CheckCircle2 className="w-3 h-3" /> VERIFIED
-                  </span>
-                </div>
-
-                {/* Corporate Headshot Frame */}
-                <div className="mt-4 relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 aspect-[4/4.3]">
-                  <img
-                    src="/Confident Corporate Headshot.png"
-                    alt="Jayson Abrio - Healthcare RCM Operations Specialist & Medical VA"
-                    className="w-full h-full object-cover object-top"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0B0B0E] to-transparent" />
-                </div>
-
-                {/* Identity & Credentials */}
-                <div className="mt-4">
-                  <h2 className="text-xl font-bold text-white">Jayson Abrio</h2>
-                  <p className="text-xs font-medium text-[#60A5FA] mt-0.5">
-                    RCM SME • Claims Team Leader • Medical VA
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-2.5 mt-4 pt-3 border-t border-zinc-800/90 text-[11px]">
-                    <div>
-                      <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
-                        Track Record
-                      </div>
-                      <div className="font-semibold text-zinc-200 mt-0.5">
-                        2014 BPO • 7Y HC
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[9px] font-mono uppercase tracking-wider text-zinc-500">
-                        Leadership
-                      </div>
-                      <div className="font-semibold text-zinc-200 mt-0.5">
-                        10 Claims Experts
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-zinc-800/90 flex items-center justify-between text-[10px] font-mono text-zinc-500">
-                    <span>HIPAA • BAA • NDA</span>
-                    <span className="tracking-[0.25em] text-[#2563EB]">
-                      || ||| | |||| ||
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-[11px] text-zinc-500 mt-3 text-center">
-              Hover to tilt in 3D • Click badge to drop
-            </p>
-          </div>
-
-          {/* Right Column: Full Executive Credentials & KPIs */}
-          <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
-            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-[11px] font-mono tracking-wider text-zinc-300">
-              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
-              90% US COMMERCIAL PAYERS • HIPAA & BAA READY • US EST / PST SHIFT
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.12] text-white">
-              Healthcare <span className="text-[#60A5FA]">RCM</span> Operations
-              Specialist & Medical VA
-            </h2>
-
-            <p className="text-zinc-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-              Seasoned BPO professional since{' '}
+            {/* Unified Executive Introduction */}
+            <p className="text-slate-200/95 text-sm sm:text-base leading-relaxed max-w-xl">
+              I’m <strong className="text-white">Jayson Abrio</strong>—a
+              seasoned BPO professional since{' '}
               <strong className="text-[#60A5FA]">2014</strong> with{' '}
               <strong className="text-[#60A5FA]">7+ solid years</strong> on the
               US Healthcare Provider side. Having served as an{' '}
@@ -976,8 +806,18 @@ export default function App() {
               Virtual Card Posting on Stripe.
             </p>
 
+            {/* Mobile Half-Body Portrait Preview */}
+            <div className="lg:hidden relative rounded-2xl overflow-hidden border border-blue-400/20 bg-[#081229]/60 max-w-xs aspect-[4/4.4] shadow-2xl">
+              <img
+                src="/Confident Corporate Portrait in Black Suit.png"
+                alt="Jayson Abrio"
+                className="w-full h-full object-contain object-bottom mix-blend-lighten"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#040711] to-transparent" />
+            </div>
+
             {/* Payer & Remittance Portal Pills */}
-            <div className="flex flex-wrap gap-2 pt-1">
+            <div className="flex flex-wrap gap-1.5 pt-1 max-w-xl">
               {[
                 'Availity',
                 'UHC',
@@ -993,56 +833,67 @@ export default function App() {
               ].map((portal) => (
                 <span
                   key={portal}
-                  className="px-2.5 py-1 rounded-md bg-[#0F0F12] border border-zinc-800 text-xs font-mono text-zinc-300 hover:border-[#2563EB]/50 hover:text-[#60A5FA] transition"
+                  className="px-2.5 py-1 rounded-md bg-[#070D1D]/80 border border-blue-400/20 text-[11px] font-mono text-slate-200 hover:border-[#60A5FA]/50 hover:text-[#60A5FA] transition"
                 >
                   {portal}
                 </span>
               ))}
             </div>
 
-            {/* Resume CTA */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            {/* Pill CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <button
+                onClick={() => {
+                  setModalSent(false);
+                  setBookingOpen(true);
+                }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-bold text-xs sm:text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/30 cursor-pointer"
+              >
+                <Calendar className="w-4 h-4" />
+                Book Discovery Call
+                <ArrowRight className="w-4 h-4" />
+              </button>
               <button
                 onClick={() => setResumeOpen(true)}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 border border-[#2563EB]/40 text-[#60A5FA] font-medium text-sm hover:bg-[#2563EB]/10 transition cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-blue-400/30 text-white font-semibold text-xs sm:text-sm backdrop-blur-md transition cursor-pointer"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-4 h-4 text-[#60A5FA]" />
                 View / Save Resume (PDF)
               </button>
             </div>
 
-            {/* 4 Executive KPI Cards with Count-Up Animation */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+            {/* 4 Executive KPI Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 max-w-xl">
+              <SpotlightCard className="p-3.5 rounded-xl bg-[#070D1D]/85 border border-blue-400/20 hover:border-[#60A5FA]/40 transition backdrop-blur-md">
+                <div className="text-lg sm:text-xl font-bold text-[#60A5FA]">
                   Since 2014
                 </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  12+ Yrs BPO Industry Tenure
+                <div className="text-[11px] text-slate-300 mt-0.5 leading-snug">
+                  12+ Yrs BPO Tenure
                 </div>
               </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+              <SpotlightCard className="p-3.5 rounded-xl bg-[#070D1D]/85 border border-blue-400/20 hover:border-[#60A5FA]/40 transition backdrop-blur-md">
+                <div className="text-lg sm:text-xl font-bold text-[#60A5FA]">
                   <AnimatedMetric target={7} suffix="+ Yrs" />
                 </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  US Healthcare Provider Side
+                <div className="text-[11px] text-slate-300 mt-0.5 leading-snug">
+                  US Healthcare Provider
                 </div>
               </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+              <SpotlightCard className="p-3.5 rounded-xl bg-[#070D1D]/85 border border-blue-400/20 hover:border-[#60A5FA]/40 transition backdrop-blur-md">
+                <div className="text-lg sm:text-xl font-bold text-[#60A5FA]">
                   <AnimatedMetric target={10} suffix=" Experts" />
                 </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  Claims Team Led as SME/TL
+                <div className="text-[11px] text-slate-300 mt-0.5 leading-snug">
+                  Claims Team Led
                 </div>
               </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+              <SpotlightCard className="p-3.5 rounded-xl bg-[#070D1D]/85 border border-blue-400/20 hover:border-[#60A5FA]/40 transition backdrop-blur-md">
+                <div className="text-lg sm:text-xl font-bold text-[#60A5FA]">
                   <AnimatedMetric target={90} suffix="%" />
                 </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  US Commercial Payers Covered
+                <div className="text-[11px] text-slate-300 mt-0.5 leading-snug">
+                  US Payers Covered
                 </div>
               </SpotlightCard>
             </div>
