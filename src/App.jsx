@@ -682,34 +682,37 @@ export default function App() {
       />
 
       {/* TOP NAVIGATION */}
-      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#050505]/85 border-b border-zinc-800/80">
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#090506]/85 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-2.5 shrink-0">
-            <span className="w-8 h-8 rounded-lg bg-[#2563EB]/15 border border-[#2563EB]/40 flex items-center justify-center text-xs font-bold text-[#60A5FA]">
+            <span className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xs font-bold text-white">
               JA
             </span>
             <span className="font-semibold tracking-tight text-white">
-              jayson<span className="text-[#2563EB]">.rcm</span>
+              jayson<span className="text-red-400">.rcm</span>
             </span>
           </a>
 
-          <nav className="hidden xl:flex items-center gap-5 text-xs font-medium text-zinc-400">
-            <a href="#lobs" className="hover:text-[#60A5FA] transition">
+          <nav className="hidden xl:flex items-center gap-5 text-xs font-medium text-zinc-300">
+            <a href="#about-lanyard" className="hover:text-white transition">
+              Credential ID
+            </a>
+            <a href="#lobs" className="hover:text-white transition">
               5 Healthcare LOBs
             </a>
-            <a href="#results" className="hover:text-[#60A5FA] transition">
+            <a href="#results" className="hover:text-white transition">
               RCM Outcomes
             </a>
-            <a href="#systems" className="hover:text-[#60A5FA] transition">
+            <a href="#systems" className="hover:text-white transition">
               EHR & Coding
             </a>
-            <a href="#lab" className="hover:text-[#60A5FA] transition">
+            <a href="#lab" className="hover:text-white transition">
               Workflow Lab
             </a>
-            <a href="#services" className="hover:text-[#60A5FA] transition">
+            <a href="#services" className="hover:text-white transition">
               VA Engagement
             </a>
-            <a href="#contact" className="hover:text-[#60A5FA] transition">
+            <a href="#contact" className="hover:text-white transition">
               Contact
             </a>
           </nav>
@@ -717,9 +720,9 @@ export default function App() {
           <div className="flex items-center gap-2.5">
             <button
               onClick={() => setResumeOpen(true)}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-medium text-zinc-200 hover:border-[#2563EB] hover:text-[#60A5FA] transition cursor-pointer"
+              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-medium text-white hover:bg-white/20 transition cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-[#2563EB]" />
+              <FileText className="w-3.5 h-3.5 text-red-300" />
               Resume (PDF)
             </button>
             <button
@@ -727,139 +730,137 @@ export default function App() {
                 setModalSent(false);
                 setBookingOpen(true);
               }}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-xs hover:brightness-110 transition shadow-lg shadow-[#2563EB]/20 cursor-pointer"
+              className="px-4 py-2 rounded-full bg-white text-[#140505] font-bold text-xs hover:bg-zinc-100 transition shadow-lg cursor-pointer"
             >
-              Book Discovery Call
+              Get in touch
             </button>
           </div>
         </div>
       </header>
 
-      {/* HERO SECTION WITH 3D LANYARD BADGE */}
-      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
-          {/* Left Editorial Column */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-[11px] font-mono tracking-wider text-zinc-300">
-              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
-              90% US COMMERCIAL PAYERS • HIPAA & BAA READY • US EST / PST SHIFT
+      {/* FULL-BLEED EDITORIAL PORTRAIT HERO (INSPIRED BY REFERENCE) */}
+      <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-gradient-to-br from-[#B91C1C] via-[#7F1D1D] to-[#120404] border-b border-red-950/60">
+        {/* Studio Lighting & Vignette Layers */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_38%,rgba(248,113,113,0.34),transparent_58%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent z-20"
+        />
+
+        {/* Large Editorial Portrait Positioned Right-Center */}
+        <div className="pointer-events-none lg:pointer-events-auto lg:absolute lg:inset-y-0 lg:right-0 lg:w-[58%] flex items-end justify-center overflow-hidden">
+          <img
+            src="/Confident Corporate Headshot.png"
+            alt="Jayson Abrio — Healthcare RCM Operations Specialist & Medical VA"
+            className="hidden lg:block w-full h-full max-h-[860px] object-cover object-top select-none drop-shadow-[0_25px_55px_rgba(0,0,0,0.65)]"
+            style={{
+              maskImage:
+                'linear-gradient(to right, transparent 0%, black 18%, black 92%, transparent 100%)',
+              WebkitMaskImage:
+                'linear-gradient(to right, transparent 0%, black 18%, black 92%, transparent 100%)',
+            }}
+          />
+        </div>
+
+        {/* Left Editorial Typography & Brief Introduction */}
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 py-14 lg:py-20 w-full">
+          <div className="max-w-xl space-y-6">
+            {/* Eyebrow Line */}
+            <div className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.22em] text-red-100/90">
+              <span className="w-8 h-[1px] bg-red-200/70" />
+              <span>JAYSON ABRIO • RCM SME & MEDICAL VA</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-bold tracking-tight leading-[1.08] text-white">
-              Healthcare <span className="text-[#60A5FA]">RCM</span>
+            {/* Bold Sans + Italic Serif Editorial Headline */}
+            <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight leading-[1.03] text-white drop-shadow-sm">
+              Optimizing
               <br />
-              Operations Specialist &
+              <span className="font-serif italic font-normal text-red-100">
+                revenue cycles
+              </span>
               <br />
-              Medical VA
+              that perform.
             </h1>
 
-            <div className="h-7 flex items-center font-mono text-sm sm:text-base text-[#60A5FA]">
-              <span className="mr-2 text-zinc-500">&gt;</span>
+            {/* Dynamic Typewriter Sub-role */}
+            <div className="h-6 flex items-center font-mono text-xs sm:text-sm text-red-200">
+              <span className="mr-2 opacity-70">&gt;</span>
               <span>{typedText}</span>
-              <span className="ml-0.5 w-0.5 h-5 bg-[#60A5FA] animate-pulse" />
+              <span className="ml-0.5 w-0.5 h-4 bg-white animate-pulse" />
             </div>
 
-            <p className="text-zinc-300 text-base sm:text-lg leading-relaxed max-w-2xl">
-              I’m <strong className="text-white">Jayson Abrio</strong>—a
-              seasoned BPO professional since{' '}
-              <strong className="text-[#60A5FA]">2014</strong> with{' '}
-              <strong className="text-[#60A5FA]">7+ solid years</strong> on the
-              US Healthcare Provider side. Having served as an{' '}
-              <strong className="text-white">
-                RCM Subject Matter Expert (SME) & Team Leader
-              </strong>{' '}
-              managing{' '}
-              <strong className="text-[#60A5FA]">10 Claims specialists</strong>,
-              I deliver end-to-end ownership across Claims, Eligibility, Prior
-              Authorizations, EOB/ERA/EDI 835 Cash Posting, and Multi-Payer
-              Virtual Card Posting on Stripe.
+            {/* Brief Introduction */}
+            <p className="text-red-50/90 text-sm sm:text-base leading-relaxed max-w-md">
+              I’m <strong className="text-white">Jayson Abrio</strong>—a US
+              Healthcare Provider RCM specialist since 2014 with 7+ years of
+              hands-on experience across Claims, Prior Authorizations, EDI
+              835/ERA Cash Posting, and Stripe Virtual Cards.
             </p>
 
-            {/* Payer & Remittance Portal Pills */}
-            <div className="flex flex-wrap gap-2 pt-1">
-              {[
-                'Availity',
-                'UHC',
-                'Evernorth',
-                'BCBS of CA',
-                'NaviNet',
-                'Zelis',
-                'Payspan',
-                'Optum Pay',
-                'Stripe VCC',
-                'Echo Health',
-                'InstaMed',
-              ].map((portal) => (
-                <span
-                  key={portal}
-                  className="px-2.5 py-1 rounded-md bg-[#0F0F12] border border-zinc-800 text-xs font-mono text-zinc-300 hover:border-[#2563EB]/50 hover:text-[#60A5FA] transition"
-                >
-                  {portal}
-                </span>
-              ))}
+            {/* Mobile Portrait Preview (visible on smaller screens) */}
+            <div className="lg:hidden relative rounded-2xl overflow-hidden border border-white/15 bg-black/30 max-w-xs aspect-[4/4.2] shadow-2xl">
+              <img
+                src="/Confident Corporate Headshot.png"
+                alt="Jayson Abrio"
+                className="w-full h-full object-cover object-top"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#120404] to-transparent" />
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            {/* Pill CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={() => {
                   setModalSent(false);
                   setBookingOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-semibold text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/25 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#140505] font-bold text-xs sm:text-sm hover:bg-red-50 transition shadow-xl cursor-pointer"
               >
-                <Calendar className="w-4 h-4" />
-                Book a Free 15-Min Discovery Call
+                <Calendar className="w-4 h-4 text-[#B91C1C]" />
+                Book Discovery Call
+              </button>
+              <a
+                href="#about-lanyard"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-black/30 hover:bg-black/45 border border-white/25 text-white font-semibold text-xs sm:text-sm backdrop-blur-md transition"
+              >
+                View Credential ID
                 <ArrowRight className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setResumeOpen(true)}
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 border border-[#2563EB]/40 text-[#60A5FA] font-medium text-sm hover:bg-[#2563EB]/10 transition cursor-pointer"
-              >
-                <Download className="w-4 h-4" />
-                View / Save Resume (PDF)
-              </button>
-            </div>
-
-            {/* 4 Executive KPI Cards with Count-Up Animation */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
-                  Since 2014
-                </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  12+ Yrs BPO Industry Tenure
-                </div>
-              </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
-                  <AnimatedMetric target={7} suffix="+ Yrs" />
-                </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  US Healthcare Provider Side
-                </div>
-              </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
-                  <AnimatedMetric target={10} suffix=" Experts" />
-                </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  Claims Team Led as SME/TL
-                </div>
-              </SpotlightCard>
-              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
-                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
-                  <AnimatedMetric target={90} suffix="%" />
-                </div>
-                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
-                  US Commercial Payers Covered
-                </div>
-              </SpotlightCard>
+              </a>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Right Column: Interactive 3D Swinging & Dropping Lanyard ID Card */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+      {/* MICRO-INTERACTION 3: SEAMLESS PAYER & PORTAL MARQUEE TICKER */}
+      <div className="relative border-y border-zinc-900 bg-[#08080A] py-3.5 overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#050505] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#050505] to-transparent z-10" />
+        <div className="animate-marquee flex items-center gap-8">
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
+            <div
+              key={`${item}-${index}`}
+              className="flex items-center gap-8 shrink-0"
+            >
+              <span className="text-xs font-mono tracking-widest text-zinc-400 hover:text-[#60A5FA] transition">
+                {item}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]/60" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 1 (NEXT PAGE): INTERACTIVE 3D LANYARD ID BADGE & EXECUTIVE PROFILE */}
+      <section
+        id="about-lanyard"
+        className="relative py-20 lg:py-24 border-b border-zinc-900 overflow-hidden"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left Column: Interactive 3D Swinging & Dropping Lanyard ID Card */}
+          <div className="lg:col-span-5 flex flex-col items-center order-2 lg:order-1">
             <div
               key={badgeDropKey}
               onClick={() => setBadgeDropKey((prev) => prev + 1)}
@@ -947,29 +948,109 @@ export default function App() {
               Hover to tilt in 3D • Click badge to drop
             </p>
           </div>
+
+          {/* Right Column: Full Executive Credentials & KPIs */}
+          <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+            <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-[11px] font-mono tracking-wider text-zinc-300">
+              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
+              90% US COMMERCIAL PAYERS • HIPAA & BAA READY • US EST / PST SHIFT
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.12] text-white">
+              Healthcare <span className="text-[#60A5FA]">RCM</span> Operations
+              Specialist & Medical VA
+            </h2>
+
+            <p className="text-zinc-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+              Seasoned BPO professional since{' '}
+              <strong className="text-[#60A5FA]">2014</strong> with{' '}
+              <strong className="text-[#60A5FA]">7+ solid years</strong> on the
+              US Healthcare Provider side. Having served as an{' '}
+              <strong className="text-white">
+                RCM Subject Matter Expert (SME) & Team Leader
+              </strong>{' '}
+              managing{' '}
+              <strong className="text-[#60A5FA]">10 Claims specialists</strong>,
+              I deliver end-to-end ownership across Claims, Eligibility, Prior
+              Authorizations, EOB/ERA/EDI 835 Cash Posting, and Multi-Payer
+              Virtual Card Posting on Stripe.
+            </p>
+
+            {/* Payer & Remittance Portal Pills */}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                'Availity',
+                'UHC',
+                'Evernorth',
+                'BCBS of CA',
+                'NaviNet',
+                'Zelis',
+                'Payspan',
+                'Optum Pay',
+                'Stripe VCC',
+                'Echo Health',
+                'InstaMed',
+              ].map((portal) => (
+                <span
+                  key={portal}
+                  className="px-2.5 py-1 rounded-md bg-[#0F0F12] border border-zinc-800 text-xs font-mono text-zinc-300 hover:border-[#2563EB]/50 hover:text-[#60A5FA] transition"
+                >
+                  {portal}
+                </span>
+              ))}
+            </div>
+
+            {/* Resume CTA */}
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              <button
+                onClick={() => setResumeOpen(true)}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 border border-[#2563EB]/40 text-[#60A5FA] font-medium text-sm hover:bg-[#2563EB]/10 transition cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                View / Save Resume (PDF)
+              </button>
+            </div>
+
+            {/* 4 Executive KPI Cards with Count-Up Animation */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+                  Since 2014
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  12+ Yrs BPO Industry Tenure
+                </div>
+              </SpotlightCard>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+                  <AnimatedMetric target={7} suffix="+ Yrs" />
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  US Healthcare Provider Side
+                </div>
+              </SpotlightCard>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+                  <AnimatedMetric target={10} suffix=" Experts" />
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  Claims Team Led as SME/TL
+                </div>
+              </SpotlightCard>
+              <SpotlightCard className="p-4 rounded-xl bg-[#0F0F12] border border-zinc-800/90 hover:border-[#2563EB]/40 transition">
+                <div className="text-xl sm:text-2xl font-bold text-[#60A5FA]">
+                  <AnimatedMetric target={90} suffix="%" />
+                </div>
+                <div className="text-[11px] text-zinc-400 mt-1 leading-snug">
+                  US Commercial Payers Covered
+                </div>
+              </SpotlightCard>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* MICRO-INTERACTION 3: SEAMLESS PAYER & PORTAL MARQUEE TICKER */}
-      <div className="relative border-y border-zinc-900 bg-[#08080A] py-3.5 overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#050505] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#050505] to-transparent z-10" />
-        <div className="animate-marquee flex items-center gap-8">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
-            <div
-              key={`${item}-${index}`}
-              className="flex items-center gap-8 shrink-0"
-            >
-              <span className="text-xs font-mono tracking-widest text-zinc-400 hover:text-[#60A5FA] transition">
-                {item}
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]/60" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* SECTION 1: 5 HEALTHCARE PROVIDER LINES OF BUSINESS */}
+      {/* SECTION 2: 5 HEALTHCARE PROVIDER LINES OF BUSINESS */}
       <section
         id="lobs"
         className="py-20 border-b border-zinc-900 bg-[#08080A]"
@@ -1216,7 +1297,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* SECTION 2: 2014–PRESENT STORY & FALLING PHYSICS SKILL PILLS */}
+      {/* SECTION 3: 2014–PRESENT STORY & FALLING PHYSICS SKILL PILLS */}
       <section id="story" className="py-20 border-b border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-start">
           {/* Left: Career Progression Timeline */}
@@ -1369,7 +1450,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* SECTION 3: INTERACTIVE HIPAA-SAFE RCM & CASH POSTING WORKFLOW LAB */}
+      {/* SECTION 4: INTERACTIVE HIPAA-SAFE RCM & CASH POSTING WORKFLOW LAB */}
       <section
         id="lab"
         className="py-20 border-b border-zinc-900 bg-[#08080A]"
@@ -1638,7 +1719,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* SECTION 4: WHY HIRE AN RCM SME & TEAM LEADER VS. GENERIC VA + ENDORSEMENTS */}
+      {/* SECTION 5: WHY HIRE AN RCM SME & TEAM LEADER VS. GENERIC VA + ENDORSEMENTS */}
       <section
         id="advantage"
         className="py-20 border-b border-zinc-900 bg-[#08080A]"
@@ -1749,7 +1830,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* SECTION 5: DIRECT CONTACT & INQUIRY SECTION */}
+      {/* SECTION 6: DIRECT CONTACT & INQUIRY SECTION */}
       <section id="contact" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10">
           {/* Left: Direct Philippine Contact Cards */}
