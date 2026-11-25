@@ -883,7 +883,24 @@ export default function App() {
           </div>
         </div>
       </section>
-
+{/* SEAMLESS PAYER & PORTAL MARQUEE TICKER */}
+<div className="relative border-y border-blue-900/40 bg-[#060B19] py-3.5 overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#040711] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#040711] to-transparent z-10" />
+        <div className="animate-marquee flex items-center gap-8">
+          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
+            <div
+              key={`${item}-${index}`}
+              className="flex items-center gap-8 shrink-0"
+            >
+              <span className="text-xs font-mono tracking-widest text-slate-300 hover:text-[#60A5FA] transition">
+                {item}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]/70" />
+            </div>
+          ))}
+        </div>
+      </div>
       {/* SECTION 2: 5 HEALTHCARE PROVIDER LINES OF BUSINESS */}
       <section
         id="lobs"
