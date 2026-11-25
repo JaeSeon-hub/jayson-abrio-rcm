@@ -1861,11 +1861,13 @@ export default function App() {
               {formSent ? (
                 <div className="mt-6 p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
                   <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                  <div className="font-bold text-white">Inquiry Ready!</div>
+                  <div className="font-bold text-white">
+                    Inquiry Sent Successfully!
+                  </div>
                   <p className="text-xs text-zinc-300">
-                    Your email draft has been opened to{' '}
-                    <strong>abrjayso114114@gmail.com</strong>, or you can
-                    message me directly at <strong>+63 992 684 4654</strong>.
+                    Thank you! Your message has been delivered directly to{' '}
+                    <strong>abrjayso114114@gmail.com</strong>. Jayson will
+                    respond within 1 business day.
                   </p>
                   <button
                     onClick={() => setFormSent(false)}
@@ -1876,26 +1878,36 @@ export default function App() {
                 </div>
               ) : (
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
                     const fd = new FormData(e.currentTarget);
-                    const subject = encodeURIComponent(
-                      `Healthcare RCM / Medical VA Inquiry — ${
+                    fd.append('access_key', '2d2daf29-5c01-4439-98ca-3f9d7a3bfc83');
+                    fd.append(
+                      'subject',
+                      `New RCM / Medical VA Inquiry — ${
                         fd.get('clinic') || 'New Client'
                       }`
                     );
-                    const body = encodeURIComponent(
-                      `Name: ${fd.get('name')}\nClinic/Agency: ${fd.get(
-                        'clinic'
-                      )}\nEmail: ${fd.get('email')}\nPrimary Focus: ${fd.get(
-                        'focus'
-                      )}\n\nDetails:\n${fd.get('message')}`
-                    );
-                    window.open(
-                      `mailto:abrjayso114114@gmail.com?subject=${subject}&body=${body}`,
-                      '_blank'
-                    );
-                    setFormSent(true);
+                    fd.append('from_name', 'Jayson RCM Portfolio');
+
+                    try {
+                      const res = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        body: fd,
+                      });
+                      const data = await res.json();
+                      if (data.success) {
+                        setFormSent(true);
+                      } else {
+                        alert(
+                          'Could not send message. Please email abrjayso114114@gmail.com directly.'
+                        );
+                      }
+                    } catch {
+                      alert(
+                        'Network error. Please email abrjayso114114@gmail.com directly.'
+                      );
+                    }
                   }}
                   className="mt-5 space-y-4"
                 >
