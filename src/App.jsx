@@ -554,7 +554,6 @@ export default function App() {
   const [typedText, setTypedText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [badgeTilt, setBadgeTilt] = useState({ x: 0, y: 0 });
   const [physicsKey, setPhysicsKey] = useState(0);
   const [copiedField, setCopiedField] = useState('');
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -570,9 +569,6 @@ export default function App() {
   const [bookingTopic, setBookingTopic] = useState('Claims & Denial Management');
   const [selectedDate, setSelectedDate] = useState(availableDates[0]?.iso || '');
   const [selectedTime, setSelectedTime] = useState('9:30 AM');
-
-  const [badgeDropKey, setBadgeDropKey] = useState(0);
-  const [badgeHovered, setBadgeHovered] = useState(false);
 
   const buildGoogleCalendarUrl = () => {
     const ZOOM_LINK = 'https://us05web.zoom.us/j/8101118172?pwd=lnTgoopeOIbHaG2jryWdOGwRHOmcZP.1';
@@ -619,13 +615,7 @@ export default function App() {
   ];
 
   // Auto re-drop lanyard gently every 40 seconds unless hovered
-  useEffect(() => {
-    if (badgeHovered) return;
-    const interval = setInterval(() => {
-      setBadgeDropKey((prev) => prev + 1);
-    }, 40000);
-    return () => clearInterval(interval);
-  }, [badgeHovered]);
+  
 
   // Typewriter Effect
   useEffect(() => {
@@ -648,13 +638,6 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [typedText, isDeleting, roleIndex]);
 
-  // 3D Lanyard Tilt Handler
-  const handleBadgeMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -18;
-    setBadgeTilt({ x, y });
-  };
 
   const copyText = (value, key) => {
     navigator.clipboard.writeText(value);
