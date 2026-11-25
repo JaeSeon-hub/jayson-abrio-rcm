@@ -669,50 +669,50 @@ export default function App() {
           b.channel.toLowerCase().includes(remitFilter.toLowerCase())
         );
 
-  return (
-    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-[#2563EB] selection:text-white font-sans">
-      {/* Subtle Architectural Grid Background */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, #2563EB 1px, transparent 1px), linear-gradient(to bottom, #2563EB 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
+        return (
+          <div className="min-h-screen bg-[#040711] text-slate-100 selection:bg-[#2563EB] selection:text-white font-sans">
+            {/* Subtle Sapphire Architectural Grid Background */}
+            <div
+              className="fixed inset-0 pointer-events-none opacity-[0.05]"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to right, #3B82F6 1px, transparent 1px), linear-gradient(to bottom, #3B82F6 1px, transparent 1px)',
+                backgroundSize: '48px 48px',
+              }}
+            />
 
       {/* TOP NAVIGATION */}
-      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#090506]/85 border-b border-white/10">
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#050811]/85 border-b border-blue-500/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-2.5 shrink-0">
-            <span className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-xs font-bold text-white">
+            <span className="w-8 h-8 rounded-full bg-[#2563EB]/20 border border-[#60A5FA]/40 flex items-center justify-center text-xs font-bold text-[#60A5FA]">
               JA
             </span>
             <span className="font-semibold tracking-tight text-white">
-              jayson<span className="text-red-400">.rcm</span>
+              jayson<span className="text-[#60A5FA]">.rcm</span>
             </span>
           </a>
 
           <nav className="hidden xl:flex items-center gap-5 text-xs font-medium text-zinc-300">
-            <a href="#about-lanyard" className="hover:text-white transition">
+            <a href="#about-lanyard" className="hover:text-[#60A5FA] transition">
               Credential ID
             </a>
-            <a href="#lobs" className="hover:text-white transition">
+            <a href="#lobs" className="hover:text-[#60A5FA] transition">
               5 Healthcare LOBs
             </a>
-            <a href="#results" className="hover:text-white transition">
+            <a href="#results" className="hover:text-[#60A5FA] transition">
               RCM Outcomes
             </a>
-            <a href="#systems" className="hover:text-white transition">
+            <a href="#systems" className="hover:text-[#60A5FA] transition">
               EHR & Coding
             </a>
-            <a href="#lab" className="hover:text-white transition">
+            <a href="#lab" className="hover:text-[#60A5FA] transition">
               Workflow Lab
             </a>
-            <a href="#services" className="hover:text-white transition">
+            <a href="#services" className="hover:text-[#60A5FA] transition">
               VA Engagement
             </a>
-            <a href="#contact" className="hover:text-white transition">
+            <a href="#contact" className="hover:text-[#60A5FA] transition">
               Contact
             </a>
           </nav>
@@ -720,9 +720,9 @@ export default function App() {
           <div className="flex items-center gap-2.5">
             <button
               onClick={() => setResumeOpen(true)}
-              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-medium text-white hover:bg-white/20 transition cursor-pointer"
+              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-blue-400/25 text-xs font-medium text-zinc-200 hover:bg-[#2563EB]/20 hover:border-[#60A5FA]/50 transition cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-red-300" />
+              <FileText className="w-3.5 h-3.5 text-[#60A5FA]" />
               Resume (PDF)
             </button>
             <button
@@ -730,7 +730,7 @@ export default function App() {
                 setModalSent(false);
                 setBookingOpen(true);
               }}
-              className="px-4 py-2 rounded-full bg-white text-[#140505] font-bold text-xs hover:bg-zinc-100 transition shadow-lg cursor-pointer"
+              className="px-4 py-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-bold text-xs hover:brightness-110 transition shadow-lg shadow-[#2563EB]/25 cursor-pointer"
             >
               Get in touch
             </button>
@@ -738,29 +738,29 @@ export default function App() {
         </div>
       </header>
 
-      {/* FULL-BLEED EDITORIAL PORTRAIT HERO (INSPIRED BY REFERENCE) */}
-      <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-gradient-to-br from-[#B91C1C] via-[#7F1D1D] to-[#120404] border-b border-red-950/60">
-        {/* Studio Lighting & Vignette Layers */}
+      {/* FULL-BLEED EDITORIAL PORTRAIT HERO (SAPPHIRE NAVY & OBSIDIAN) */}
+      <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-gradient-to-br from-[#0F2557] via-[#081229] to-[#040711] border-b border-blue-900/40">
+        {/* Sapphire Studio Rim Light & Seamless Bottom Dissolve */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_68%_38%,rgba(248,113,113,0.34),transparent_58%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(59,130,246,0.26),transparent_58%)]"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent z-20"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#040711] via-[#040711]/80 to-transparent z-20"
         />
 
-        {/* Large Editorial Portrait Positioned Right-Center */}
+        {/* Large Polished Studio Portrait Positioned Right-Center */}
         <div className="pointer-events-none lg:pointer-events-auto lg:absolute lg:inset-y-0 lg:right-0 lg:w-[58%] flex items-end justify-center overflow-hidden">
           <img
-            src="/Confident Corporate Headshot.png"
+            src="/Polished Studio Business Portrait.png"
             alt="Jayson Abrio — Healthcare RCM Operations Specialist & Medical VA"
-            className="hidden lg:block w-full h-full max-h-[860px] object-cover object-top select-none drop-shadow-[0_25px_55px_rgba(0,0,0,0.65)]"
+            className="hidden lg:block w-full h-full max-h-[860px] object-cover object-top select-none mix-blend-lighten opacity-95 drop-shadow-[0_25px_55px_rgba(4,7,17,0.85)]"
             style={{
               maskImage:
-                'linear-gradient(to right, transparent 0%, black 18%, black 92%, transparent 100%)',
+                'radial-gradient(ellipse 75% 85% at 55% 45%, black 55%, transparent 100%)',
               WebkitMaskImage:
-                'linear-gradient(to right, transparent 0%, black 18%, black 92%, transparent 100%)',
+                'radial-gradient(ellipse 75% 85% at 55% 45%, black 55%, transparent 100%)',
             }}
           />
         </div>
@@ -769,8 +769,8 @@ export default function App() {
         <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 py-14 lg:py-20 w-full">
           <div className="max-w-xl space-y-6">
             {/* Eyebrow Line */}
-            <div className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.22em] text-red-100/90">
-              <span className="w-8 h-[1px] bg-red-200/70" />
+            <div className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.22em] text-blue-200/90">
+              <span className="w-8 h-[1px] bg-[#60A5FA]/80" />
               <span>JAYSON ABRIO • RCM SME & MEDICAL VA</span>
             </div>
 
@@ -778,7 +778,7 @@ export default function App() {
             <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight leading-[1.03] text-white drop-shadow-sm">
               Optimizing
               <br />
-              <span className="font-serif italic font-normal text-red-100">
+              <span className="font-serif italic font-normal text-[#93C5FD]">
                 revenue cycles
               </span>
               <br />
@@ -786,14 +786,14 @@ export default function App() {
             </h1>
 
             {/* Dynamic Typewriter Sub-role */}
-            <div className="h-6 flex items-center font-mono text-xs sm:text-sm text-red-200">
+            <div className="h-6 flex items-center font-mono text-xs sm:text-sm text-[#60A5FA]">
               <span className="mr-2 opacity-70">&gt;</span>
               <span>{typedText}</span>
-              <span className="ml-0.5 w-0.5 h-4 bg-white animate-pulse" />
+              <span className="ml-0.5 w-0.5 h-4 bg-[#60A5FA] animate-pulse" />
             </div>
 
             {/* Brief Introduction */}
-            <p className="text-red-50/90 text-sm sm:text-base leading-relaxed max-w-md">
+            <p className="text-slate-200/90 text-sm sm:text-base leading-relaxed max-w-md">
               I’m <strong className="text-white">Jayson Abrio</strong>—a US
               Healthcare Provider RCM specialist since 2014 with 7+ years of
               hands-on experience across Claims, Prior Authorizations, EDI
@@ -801,13 +801,13 @@ export default function App() {
             </p>
 
             {/* Mobile Portrait Preview (visible on smaller screens) */}
-            <div className="lg:hidden relative rounded-2xl overflow-hidden border border-white/15 bg-black/30 max-w-xs aspect-[4/4.2] shadow-2xl">
+            <div className="lg:hidden relative rounded-2xl overflow-hidden border border-blue-400/20 bg-black/30 max-w-xs aspect-[4/4.2] shadow-2xl">
               <img
-                src="/Confident Corporate Headshot.png"
+                src="/Polished Studio Business Portrait.png"
                 alt="Jayson Abrio"
                 className="w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#120404] to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#050811] to-transparent" />
             </div>
 
             {/* Pill CTAs */}
@@ -817,17 +817,17 @@ export default function App() {
                   setModalSent(false);
                   setBookingOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#140505] font-bold text-xs sm:text-sm hover:bg-red-50 transition shadow-xl cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#60A5FA] text-white font-bold text-xs sm:text-sm hover:brightness-110 transition shadow-xl shadow-[#2563EB]/30 cursor-pointer"
               >
-                <Calendar className="w-4 h-4 text-[#B91C1C]" />
+                <Calendar className="w-4 h-4" />
                 Book Discovery Call
               </button>
               <a
                 href="#about-lanyard"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-black/30 hover:bg-black/45 border border-white/25 text-white font-semibold text-xs sm:text-sm backdrop-blur-md transition"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-blue-400/30 text-white font-semibold text-xs sm:text-sm backdrop-blur-md transition"
               >
                 View Credential ID
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#60A5FA]" />
               </a>
             </div>
           </div>
